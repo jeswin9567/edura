@@ -1,27 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './login.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [pass, setPassword] = useState('');
+
+  const navigate = useNavigate(); // React Router's navigation hook
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent page reload on form submission
+
+    // Post request to server for login
+    axios.post('http://localhost:5000/log', { email, password: pass })
+      .then(result => {
+        // If login is successful, navigate to home
+        if(result.data.message === "success"){
+          const userRole =result.data.role;
+
+          if(userRole === "admin"){
+            navigate('/adhome');
+          }
+
+          else if(userRole === "user"){
+            navigate('/userhome');
+          }
+        }
+      })
+      .catch(error => {
+        // Show appropriate error message
+        Swal.fire({
+          title: 'Error!',
+          text: error.response?.data?.message || 'An unexpected error occurred.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        console.error(error);
+      });
+  };
+
   return (
     <div className="container">
       <div className="left-page">
-        <img src="/images/girl1.jpg" alt="Girl " className="gl" />
+        <img src="/images/girl1.jpg" alt="Girl" className="gl" />
         <h1 className="welcome-text">
           Empowering students with knowledge, guiding them to their brightest future.
         </h1>
         <img src="/images/mainl.png" alt="logo" className="mainlogo" />
       </div>
+
       <div className="right-page">
         <img src="/images/logo 3.png" alt="smalllogo" className="smalllogo" />
         <h1 className='login_text'>LOGIN</h1>
-        <input type='text' className='un' placeholder='username/email'/>
-        <input type='password' className='pass' placeholder='password'/>
-        <a href ="" className='fp'>forget password</a>
-        <button className='lb'>Login</button>
-        <p className='not'>Not registered yet
-          <a href ="" className='regis'>Create an Account</a>
+
+        {/* Form for login */}
+        <form onSubmit={handleSubmit}>
+          <input 
+            type='text' 
+            className='un' 
+            placeholder='username/email' 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}  // Capture email input
+            required
+          />
+          <input 
+            type='password' 
+            className='pass' 
+            placeholder='password' 
+            value={pass}
+            onChange={(e) => setPassword(e.target.value)}  // Capture password input
+            required
+          />
+          <a href="" className='fp'>Forgot password?</a>
+
+          {/* Submit button */}
+          <button type="submit" className='lb'>Login</button>
+        </form>
+
+        <p className='not'>
+          Not registered yet? 
+          <a href="/signup" className='regis'>Create an Account</a>
         </p>
-      
       </div>
     </div>
   );

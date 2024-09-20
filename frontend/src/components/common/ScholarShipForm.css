@@ -1,0 +1,87 @@
+/* Form Container */
+.scholarship-form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #004429;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form Title */
+  .scholarship-form-container h2 {
+    text-align: center;
+    color: #fff6f6;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Form Labels */
+  .scholarship-form-container label {
+    display: block;
+    font-weight: 600;
+    color: #fff0f0;
+    margin-bottom: 8px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Form Inputs */
+  .scholarship-form-container input,
+  .scholarship-form-container textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Focus Effect on Inputs */
+  .scholarship-form-container input:focus,
+  .scholarship-form-container textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Textarea Styling */
+  .scholarship-form-container textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  /* Submit Button */
+  .scholarship-form-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Button Hover Effect */
+  .scholarship-form-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Form Field Spacing */
+  .scholarship-form-container form div {
+    margin-bottom: 20px;
+  }
+  
+  /* Responsive Form for Smaller Screens */
+  @media (max-width: 768px) {
+    .scholarship-form-container {
+      padding: 20px;
+      margin: 20px;
+    }
+  }
+  

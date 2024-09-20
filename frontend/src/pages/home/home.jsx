@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './home.css';
 
 function HomePage() {
     const navigate = useNavigate();
+
+    const AboutSectionRef = useRef(null);
+
+    const scrollToAbout = () =>{
+      AboutSectionRef.current?.scrollIntoView({behavior:'smooth'});
+    };
+
+    const ServiceSectionRef = useRef(null)
+
+    const ScrollToService =() =>{
+      ServiceSectionRef.current?.scrollIntoView({behavior:'smooth'})
+    }
+
+    const ContactSection = useRef(null)
+
+    const ScrollToContact = () =>{
+      ContactSection.current?.scrollIntoView({behavior:'smooth'})
+    }
 
   return (
     <div className="container">
@@ -13,9 +31,9 @@ function HomePage() {
         </div>
         <nav className="nav">
           <button className="homb">Home</button>    
-          <button className="aboutb">About</button>
-          <button className="serb">Services</button>
-          <button className="contb">Contact Us</button>
+          <button className="aboutb" onClick={scrollToAbout}>About</button>
+          <button className="serb" onClick={ScrollToService}>Services</button>
+          <button className="contb" onClick={ScrollToContact}>Contact Us</button>
         </nav>
         <div className="auth-buttons">
           <button className="login-btn" onClick={() => navigate('/login')} >Login</button>
@@ -65,7 +83,7 @@ function HomePage() {
 
 
 
-      <section className="services-section">
+      <section className="services-section" ref={ServiceSectionRef}>
         <h2>SERVICES</h2>
         <div className="services">
           <div className="service">
@@ -92,7 +110,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="about-section">
+      <section className="about-section" ref={AboutSectionRef}>
         <div className="about-content">
           <h2>ABOUT</h2>
           <p>
@@ -104,7 +122,7 @@ function HomePage() {
         </div>
       </section>
 
-      <footer className="footer">
+      <footer className="footer" ref={ContactSection}>
         <img src="./images/mainl.png" alt="Footer Logo" className="footer-logo" />
         <div className="footer-content">
           <h3>Contact Us</h3>
