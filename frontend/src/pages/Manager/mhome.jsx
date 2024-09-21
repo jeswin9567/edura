@@ -1,13 +1,13 @@
 import React, {useRef} from "react";
-import HomHeader from "../../components/admin/homehead";
+import Header from "../../components/common/head";
 import HeroSec from "../../components/common/herosec";
-import SerSec from "../../components/admin/ser";
+import Serve from "../../components/manager/servi";
 import MissionSection from "../../components/common/Mission";
 import AdditionalInfoSection from "../../components/common/Additional";
 import AboutSection from "../../components/common/About";
 import Footer from "../../components/common/footer";
 
-function Adhome()
+function Mhome()
 {
     const servicesSectionRef = useRef(null);
     const aboutSectionRef = useRef(null);
@@ -28,12 +28,12 @@ function Adhome()
     return(
         <>
         <div>
-            <HomHeader 
+            <Header 
             scrollToAbout={scrollToAbout}
             scrollToServices={scrollToServices}
             scrollToContact={scrollToContact}/>
             <HeroSec />
-            <SerSec ref ={servicesSectionRef}/>
+            <Serve ref ={servicesSectionRef}/>
             <MissionSection />
             <AdditionalInfoSection />
             <AboutSection ref={aboutSectionRef}/>
@@ -43,4 +43,4 @@ function Adhome()
     );
 }
 
-export default Adhome;
+export default Mhome;

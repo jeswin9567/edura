@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
-import Header from "../../../components/admin/headd";
-import HeroSection from "../../../components/common/first";
-import Footer from "../../../components/common/footer";
+import Header from "./head";
+import HeroSection from "../common/first";
+import Footer from "../common/footer";
 
-function Aloan() {
+function Mloan() {
   const footerRef = useRef(null);
 
   return (
@@ -17,4 +17,4 @@ function Aloan() {
   );    
 }
 
-export default Aloan;
+export default Mloan;

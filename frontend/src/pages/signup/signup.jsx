@@ -32,13 +32,30 @@ function SignUp() {
     }
 
     const phoneRegex = /^\+(\d{1,3})?[\s.-]?(\d{10,15})$/;
+    const invalidSequences = [
+      "0123456789",
+      "1234567890",
+      "9876543210",
+      "0987654321"
+    ];
+    
     if (!phone) {
       Swal.fire("Phone number is required", "", "error");
       return false;
     } else if (!phoneRegex.test(phone)) {
       Swal.fire("Invalid phone number. Ensure it starts with a country code", "", "error");
       return false;
+    } else {
+      const cleanedPhone = phone.replace(/[\s.-]/g, '').replace(/^\+(\d{1,3})/, ''); // Removes separators and country code
+      if (/^(\d)\1+$/.test(cleanedPhone)) {
+        Swal.fire("Invalid phone number.", "", "error");
+        return false;
+      } else if (invalidSequences.includes(cleanedPhone)) {
+        Swal.fire("Invalid phone number.", "", "error");
+        return false;
+      }
     }
+    
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!password) {
