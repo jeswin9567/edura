@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Header from '../../components/common/head';
 import HeroSec from '../../components/common/herosec';
-import ServicesSec from '../../components/common/Service';
+import ServicesSec from '../../components/user/Service';
 import MissionSection from '../../components/common/Mission';
 import AdditionalInfoSection from '../../components/common/Additional';
 import AboutSection from '../../components/common/About';

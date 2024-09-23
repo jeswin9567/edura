@@ -1,0 +1,57 @@
+/* ViewScholar.css */
+
+.loan-details {
+    max-width: 800px; /* Limit the width for better readability */
+    margin: 50px auto; /* Center the details section with margin */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for a clean look */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.loan-details h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333; /* Dark color for the heading */
+    margin-bottom: 20px;
+    text-align: center; /* Center the heading */
+}
+
+.loan-details p {
+    font-size: 18px; /* Larger font for readability */
+    color: #555; /* Medium gray color for text */
+    margin-bottom: 15px; /* Space between paragraphs */
+}
+
+.loan-details p strong {
+    color: #333; /* Strong elements in darker color */
+}
+
+.loan-details a {
+    color: #007BFF; /* Blue color for links */
+    text-decoration: none; /* Remove underline */
+}
+
+.loan-details a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}
+
+.button-container {
+    text-align: center; /* Center the button */
+    margin-top: 30px; /* Space above the button */
+}
+
+.back-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007BFF; /* Blue button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../components/common/ScholarShipForm.css';
+import '../../../components/admin/ScholarShipForm.css'
 import axios from 'axios';
 import Header from '../../../components/manager/head';
 import Footer from '../../../components/common/footer';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../components/common/StudentLoan.css';
+import '../../../components/admin/StudentLoan.css'
 import axios from 'axios';
 import Header from '../../../components/manager/head';
 import Footer from '../../../components/common/footer';

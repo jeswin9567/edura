@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './ScholarShipForm.css';
 import axios from 'axios';
-import Header from '../admin/headd';
-import Footer from './footer';
+import Header from './headd';
+import Footer from '../common/footer';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -88,7 +88,7 @@ const ScholarshipForm = () => {
           </div>
           <div>
             <label>Award:</label>
-            <input
+            <textarea
               type="text"
               name="award"
               value={formData.award}
@@ -98,7 +98,7 @@ const ScholarshipForm = () => {
           </div>
           <div>
             <label>Eligibility:</label>
-            <input
+            <textarea
               type="text"
               name="eligibility"
               value={formData.eligibility}
@@ -108,7 +108,7 @@ const ScholarshipForm = () => {
           </div>
           <div>
             <label>Document:</label>
-            <input
+            <textarea
               type="text"
               name="document"
               value={formData.document}

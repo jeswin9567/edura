@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './StudentLoan.css';
 import axios from 'axios';
-import Header from '../admin/headd';
-import Footer from './footer';
+import Header from './headd';
+import Footer from '../common/footer';
 import { useNavigate } from 'react-router-dom';
 
 const StudentLoanForm = () => {

@@ -10,6 +10,11 @@ const ScholarshipRoute = require('./routes/schship');
 const StudentloanRoute = require('./routes/studln');
 const EntraceRoute = require('./routes/entrnc');
 const ManagerRoute = require('./routes/man');
+const ViewScholarRoute = require('./routes/viewscho');
+const ViewEntranceRoute = require('./routes/viewentr');
+const ViewLoanRoute = require('./routes/viewln');
+
+
 
 // Middleware
 app.use(express.json());
@@ -35,6 +40,11 @@ app.use('/schship',ScholarshipRoute);
 app.use('/studln',StudentloanRoute);
 app.use('/entrnc',EntraceRoute);
 app.use('/man', ManagerRoute);
+app.use('/viewscho', ViewScholarRoute);
+app.use('/viewentr', ViewEntranceRoute);
+app.use('/viewln', ViewLoanRoute);
+
+
 
 // Server listen
 app.listen(5000, () => {

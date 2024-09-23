@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../../components/common/EntranceForm.css'
+import '../../../components/admin/EntranceForm.css'
 import Header from '../../../components/manager/head';
 import Footer from '../../../components/common/footer';
 import { useNavigate } from 'react-router-dom';

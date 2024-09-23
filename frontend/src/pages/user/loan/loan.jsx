@@ -2,11 +2,11 @@ import React, { useRef } from "react";
 import Header from '../../../components/user/header'; // Ensure the import path is correct
 import HeroSection from '../../../components/common/first'; // Ensure the import path is correct
 import MarginC from "../../../components/common/margin";
-import UScholarshipList from "../../../components/user/UScholarlist";
+import ULoanList from "../../../components/user/ULoanlist";
 import Footer from "../../../components/common/footer"; // Ensure the import path is correct
 import '../../../pages/admin/functionalities/ascholar.css'
 
-function Scholarship() {
+function Loan() {
   const footerRef = useRef(null);
 
   const scrollToContact = () => {
@@ -20,7 +20,7 @@ function Scholarship() {
         <HeroSection />
         <div className="scholar-container">
           <MarginC />
-          <UScholarshipList />
+          <ULoanList />
         </div>
         <Footer ref={footerRef} />
       </div>
@@ -28,4 +28,4 @@ function Scholarship() {
   );
 }
 
-export default Scholarship;
+export default Loan;

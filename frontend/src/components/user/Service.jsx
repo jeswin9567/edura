@@ -10,7 +10,7 @@ const ServicesSec = React.forwardRef((props, ref) => {
     <section className="uhome-services-section" ref={ref}>
       <h2>SERVICES</h2>
       <div className="uhome-services">
-        <button className="uhome-service-btn" onClick={() => {/* handle click for Entrance */}}>
+        <button className="uhome-service-btn" onClick={() => navigate('/entrance')}>
           <img src="./images/entrance.png" alt="Entrance Exams" />
           <h3>Entrance</h3>
           <p>
@@ -24,7 +24,7 @@ const ServicesSec = React.forwardRef((props, ref) => {
             Discover scholarships that match your academic achievements and goals, with clear details on eligibility, application steps, and deadlines.
           </p>
         </button>
-        <button className="uhome-service-btn" onClick={() => {/* handle click for Financial Aid */}}>
+        <button className="uhome-service-btn" onClick={() => navigate('/loan')}>
           <img src="./images/Student Loan.png" alt="Student Loans" />
           <h3>Financial Aid</h3>
           <p>

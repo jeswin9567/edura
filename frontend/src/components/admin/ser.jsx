@@ -1,7 +1,7 @@
 // src/components/Uhome/ServicesSection.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './serv.css'; // Ensure this file contains the services section-specific styles
+
 
 const SerSec = React.forwardRef((props, ref) => {
   const navigate = useNavigate();
