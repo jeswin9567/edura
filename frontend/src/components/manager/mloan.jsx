@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Header from "./head";
+import MHeader from "./mheads/mlhead";
 import HeroSection from "../common/first";
 import MarginC from "../common/margin";
 import MLoanList from "./MLoanlist";
@@ -11,7 +11,7 @@ function Mloan() {
   return (
     <>  
       <div>
-        <Header scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
+        <MHeader scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
         <HeroSection />
         <div className="mloan-container">
           <MarginC />

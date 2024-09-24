@@ -109,7 +109,7 @@ const StudentLoanForm = () => {
           </div>
           <div className="docufld">
             <label>Document:</label>
-            <input
+            <textarea
               type="text"
               name="document"
               value={formData.document}

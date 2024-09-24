@@ -18,6 +18,8 @@ function Login() {
       .then(result => {
         // If login is successful, navigate to home
         if(result.data.message === "success"){
+          localStorage.setItem('userEmail', email);
+          
           const userRole =result.data.role;
 
           if(userRole === "admin"){
@@ -77,7 +79,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}  // Capture password input
             required
           />
-          <a href="" className='fp'>Forgot password?</a>
+          <a href="/forgotpassword" className='fp'>Forgot password?</a>
 
           {/* Submit button */}
           <button type="submit" className='lb'>Login</button>

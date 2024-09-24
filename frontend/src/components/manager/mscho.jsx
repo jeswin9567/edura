@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Header from "./head";
+import MSHeader from "./mheads/mshead";
 import HeroSection from "../common/first";
 import MarginC from "../common/margin";
 import ManScholarshipList from "./MScholarlist";
@@ -12,7 +12,7 @@ function Mscholar() {
   return (
     <>
       <div>
-        <Header scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
+        <MSHeader scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
         <HeroSection />
         <div className="scholar-container">
           <MarginC />

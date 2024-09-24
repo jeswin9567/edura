@@ -78,7 +78,7 @@ const EntranceForm = () => {
 
       <div>
         <label>Details:</label>
-        <input
+        <textarea
           type="text"
           name="details"
           value={formData.details}
@@ -89,7 +89,7 @@ const EntranceForm = () => {
 
       <div>
         <label>Eligibility:</label>
-        <input
+        <textarea
           type="text"
           name="eligibility"
           value={formData.eligibility}
@@ -100,7 +100,7 @@ const EntranceForm = () => {
 
       <div>
         <label>Syllabus:</label>
-        <input
+        <textarea
           type="text"
           name="syllabus"
           value={formData.syllabus}
@@ -133,7 +133,7 @@ const EntranceForm = () => {
 
       <div>
         <label>How to Apply:</label>
-        <input
+        <textarea
           type="text"
           name="howtoapply"
           value={formData.howtoapply}

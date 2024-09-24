@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
+const session=require('express-session')
 const app = express();
+
 
 // Import routes
 const loginRoute = require('./routes/log');
 const signupRoute = require('./routes/sign');
+const ForgotPasswordRoute = require('./routes/forgotpass');
 const ScholarshipRoute = require('./routes/schship');
 const StudentloanRoute = require('./routes/studln');
 const EntraceRoute = require('./routes/entrnc');
@@ -16,8 +19,17 @@ const ViewLoanRoute = require('./routes/viewln');
 
 
 
+
+
 // Middleware
 app.use(express.json());
+app.use(session({
+  secret: 'your-secret-key',  // A secret key to sign the session ID
+  resave: false,              // Prevents resaving session if it hasn't been modified
+  saveUninitialized: true,    // Save uninitialized sessions (new but not modified)
+  cookie: { secure: false }   // Set to true if using HTTPS
+}));
+
 app.use(cors());
 
 // Connect to MongoDB
@@ -36,6 +48,7 @@ connectDB();
 // Use the login and signup routes
 app.use('/log', loginRoute);
 app.use('/sign', signupRoute);
+app.use('/forgetpass', ForgotPasswordRoute);
 app.use('/schship',ScholarshipRoute);
 app.use('/studln',StudentloanRoute);
 app.use('/entrnc',EntraceRoute);
@@ -43,6 +56,8 @@ app.use('/man', ManagerRoute);
 app.use('/viewscho', ViewScholarRoute);
 app.use('/viewentr', ViewEntranceRoute);
 app.use('/viewln', ViewLoanRoute);
+
+
 
 
 

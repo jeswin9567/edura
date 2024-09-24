@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/home/home';
 import Login from './pages/login/login';
 import SignUp from './pages/signup/signup'
+import ForgotPassword from './pages/login/forgotpass';
 import Uhome from './pages/uhome/userhome';
 import Adhome from './pages/admin/adhome';
 import Mhome from './pages/Manager/mhome';
@@ -41,6 +42,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgotpassword" element= {<ForgotPassword />} />
         <Route path="/userhome" element={<Uhome/>} />
         <Route path="/adhome" element={<Adhome />} />
         <Route path="/mhome" element = {<Mhome />} />

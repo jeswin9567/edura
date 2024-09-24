@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Header from "../../../components/admin/headd";
+import LHeader from "../../../components/admin/heads/loanhead";
 import HeroSection from "../../../components/common/first";
 import MarginC from "../../../components/common/margin";
 import Footer from "../../../components/common/footer";
@@ -12,7 +12,7 @@ function Aloan() {
   return (
     <>  
       <div>
-        <Header scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
+        <LHeader scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
         <HeroSection />
         <div className="loan-container">
           <MarginC />

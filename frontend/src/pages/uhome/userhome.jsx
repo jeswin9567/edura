@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import Header from '../../components/common/head';
+import UHead from '../../components/user/head';
 import HeroSec from '../../components/common/herosec';
 import ServicesSec from '../../components/user/Service';
 import MissionSection from '../../components/common/Mission';
@@ -26,7 +26,7 @@ function Uhome() {
 
   return (
     <div>
-      <Header
+      <UHead
         scrollToAbout={scrollToAbout}
         scrollToServices={scrollToServices}
         scrollToContact={scrollToContact}

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../../components/admin/headd";
+import EHeader from "../../../components/admin/heads/entrancehead";
 import HeroSection from "../../../components/common/first";
 import MarginC from "../../../components/common/margin";
 import EntranceList from "../../../components/admin/Entrancelist";
@@ -10,7 +10,7 @@ function AEntrance() {
     return (
         <>
             <div>
-                <Header />
+                <EHeader />
                 <HeroSection />
                 <div className="entrance-container"> {/* Updated class name */}
                     <MarginC className="emargin-c" /> {/* Updated class name */}

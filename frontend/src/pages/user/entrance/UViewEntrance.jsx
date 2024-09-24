@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../../components/admin/ViewEntrance.css'; // Create this CSS for styling
-import '../../../components/user/header'
+import Header from '../../../components/user/header';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const UVEntranceDetails = () => {

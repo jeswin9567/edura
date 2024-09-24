@@ -4,7 +4,7 @@ import AddEntrace from './abutton/Entrance_btn';
 import AddLoan from './abutton/Loan_btn';
 import Addscholar from './abutton/Scholarship_btn';
 
-import './headd.css';
+import './aheadd.css';
 
 function Header({ scrollToContact }) {
   const navigate = useNavigate();
@@ -21,14 +21,7 @@ function Header({ scrollToContact }) {
         <Addscholar />
         <button className="n3" onClick={scrollToContact}>Contact Us</button>
       </nav>
-      <div className="s1">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="s2"
-        />
-        <button className="s3">Search</button>
-      </div>
+
       <div className="a1">
         <button className="a2" onClick={() => navigate('/')}>Logout</button>
       </div>
