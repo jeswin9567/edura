@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Header from '../../../components/user/header'; // Ensure the import path is correct
+import VHeader from "../../../components/user/vhead"; // Ensure the import path is correct
 import HeroSection from '../../../components/common/first'; // Ensure the import path is correct
 import MarginC from "../../../components/common/margin";
 import UScholarshipList from "../../../components/user/UScholarlist";
@@ -16,7 +16,7 @@ function Scholarship() {
   return (
     <>
       <div>
-        <Header scrollToContact={scrollToContact} />
+        <VHeader scrollToContact={scrollToContact} />
         <HeroSection />
         <div className="scholar-container">
           <MarginC />
