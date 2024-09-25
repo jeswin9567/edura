@@ -12,6 +12,11 @@ router.post('/', async (req, res) => {
   }
 
   try {
+
+    const existingScholarship = await ScholarshipModel.findOne({ name });
+    if (existingScholarship) {
+      return res.status(409).json({ message: 'Scholarship with this name already exists.' }); // HTTP 409 Conflict
+    }
     // Create new Scholarship document
     const newScholarship = new ScholarshipModel({
       name,

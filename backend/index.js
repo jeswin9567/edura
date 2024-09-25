@@ -16,6 +16,13 @@ const ManagerRoute = require('./routes/man');
 const ViewScholarRoute = require('./routes/viewscho');
 const ViewEntranceRoute = require('./routes/viewentr');
 const ViewLoanRoute = require('./routes/viewln');
+const DelEntranceRoute = require('./routes/delentrc');
+const DelSholarRoute = require('./routes/delscholar');
+const DelLoanRoute = require('./routes/delloan');
+const UpdLoanRoute = require('./routes/uplon');
+const UpdEnRoute = require('./routes/upentrance');
+const UpdSchoRoute = require('./routes/upscho');
+
 
 
 
@@ -56,6 +63,12 @@ app.use('/man', ManagerRoute);
 app.use('/viewscho', ViewScholarRoute);
 app.use('/viewentr', ViewEntranceRoute);
 app.use('/viewln', ViewLoanRoute);
+app.use('/delentr', DelEntranceRoute);
+app.use('/delscho', DelSholarRoute);
+app.use('/delln', DelLoanRoute);
+app.use('/upln', UpdLoanRoute);
+app.use('/upentr',UpdEnRoute);
+app.use('/upscho', UpdSchoRoute);
 
 
 

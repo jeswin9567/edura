@@ -1,0 +1,59 @@
+/* uscho.css */
+
+.uscho {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.uscho-title {
+    text-align: center;
+    font-size: 26px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.uscho-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.uscho-input,
+.uscho-textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.uscho-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.uscho-button {
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.uscho-button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .uscho {
+        width: 90%;
+        padding: 20px;
+    }
+}

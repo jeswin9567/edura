@@ -25,6 +25,21 @@ const MVLoanDetails = () => {
         fetchLoanDetails();
     }, [id]);
 
+    const handleDelete = async () => {
+        const response = await fetch(`http://localhost:5000/delln/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            // Optionally show a success message
+            alert('Loan deleted successfully');
+            navigate('/manager/entrance'); // Redirect to the entrance list or desired page
+        } else {
+            // Optionally show an error message
+            alert('Failed to delete the loan');
+        }
+    };
+
     if (!loan) return <div>Loading...</div>;
 
     return (
@@ -43,6 +58,8 @@ const MVLoanDetails = () => {
                 )}
                 <div className="button-container">
                     <button className="back-button" onClick={() => navigate(-1)}>Back</button>
+                    <button className='update-button' onClick={() => navigate(`/mupdateloan/${id}`)}>Update</button>
+                    <button className='delete-button' onClick={handleDelete}>Delete</button>
                 </div>
             </div>
         </div>

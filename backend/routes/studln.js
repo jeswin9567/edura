@@ -10,6 +10,12 @@ router.post ( '/', async (req, res) => {
     }
 
     try{
+
+            // Check if a loan with the same name already exists
+            const existingLoan = await StudentLoanModel.findOne({ name });
+            if (existingLoan) {
+                return res.status(409).json({ message: 'Student Loan with this name already exists' }); // HTTP 409 Conflict
+            }   
         const newStudentLoan = new StudentLoanModel({
             name,
             description,

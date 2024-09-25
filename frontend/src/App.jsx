@@ -32,6 +32,12 @@ import MVLoanDetails from './pages/Manager/MViewLoan';
 import MVEntranceDetails from './pages/Manager/MViewEntrance';
 import UVEntranceDetails from './pages/user/entrance/UViewEntrance';
 import UVLoanDetails from './pages/user/loan/UViewLoan';
+import UpdateLoan from './components/admin/aupdate/uplon';
+import UpdateEntrance from './components/admin/aupdate/upent';
+import UpdateScholarship from './components/admin/aupdate/uscho';
+import MUpdateLoan from './components/manager/mupdate/mupln';
+import MUpdateEntrance from './components/manager/mupdate/mupen';
+import MUpdateScholarship from './components/manager/mupdate/mupscho';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -71,6 +77,14 @@ function App() {
         <Route path='/vloandetails/:id' element={<VLoanDetails />} />
         <Route path='/mloandetails/:id' element={<MVLoanDetails />} />
         <Route path='/mventrancedetails/:id' element={<MVEntranceDetails />} />
+        <Route path='/updateloan/:id' element={<UpdateLoan />} />
+        <Route path='/updateentr/:id' element={<UpdateEntrance />} />
+        <Route path='/updatescho/:id' element={<UpdateScholarship />} />
+        <Route path='/mupdateloan/:id' element ={<MUpdateLoan />} />
+        <Route path='/mupdateentrance/:id' element ={<MUpdateEntrance />} />
+        <Route path='/mupdatescholar/:id' element={<MUpdateScholarship />} />
+ 
+
       </Routes>
     </Router>
   );

@@ -18,6 +18,21 @@ const VEntranceDetails = () => {
         fetchEntranceDetails();
     }, [id]);
 
+    const handleDelete = async () => {
+        const response = await fetch(`http://localhost:5000/delentr/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            // Optionally show a success message
+            alert('Entrance deleted successfully');
+            navigate('/admin/entrance'); // Redirect to the entrance list or desired page
+        } else {
+            // Optionally show an error message
+            alert('Failed to delete the entrance');
+        }
+    };
+
     if (!entrance) return <div>Loading...</div>;
 
     return (
@@ -34,6 +49,9 @@ const VEntranceDetails = () => {
                 <p className="date"><strong>End Date:</strong> {new Date(entrance.enddate).toLocaleDateString()}</p>
                 <div className="button-container">
                     <button className="back-button" onClick={() => navigate(-1)}>Back</button>
+                    <button className="delete-button" onClick={handleDelete}>Delete</button>
+                    {/* Add the Update button */}
+                    <button className="update-button" onClick={() => navigate(`/updateentr/${id}`)}>Update</button>
                 </div>
             </div>
         </div>
