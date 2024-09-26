@@ -7,6 +7,13 @@ import MAddscholar from './button/maddscho';
 
 function Header({ scrollToAbout, scrollToServices, scrollToContact }) {
     const navigate = useNavigate();
+    const logout = () => {
+      const token=localStorage.getItem('token');
+      if (token){
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    }
   
     return (
     <header className="uhome-header">
@@ -21,7 +28,7 @@ function Header({ scrollToAbout, scrollToServices, scrollToContact }) {
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
       </nav>
       <div className="uhome-auth-buttons">
-        <button className="uhome-login-btn" onClick={()=> navigate('/')}>Logout</button>
+        <button className="uhome-login-btn" onClick={logout}>Logout</button>
       </div>
     </header>
   );

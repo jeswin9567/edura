@@ -1,8 +1,12 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './home.css';
+import useAuth from '../../../function/useAuth';
 
 function HomePage() {
+    useAuth();
+
+
     const navigate = useNavigate();
 
     const AboutSectionRef = useRef(null);

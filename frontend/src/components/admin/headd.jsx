@@ -9,6 +9,16 @@ import './aheadd.css';
 function Header({ scrollToContact }) {
   const navigate = useNavigate();
 
+  const logout = () => {
+    const token=localStorage.getItem('token');
+    if (token){
+      localStorage.removeItem('token');
+      navigate('/');
+    }
+  }
+    
+
+
   return (
     <header className="h1">
       <div className="l1">
@@ -23,7 +33,7 @@ function Header({ scrollToContact }) {
       </nav>
 
       <div className="a1">
-        <button className="a2" onClick={() => navigate('/')}>Logout</button>
+        <button className="a2" onClick={logout}>Logout</button>
       </div>
     </header>
   );

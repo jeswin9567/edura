@@ -4,6 +4,13 @@ import './header.css';
 
 function Header({ scrollToContact }) {
   const navigate = useNavigate();
+  const logout = () => {
+    const token=localStorage.getItem('token');
+    if (token){
+      localStorage.removeItem('token');
+      navigate('/');
+    }
+  }
 
   return (
     <header className="uhome-header">
@@ -23,7 +30,7 @@ function Header({ scrollToContact }) {
         <button className="uhome-search-button">Search</button>
       </div>
       <div className="uhome-auth-buttons">
-        <button className="uhome-login-btn" onClick={() => navigate('/')}>Logout</button>
+        <button className="uhome-login-btn" onClick={logout}>Logout</button>
       </div>
     </header>
   );

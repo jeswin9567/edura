@@ -5,8 +5,11 @@ import MarginC from "../../../components/common/margin";
 import UEntranceList from "../../../components/user/UEntrancelist";
 import Footer from "../../../components/common/footer"; // Ensure the import path is correct
 import '../../../pages/admin/functionalities/ascholar.css'
+import useAuth from "../../../../function/useAuth";
 
 function Entrance() {
+
+  useAuth();
   const footerRef = useRef(null);
 
   const scrollToContact = () => {

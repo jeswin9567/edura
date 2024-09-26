@@ -5,8 +5,10 @@ import MarginC from "../common/margin";
 import MEntranceList from "./MEntrancelist";
 import Footer from "../common/footer";
 import './mentran.css';
+import useAuth from "../../../function/useAuth";
 
 function MEntrance() {
+    useAuth();
     return (
         <>
             <div>

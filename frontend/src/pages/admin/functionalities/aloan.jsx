@@ -5,8 +5,12 @@ import MarginC from "../../../components/common/margin";
 import Footer from "../../../components/common/footer";
 import LoanList from "../../../components/admin/Loanlist";
 import './aloan.css'
+import useAuth from "../../../../function/useAuth";
 
 function Aloan() {
+
+  useAuth();
+
   const footerRef = useRef(null);
 
   return (

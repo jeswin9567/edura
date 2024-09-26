@@ -4,7 +4,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Import SweetAlert
 
+
 function Login() {
+
   const [email, setEmail] = useState('');
   const [pass, setPassword] = useState('');
 
@@ -19,6 +21,7 @@ function Login() {
         // If login is successful, navigate to home
         if(result.data.message === "success"){
           localStorage.setItem('userEmail', email);
+          localStorage.setItem('token',result.data.token)
           
           const userRole =result.data.role;
 

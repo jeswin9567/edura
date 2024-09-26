@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../head';
 import '../../admin/aupdate/uscho.css'
+import useAuth from '../../../../function/useAuth';
 
 const MUpdateScholarship = () => {
+    useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
     const [scholarship, setScholarship] = useState({

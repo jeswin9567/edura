@@ -5,8 +5,12 @@ import MarginC from "../../../components/common/margin";
 import ULoanList from "../../../components/user/ULoanlist";
 import Footer from "../../../components/common/footer"; // Ensure the import path is correct
 import '../../../pages/admin/functionalities/ascholar.css'
+import useAuth from "../../../../function/useAuth";
 
 function Loan() {
+
+  useAuth();
+
   const footerRef = useRef(null);
 
   const scrollToContact = () => {

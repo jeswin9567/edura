@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../headd';
 import './uplon.css'
+import useAuth from '../../../../function/useAuth';
 
 const UpdateLoan = () => {
+    useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
     const [loan, setLoan] = useState({

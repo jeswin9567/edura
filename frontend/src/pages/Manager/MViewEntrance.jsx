@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import '../../components/admin/ViewEntrance.css'; // Create this CSS for styling
 import Header from '../../components/manager/head'
 import { useParams, useNavigate } from 'react-router-dom';
+import useAuth from '../../../function/useAuth';
 
 const MVEntranceDetails = () => {
+    useAuth();
+    
     const { id } = useParams();
     const navigate = useNavigate();
     const [entrance, setEntrance] = useState(null);

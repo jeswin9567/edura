@@ -6,6 +6,13 @@ import '../../admin/heads/shead.css'
 
 function MSHeader({ scrollToContact }) {
   const navigate = useNavigate();
+  const logout = () => {
+    const token=localStorage.getItem('token');
+    if (token){
+      localStorage.removeItem('token');
+      navigate('/');
+    }
+  }
 
   return (
     <header className="ScH-header">
@@ -26,7 +33,7 @@ function MSHeader({ scrollToContact }) {
         <button className="ScH-search-btn">Search</button>
       </div>
       <div className="ScH-auth-container">
-        <button className="ScH-logout-btn" onClick={() => navigate('/')}>Logout</button>
+        <button className="ScH-logout-btn" onClick={logout}>Logout</button>
       </div>
     </header>
   );

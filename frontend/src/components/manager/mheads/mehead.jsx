@@ -7,6 +7,14 @@ import '../../admin/heads/ehead.css'
 function MEHeader({ scrollToContact }) {
   const navigate = useNavigate();
 
+  const logout = () => {
+    const token=localStorage.getItem('token');
+    if (token){
+      localStorage.removeItem('token');
+      navigate('/');
+    }
+  }
+  
   return (
     <header className="EH-header">
       <div className="EH-logo-container">
@@ -26,7 +34,7 @@ function MEHeader({ scrollToContact }) {
         <button className="EH-search-btn">Search</button>
       </div>
       <div className="EH-auth-container">
-        <button className="EH-logout-btn" onClick={() => navigate('/')}>Logout</button>
+        <button className="EH-logout-btn" onClick={logout}>Logout</button>
       </div>
     </header>
   );

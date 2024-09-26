@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './ViewScholar.css';
 import Header from './headd';
 import { useParams, useNavigate } from 'react-router-dom';
+import useAuth from '../../../function/useAuth';
 
 const VScholarshipDetails = () => {
+    useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
     const [scholarship, setScholarship] = useState(null);

@@ -5,8 +5,10 @@ import Footer from "../../../components/common/footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../../../function/useAuth";
 
 function AManager() {
+  useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

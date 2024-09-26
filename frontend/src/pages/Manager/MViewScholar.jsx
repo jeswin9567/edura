@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import '../../components/admin/ViewScholar.css'
 import Header from '../../components/manager/head';
 import { useParams, useNavigate } from 'react-router-dom';
+import useAuth from '../../../function/useAuth';
 
 const MVScholarshipDetails = () => {
+    useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
     const [scholarship, setScholarship] = useState(null);

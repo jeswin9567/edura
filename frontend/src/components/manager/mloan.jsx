@@ -5,7 +5,12 @@ import MarginC from "../common/margin";
 import MLoanList from "./MLoanlist";
 import Footer from "../common/footer";
 import './mloan.css'
+import useAuth from "../../../function/useAuth";
+
 function Mloan() {
+
+  useAuth();
+
   const footerRef = useRef(null);
 
   return (

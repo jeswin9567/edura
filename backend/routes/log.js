@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const LoginModel = require('../model/login');
+const jwt=require("jsonwebtoken");
+require("dotenv").config;
 
 // Login route
 router.post('/', (req, res) => {
@@ -13,7 +15,8 @@ router.post('/', (req, res) => {
       }
 
       if (user.password === password) {
-        return res.json({ message: "success", role: user.role });
+        const token = jwt.sign({ email: user.email }, 'sceret_key'); 
+        return res.json({ message: "success", role: user.role,token:token });
       } else {
         return res.status(401).json({ message: "Incorrect password" });
       }

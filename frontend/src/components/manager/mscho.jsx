@@ -5,8 +5,11 @@ import MarginC from "../common/margin";
 import ManScholarshipList from "./MScholarlist";
 import Footer from "../common/footer";
 import '../../pages/admin/functionalities/ascholar.css'
+import useAuth from "../../../function/useAuth";
 
 function Mscholar() {
+  useAuth();
+  
   const footerRef = useRef(null);
 
   return (

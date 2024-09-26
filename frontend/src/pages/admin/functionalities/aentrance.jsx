@@ -5,8 +5,12 @@ import MarginC from "../../../components/common/margin";
 import EntranceList from "../../../components/admin/Entrancelist";
 import Footer from "../../../components/common/footer";
 import './aentrance.css'; // Import your CSS file
+import useAuth from "../../../../function/useAuth";
 
 function AEntrance() {
+
+    useAuth();
+    
     return (
         <>
             <div>

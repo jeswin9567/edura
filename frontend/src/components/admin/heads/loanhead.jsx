@@ -6,6 +6,14 @@ import './lhead.css';
 
 function LHeader({ scrollToContact }) {
   const navigate = useNavigate();
+  
+  const logout = () => {
+    const token=localStorage.getItem('token');
+    if (token){
+      localStorage.removeItem('token');
+      navigate('/');
+    }
+  }
 
   return (
     <header className="LH-header">
@@ -26,7 +34,7 @@ function LHeader({ scrollToContact }) {
         <button className="LH-search-btn">Search</button>
       </div>
       <div className="LH-auth-container">
-        <button className="LH-logout-btn" onClick={() => navigate('/')}>Logout</button>
+        <button className="LH-logout-btn" onClick={logout}>Logout</button>
       </div>
     </header>
   );

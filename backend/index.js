@@ -31,7 +31,7 @@ const UpdSchoRoute = require('./routes/upscho');
 // Middleware
 app.use(express.json());
 app.use(session({
-  secret: 'your-secret-key',  // A secret key to sign the session ID
+  secret: 'hgghdftdg@123',  // A secret key to sign the session ID
   resave: false,              // Prevents resaving session if it hasn't been modified
   saveUninitialized: true,    // Save uninitialized sessions (new but not modified)
   cookie: { secure: false }   // Set to true if using HTTPS

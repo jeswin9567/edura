@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './ViewEntrance.css'; // Create this CSS for styling
 import Header from './headd';
 import { useParams, useNavigate } from 'react-router-dom';
+import useAuth from '../../../function/useAuth';
 
 const VEntranceDetails = () => {
+    useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
     const [entrance, setEntrance] = useState(null);

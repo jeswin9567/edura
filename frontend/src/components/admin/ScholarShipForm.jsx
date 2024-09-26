@@ -4,10 +4,12 @@ import axios from 'axios';
 import Header from './headd';
 import Footer from '../common/footer';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../../function/useAuth';
 
 
 
 const ScholarshipForm = () => {
+  useAuth();
   const [formData, setFormData] = useState({
     name: '',
     description: '',

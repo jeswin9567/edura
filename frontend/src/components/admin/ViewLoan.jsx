@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './ViewLoan.css';
 import Header from './headd';
 import { useParams, useNavigate } from 'react-router-dom';
+import useAuth from '../../../function/useAuth';
 
 const VLoanDetails = () => {
+    useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
     const [loan, setLoan] = useState(null);

@@ -4,8 +4,11 @@ import '../../../components/admin/EntranceForm.css'
 import Header from '../../../components/manager/head';
 import Footer from '../../../components/common/footer';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../../../function/useAuth';
 
 const MEntranceForm = () => {
+
+  useAuth();
   const [formData, setFormData] = useState({
     name: '',              // Name of the Entrance Exam
     details: '',           // Brief details or description of the exam

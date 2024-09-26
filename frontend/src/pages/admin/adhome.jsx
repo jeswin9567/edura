@@ -6,9 +6,12 @@ import MissionSection from "../../components/common/Mission";
 import AdditionalInfoSection from "../../components/common/Additional";
 import AboutSection from "../../components/common/About";
 import Footer from "../../components/common/footer";
+import useAuth from "../../../function/useAuth";
 
 function Adhome()
 {
+    useAuth();
+
     const servicesSectionRef = useRef(null);
     const aboutSectionRef = useRef(null);
     const contactSectionRef = useRef(null);

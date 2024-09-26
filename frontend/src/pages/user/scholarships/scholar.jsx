@@ -5,8 +5,12 @@ import MarginC from "../../../components/common/margin";
 import UScholarshipList from "../../../components/user/UScholarlist";
 import Footer from "../../../components/common/footer"; // Ensure the import path is correct
 import '../../../pages/admin/functionalities/ascholar.css'
+import useAuth from "../../../../function/useAuth";
 
 function Scholarship() {
+
+  useAuth();
+
   const footerRef = useRef(null);
 
   const scrollToContact = () => {
