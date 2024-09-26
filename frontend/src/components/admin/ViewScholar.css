@@ -54,6 +54,17 @@
     text-decoration: underline;
 }
 
+.sub-eligibility {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 8px; /* Add space between items */
+}
+
+.sub-eligibility-item {
+    margin: 2px 0; /* Optional for additional margin */
+}
+
+
 /* Back button styling */
 .button-container {
     margin-top: 30px;

@@ -1,28 +1,54 @@
 const express = require('express');
 const router = express.Router();
-const ScholarshipModel = require('../model/scholarship'); // Correct model import
+const ScholarshipModel = require('../model/scholarship');
 
 // POST route to create a new scholarship
 router.post('/', async (req, res) => {
-  const { name, description, award, eligibility, document, startdate, enddate, link, howToApply } = req.body;
+  const {
+    name,
+    description,
+    award,
+    eligibility,
+    subEligibility, // Add subEligibility from frontend
+    gender,
+    document,
+    startdate,
+    enddate,
+    link,
+    howToApply
+  } = req.body;
 
   // Validate required fields
-  if (!name || !description || !award || !eligibility || !startdate || !enddate) {
+  if (!name || !description || !award || !eligibility || !gender || !startdate || !enddate) {
     return res.status(400).json({ message: 'All required fields must be filled.' });
   }
 
-  try {
+  // Validate date range
+  if (new Date(startdate) >= new Date(enddate)) {
+    return res.status(400).json({ message: 'Start date must be before the end date.' });
+  }
 
+  // Optional: URL validation for the link field
+  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+  if (link && !urlPattern.test(link)) {
+    return res.status(400).json({ message: 'Invalid URL format for the link.' });
+  }
+
+  try {
+    // Check if a scholarship with the same name already exists
     const existingScholarship = await ScholarshipModel.findOne({ name });
     if (existingScholarship) {
       return res.status(409).json({ message: 'Scholarship with this name already exists.' }); // HTTP 409 Conflict
     }
+
     // Create new Scholarship document
     const newScholarship = new ScholarshipModel({
       name,
       description,
       award,
       eligibility,
+      subEligibility, // Save subEligibility options
+      gender,
       document,
       startdate,
       enddate,

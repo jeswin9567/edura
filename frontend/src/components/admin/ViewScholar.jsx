@@ -53,9 +53,16 @@ const VScholarshipDetails = () => {
             <Header />
             <div className="scholarship-details">
                 <h1>{scholarship.name}</h1>
-                <p>{scholarship.description}</p>
-                <p><strong>Award:</strong> {scholarship.award}</p>
+                <p><strong>Details</strong>{scholarship.description}</p>
+                <p><strong>Award:</strong> Rs {scholarship.award}</p>
                 <p><strong>Eligibility:</strong> {scholarship.eligibility}</p>
+                <p><strong></strong></p>
+                    <div className="sub-eligibility">
+                        {scholarship.subEligibility.map((sub, index) => (
+                        <span key={index} className="sub-eligibility-item">{sub}</span>
+                        ))}
+                    </div>
+                <p><strong>Gender:{scholarship.gender}</strong></p>
                 <p><strong>How to Apply:</strong> {scholarship.howToApply}</p>
                 <p><strong>Link:</strong> <a href={scholarship.link} target="_blank" rel="noopener noreferrer">{scholarship.link}</a></p>
                 <p className="date"><strong>Start Date:</strong> {new Date(scholarship.startdate).toLocaleDateString()}</p>

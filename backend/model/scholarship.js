@@ -1,39 +1,68 @@
-    const mongoose = require('mongoose');
-    const ScholarShipSchema = new mongoose.Schema({
-        name: {
-            type: String,
-            required: true, // Name is mandatory
-            trim: true // Removes leading/trailing spaces
-        },
-        description: {
-            type: String,
-            required: true,
-            minlength: 10 // Ensure description is not too short
-        },
-        award: {
-            type: String,
-            required: true
-        },
-        eligibility: {
-            type: String,
-            required: true
-        },
-        document: {
-            type: String
-        },
-        startdate: {
-            type: Date // Consider storing dates as actual Date objects
-        },
-        enddate: {
-            type: Date
-        },
-        link: {
-            type: String
-        },
-        howToApply: {
-            type: String
-        }
-    });
+const mongoose = require('mongoose');
 
-    const ScholarShipModel = mongoose.model("Scholarship", ScholarShipSchema);
-    module.exports = ScholarShipModel;
+// Define the Scholarship Schema
+const ScholarShipSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true, // Name is mandatory
+        trim: true // Removes leading/trailing spaces
+    },
+    description: {
+        type: String,
+        required: true,
+        minlength: 10 // Ensure description is not too short
+    },
+    award: {
+        type: Number,
+        required: true
+    },
+    eligibility: {
+        type: String,
+        required: true,
+        enum: ['School', 'Undergraduate', 'Postgraduate', 'Diploma'] // Restrict eligibility to specific values
+    },
+    subEligibility: {
+        type: [String], // Store the selected sub-options (e.g., classes, degrees, etc.)
+        default: []
+    },
+    document: {
+        type: String
+    },
+    startdate: {
+        type: Date // Consider storing dates as actual Date objects
+    },
+    enddate: {
+        type: Date,
+        validate: {
+            validator: function (value) {
+                return value > this.startdate;
+            },
+            message: 'End date must be after the start date'
+        }
+    },
+    link: {
+        type: String,
+        validate: {
+            validator: function (v) {
+                return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(v); // Basic URL validation
+            },
+            message: props => `${props.value} is not a valid URL!`
+        }
+    },
+    howToApply: {
+        type: String
+    },
+    gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other'],
+        required: true
+    }
+}, {
+    timestamps: true // Automatically add `createdAt` and `updatedAt` timestamps
+});
+
+// Create the Scholarship Model from the Schema
+const ScholarShipModel = mongoose.model("Scholarship", ScholarShipSchema);
+
+// Export the Scholarship Model
+module.exports = ScholarShipModel;
