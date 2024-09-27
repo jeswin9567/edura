@@ -26,7 +26,8 @@ const ULoanList = () => {
             {loans.map((loan) => (
                 <div key={loan._id} className="loan-item">
                     <Link to={`/uloandetails/${loan._id}`}>
-                        <div className="loan-name">{loan.name}</div>
+                        {/* Fix the property name */}
+                        <div className="loan-name">{loan.loanName}</div> 
                     </Link>
                 </div>
             ))}

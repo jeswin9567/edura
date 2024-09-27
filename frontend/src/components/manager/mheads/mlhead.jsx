@@ -33,7 +33,7 @@ function MHeader({ scrollToContact }) {
         <button className="LH-search-btn">Search</button>
       </div>
       <div className="LH-auth-container">
-        <button className="LH-logout-btn" onClick={() => navigate(logout)}>Logout</button>
+        <button className="LH-logout-btn" onClick={logout}>Logout</button>
       </div>
     </header>
   );

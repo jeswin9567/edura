@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../headd';
-import './uplon.css'
+import './uplon.css';
 import useAuth from '../../../../function/useAuth';
 
 const UpdateLoan = () => {
@@ -9,12 +9,20 @@ const UpdateLoan = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [loan, setLoan] = useState({
-        name: '',
-        description: '',
-        amount: '',
-        interest: '',
-        repayment: '',
-        document: '',
+        loanName: '',
+        bankName: '',
+        bankWebsite: '',
+        contactNumber: '',
+        email: '',
+        loanType: '',
+        fieldOfStudy: '',
+        programLength: '',
+        minAmount: '',
+        maxAmount: '',
+        minInterestRate: '',
+        maxInterestRate: '',
+        collateral: '',
+        applicationProcess: ''
     });
 
     useEffect(() => {
@@ -52,7 +60,7 @@ const UpdateLoan = () => {
 
             if (response.ok) {
                 alert('Loan updated successfully');
-                navigate(`/admin/loan`); // Redirect to the loan details page
+                navigate(`/admin/loan`); // Redirect to the loan list page
             } else {
                 const errorMessage = await response.text();
                 alert(`Failed to update the loan: ${errorMessage}`);
@@ -70,61 +78,140 @@ const UpdateLoan = () => {
             <h1 className="uplon-title">Update Loan</h1>
             <form onSubmit={handleSubmit} className="uplon-form">
                 <label className="uplon-label">
-                    Name:
+                    Loan Name:
                     <input
                         type="text"
-                        name="name"
-                        value={loan.name}
+                        name="loanName"
+                        value={loan.loanName}
                         onChange={handleChange}
                         className="uplon-input"
                     />
                 </label>
                 <label className="uplon-label">
-                    Description:
+                    Bank Name:
                     <input
                         type="text"
-                        name="description"
-                        value={loan.description}
+                        name="bankName"
+                        value={loan.bankName}
                         onChange={handleChange}
                         className="uplon-input"
                     />
                 </label>
                 <label className="uplon-label">
-                    Amount:
+                    Bank Website:
+                    <input
+                        type="url"
+                        name="bankWebsite"
+                        value={loan.bankWebsite}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Contact Number:
+                    <input
+                        type="text"
+                        name="contactNumber"
+                        value={loan.contactNumber}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Email:
+                    <input
+                        type="email"
+                        name="email"
+                        value={loan.email}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Loan Type:
+                    <input
+                        type="text"
+                        name="loanType"
+                        value={loan.loanType}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Field of Study:
+                    <input
+                        type="text"
+                        name="fieldOfStudy"
+                        value={loan.fieldOfStudy}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Program Length (Years):
                     <input
                         type="number"
-                        name="amount"
-                        value={loan.amount}
+                        name="programLength"
+                        value={loan.programLength}
                         onChange={handleChange}
                         className="uplon-input"
                     />
                 </label>
                 <label className="uplon-label">
-                    Interest:
+                    Minimum Amount:
                     <input
                         type="number"
-                        name="interest"
-                        value={loan.interest}
+                        name="minAmount"
+                        value={loan.minAmount}
                         onChange={handleChange}
                         className="uplon-input"
                     />
                 </label>
                 <label className="uplon-label">
-                    Repayment:
+                    Maximum Amount:
                     <input
-                        type="text"
-                        name="repayment"
-                        value={loan.repayment}
+                        type="number"
+                        name="maxAmount"
+                        value={loan.maxAmount}
                         onChange={handleChange}
                         className="uplon-input"
                     />
                 </label>
                 <label className="uplon-label">
-                    Documents Required:
+                    Minimum Interest Rate:
                     <input
                         type="text"
-                        name="document"
-                        value={loan.document}
+                        name="minInterestRate"
+                        value={loan.minInterestRate}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Maximum Interest Rate:
+                    <input
+                        type="text"
+                        name="maxInterestRate"
+                        value={loan.maxInterestRate}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Collateral Required:
+                    <input
+                        type="text"
+                        name="collateral"
+                        value={loan.collateral}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Application Process:
+                    <textarea
+                        name="applicationProcess"
+                        value={loan.applicationProcess}
                         onChange={handleChange}
                         className="uplon-input"
                     />

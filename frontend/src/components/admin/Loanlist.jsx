@@ -27,7 +27,7 @@ const LoanList = () => {
             {loans.map((loan) => (
                 <div key={loan._id} className="loan-item">
                     <Link to={`/vloandetails/${loan._id}`}>
-                        <div className="loan-name">{loan.name}</div>
+                        <div className="loan-name">{loan.loanName}</div> {/* Update this line */}
                     </Link>
                 </div>
             ))}

@@ -1,68 +1,94 @@
-/* ViewScholar.css */
-
 .loan-details {
-    max-width: 800px; /* Limit the width for better readability */
-    margin: 50px auto; /* Center the details section with margin */
-    padding: 20px;
-    background-color: #f9f9f9; /* Light background for a clean look */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .loan-details h1 {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
-    color: #333; /* Dark color for the heading */
-    margin-bottom: 20px;
-    text-align: center; /* Center the heading */
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.loan-details .section-heading {
+    font-size: 22px;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
 }
 
 .loan-details p {
-    font-size: 18px; /* Larger font for readability */
-    color: #555; /* Medium gray color for text */
-    margin-bottom: 15px; /* Space between paragraphs */
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    word-wrap: break-word;
 }
 
 .loan-details p strong {
-    color: #333; /* Strong elements in darker color */
+    color: #2c3e50;
 }
 
 .loan-details a {
-    color: #007BFF; /* Blue color for links */
-    text-decoration: none; /* Remove underline */
+    color: #3498db;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .loan-details a:hover {
-    text-decoration: underline; /* Underline on hover for links */
+    color: #1d6fa5;
 }
 
 .button-container {
-    text-align: center; /* Center the button */
-    margin-top: 30px; /* Space above the button */
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.button-container button {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
 }
 
 .back-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #007BFF; /* Blue button */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    background-color: #007BFF;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    background-color: #e74c3c;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
 }
 
 .update-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #007BFF; /* Blue button */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    background-color: #f39c12;
 }
- 
-.back-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+
+.update-button:hover {
+    background-color: #d35400;
+}
+
+.button-container button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

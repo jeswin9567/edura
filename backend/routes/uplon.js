@@ -5,19 +5,49 @@ const LoanModel = require('../model/StudentLoan');
 // PUT route to update a loan by ID
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, description, amount, interest, repayment, document } = req.body;
+    const {
+        loanName, 
+        bankName, 
+        bankWebsite, 
+        contactNumber, 
+        email, 
+        loanType, 
+        fieldOfStudy, 
+        programLength, 
+        minAmount, 
+        maxAmount, 
+        minInterestRate, 
+        maxInterestRate, 
+        collateral, 
+        applicationProcess 
+    } = req.body;
 
     try {
         // Find the loan by ID and update it
         const loan = await LoanModel.findByIdAndUpdate(
             id,
-            { name, description, amount, interest, repayment, document },
+            {
+                loanName,
+                bankName,
+                bankWebsite,
+                contactNumber,
+                email,
+                loanType,
+                fieldOfStudy,
+                programLength,
+                minAmount,
+                maxAmount,
+                minInterestRate,
+                maxInterestRate,
+                collateral,
+                applicationProcess,
+            },
             { new: true, runValidators: true }
         );
 
         // Check if the loan was found and updated
         if (!loan) {
-            return res.status(404).json({ message: 'Loan not found' }); // HTTP 404 Not Found
+            return res.status(404).json({ message: 'Loan not found' });
         }
 
         // Return the updated loan

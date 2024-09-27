@@ -9,12 +9,21 @@ import useAuth from '../../../function/useAuth';
 const StudentLoanForm = () => {
   useAuth();
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    amount: '',
-    interest: '',
-    repayment: '',
-    document: ''
+    loanName: '',
+    bankName: '',
+    bankWebsite: '',
+    contactNumber: '',
+    email: '',
+    loanType: '',
+    fieldOfStudy: '',
+    programLength: '',
+    minAmount: '',
+    maxAmount: '',
+    minInterestRate: '',
+    maxInterestRate: '',
+    collateral: '',
+    applicationProcess: '',
+    eligibilityCriteria: '' // Field for eligibility criteria
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,12 +46,21 @@ const StudentLoanForm = () => {
 
       // Reset form data
       setFormData({
-        name: '',
-        description: '',
-        amount: '',
-        interest: '',
-        repayment: '',
-        document: ''
+        loanName: '',
+        bankName: '',
+        bankWebsite: '',
+        contactNumber: '',
+        email: '',
+        loanType: '',
+        fieldOfStudy: '',
+        programLength: '',
+        minAmount: '',
+        maxAmount: '',
+        minInterestRate: '',
+        maxInterestRate: '',
+        collateral: '',
+        applicationProcess: '',
+        eligibilityCriteria: '' // Reset eligibility criteria
       });
 
       navigate('/admin/loan'); // Redirect to the loans page
@@ -61,60 +79,150 @@ const StudentLoanForm = () => {
         <h2>Submit a Student Loan</h2>
         <form onSubmit={handleSubmit}>
           <div className="namefld">
-            <label>Name:</label>
+            <label>Loan Name:</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="loanName"
+              value={formData.loanName}
               onChange={handleChange}
               required
             />
           </div>
-          <div className="descfld">
-            <label>Description:</label>
-            <textarea
-              name="description"
-              value={formData.description}
+          <div className="bankfld">
+            <label>Bank Name:</label>
+            <input
+              type="text"
+              name="bankName"
+              value={formData.bankName}
               onChange={handleChange}
               required
             />
           </div>
-          <div className="amntfld">
-            <label>Amount:</label>
+          <div className="bankwebsitefld">
+            <label>Bank Website Link:</label>
+            <input
+              type="url"
+              name="bankWebsite"
+              value={formData.bankWebsite}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="contactfld">
+            <label>Contact Number:</label>
+            <input
+              type="text"
+              name="contactNumber"
+              value={formData.contactNumber}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="emailfld">
+            <label>Email Address:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="loantypefld">
+            <label>Type of Loan:</label>
+            <select
+              name="loanType"
+              value={formData.loanType}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Loan Type</option>
+              <option value="domestic">Domestic Loan</option>
+              <option value="international">International Loan</option>
+            </select>
+          </div>
+          <div className="fieldoffld">
+            <label>Field of Study:</label>
+            <input
+              type="text"
+              name="fieldOfStudy"
+              value={formData.fieldOfStudy}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="programlengthfld">
+            <label>Program Length (in years):</label>
             <input
               type="number"
-              name="amount"
-              value={formData.amount}
+              name="programLength"
+              value={formData.programLength}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="amountfld">
+            <label>Minimum Amount:</label>
+            <input
+              type="number"
+              name="minAmount"
+              value={formData.minAmount}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="amountfld">
+            <label>Maximum Amount:</label>
+            <input
+              type="number"
+              name="maxAmount"
+              value={formData.maxAmount}
               onChange={handleChange}
               required
             />
           </div>
           <div className="intrfld">
-            <label>Interest Rate:</label>
+            <label>Minimum Interest Rate:</label>
             <input
-              type="String"
-              name="interest"
-              value={formData.interestRate}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="repayfld">
-            <label>Repayment Period:</label>
-            <input
-              type="String"
-              name="repayment"
-              value={formData.repaymentPeriod}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="docufld">
-            <label>Document:</label>
-            <textarea
               type="text"
-              name="document"
-              value={formData.document}
+              name="minInterestRate"
+              value={formData.minInterestRate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="intrfld">
+            <label>Maximum Interest Rate:</label>
+            <input
+              type="text"
+              name="maxInterestRate"
+              value={formData.maxInterestRate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="collateralfld">
+            <label>Collateral Required:</label>
+            <input
+              type="text"
+              name="collateral"
+              value={formData.collateral}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="eligibilityfld">
+            <label>Eligibility Criteria:</label>
+            <textarea
+              name="eligibilityCriteria"
+              value={formData.eligibilityCriteria}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="applyfld">
+            <label>Application Process:</label>
+            <textarea
+              name="applicationProcess"
+              value={formData.applicationProcess}
               onChange={handleChange}
             />
           </div>
