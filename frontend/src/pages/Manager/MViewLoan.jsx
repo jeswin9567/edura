@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../components/admin/ViewLoan.css';
-import Header from '../../components/manager/head';
+import MVLHeader from '../../components/manager/mviewservicehead/mloanhead';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../../function/useAuth';
 
@@ -53,7 +53,7 @@ const MVLoanDetails = () => {
 
     return (
         <div>
-            <Header />
+            <MVLHeader/>
             <div className="loan-details">
     <h1>{loan.loanName}</h1>
     

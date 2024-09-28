@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ViewEntrance.css'; // Create this CSS for styling
-import Header from './headd';
+import VEHeader from './aviewservicehead/aenhead';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../../function/useAuth';
 
@@ -39,7 +39,7 @@ const VEntranceDetails = () => {
 
     return (
         <div>
-            <Header />
+            <VEHeader />
             <div className="entrance-details">
                 <h1>{entrance.name}</h1>
                 <p>{entrance.details}</p>

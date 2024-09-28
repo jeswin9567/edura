@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Header from '../head';
+import MVEHeader from '../mviewservicehead/menhead';
 import '../../admin/aupdate/upent.css'
 import useAuth from '../../../../function/useAuth';
 
@@ -68,7 +68,7 @@ const MUpdateEntrance = () => {
 
     return (
         <div>
-            <Header />
+            <MVEHeader />
             <div className="upent">
                 <h1>Update Entrance Details</h1>
                 <form onSubmit={handleSubmit}>

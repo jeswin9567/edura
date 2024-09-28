@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ViewScholar.css';
-import Header from './headd';
+import VSHeader from './aviewservicehead/aschohead';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../../function/useAuth';
 
@@ -50,7 +50,7 @@ const VScholarshipDetails = () => {
 
     return (
         <div>
-            <Header />
+            <VSHeader />
             <div className="scholarship-details">
                 <h1>{scholarship.name}</h1>
                 <p><strong>Details</strong>{scholarship.description}</p>

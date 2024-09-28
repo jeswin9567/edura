@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Header from '../headd';
+import VLHeader from '../aviewservicehead/aloanhead';
 import './uplon.css';
 import useAuth from '../../../../function/useAuth';
 
@@ -69,11 +69,11 @@ const UpdateLoan = () => {
             console.error('Error updating loan:', error);
             alert('Could not update loan. Please try again later.');
         }
-    };
+    };  
 
     return (
         <div>
-          <Header />  
+          <VLHeader />  
         <div className="uplon">
             <h1 className="uplon-title">Update Loan</h1>
             <form onSubmit={handleSubmit} className="uplon-form">

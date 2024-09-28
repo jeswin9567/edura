@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Header from '../headd';
+import VEHeader from '../aviewservicehead/aenhead';
 import './upent.css'
 import useAuth from '../../../../function/useAuth';
 
@@ -68,7 +68,7 @@ const UpdateEntrance = () => {
 
     return (
         <div>
-            <Header />
+            <VEHeader />
             <div className="upent">
                 <h1>Update Entrance Details</h1>
                 <form onSubmit={handleSubmit}>

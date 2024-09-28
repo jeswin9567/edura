@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ViewLoan.css';
-import Header from './headd';
+import VLHeader from './aviewservicehead/aloanhead';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../../function/useAuth';
 
@@ -53,7 +53,7 @@ const VLoanDetails = () => {
 
     return (
         <div>
-            <Header />
+            <VLHeader />
             <div className="loan-details">
     <h1>{loan.loanName}</h1>
     

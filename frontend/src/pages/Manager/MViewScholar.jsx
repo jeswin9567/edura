@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../components/admin/ViewScholar.css'
-import Header from '../../components/manager/head';
+import MVSHeader from '../../components/manager/mviewservicehead/mschohead';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../../function/useAuth';
 
@@ -50,7 +50,7 @@ const MVScholarshipDetails = () => {
 
     return (
         <div>
-            <Header />
+            <MVSHeader />
             <div className="scholarship-details">
                 <h1>{scholarship.name}</h1>
                 <p><strong>Details</strong>{scholarship.description}</p>

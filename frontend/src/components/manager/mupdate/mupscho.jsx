@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Header from '../head';
+import MVSHeader from '../mviewservicehead/mschohead';
 import '../../admin/aupdate/uscho.css'
 import useAuth from '../../../../function/useAuth';
 
@@ -135,7 +135,7 @@ const MUpdateScholarship = () => {
 
     return (
         <div>
-            <Header />
+            <MVSHeader />   
             <div className="uscho">
                 <h1 className="uscho-title">Update Scholarship Details</h1>
                 <form onSubmit={handleSubmit} className="uscho-form">
