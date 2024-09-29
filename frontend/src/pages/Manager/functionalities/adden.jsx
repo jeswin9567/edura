@@ -7,21 +7,30 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../../function/useAuth';
 
 const MEntranceForm = () => {
-
   useAuth();
+
   const [formData, setFormData] = useState({
-    name: '',              // Name of the Entrance Exam
-    details: '',           // Brief details or description of the exam
-    eligibility: '',       // Eligibility criteria for the exam
-    syllabus: '',          // Syllabus details for the exam
-    startdate: '',         // Application start date
-    enddate: '',           // Application end date
-    howtoapply: '',        // Steps or guidelines on how to apply
-    links: ''              // Relevant links for the exam (official website, application form, etc.)
+    name: '',
+    details: '',
+    education: '',
+    degree: [],
+    marksGeneral: '',
+    marksBackward: '',
+    syllabus: '',
+    startdate: '',
+    enddate: '',
+    howtoapply: '',
+    link: ''
   });
 
+  const [showUGDegrees, setShowUGDegrees] = useState(false);
+  const [showPGDegrees, setShowPGDegrees] = useState(false);
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const degreesUG = ['BSc', 'BCA', 'BCom', 'BA', 'BTech'];
+  const degreesPG = ['MSc', 'MCA', 'MCom', 'MA', 'MTech'];
 
   const handleChange = (e) => {
     setFormData({
@@ -30,30 +39,100 @@ const MEntranceForm = () => {
     });
   };
 
+  const handleDegreeChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setFormData({
+        ...formData,
+        degree: [...formData.degree, value]
+      });
+    } else {
+      setFormData({
+        ...formData,
+        degree: formData.degree.filter((degree) => degree !== value)
+      });
+    }
+  };
+
+  const handleEducationChange = (e) => {
+    const selectedEducation = e.target.value;
+    setFormData({
+      ...formData,
+      education: selectedEducation,
+      degree: [] // Clear degrees if education changes
+    });
+
+    if (selectedEducation === 'Undergraduate') {
+      setShowUGDegrees(true);
+      setShowPGDegrees(false);
+    } else if (selectedEducation === 'Postgraduate') {
+      setShowUGDegrees(false);
+      setShowPGDegrees(true);
+    } else {
+      setShowUGDegrees(false);
+      setShowPGDegrees(false);
+    }
+  };
+
+  // Validation function
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Check for required fields
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.details.trim()) newErrors.details = 'Details are required';
+    if (!formData.education) newErrors.education = 'Education is required';
+    if (formData.education === 'Undergraduate' && formData.degree.length === 0)
+      newErrors.degree = 'At least one undergraduate degree must be selected';
+    if (formData.education === 'Postgraduate' && formData.degree.length === 0)
+      newErrors.degree = 'At least one postgraduate degree must be selected';
+    if (!formData.marksGeneral.trim()) newErrors.marksGeneral = 'Marks for General Category are required';
+    if (!formData.marksBackward.trim()) newErrors.marksBackward = 'Marks for Backward Category are required';
+    if (!formData.syllabus.trim()) newErrors.syllabus = 'Syllabus is required';
+    if (!formData.startdate) newErrors.startdate = 'Start Date is required';
+    if (!formData.enddate) newErrors.enddate = 'End Date is required';
+    if (!formData.howtoapply.trim()) newErrors.howtoapply = 'How to Apply is required';
+    if (!formData.link.trim()) newErrors.link = 'Link is required';
+
+    // Date validation
+    const startDate = new Date(formData.startdate);
+    const endDate = new Date(formData.enddate);
+    const today = new Date();
+
+    if (startDate < today) newErrors.startdate = 'Start Date cannot be in the past';
+    if (endDate <= startDate) newErrors.enddate = 'End Date must be after the Start Date';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!validateForm()) return; // Do not submit if validation fails
+
     setLoading(true);
+    
     try {
       const response = await axios.post('http://localhost:5000/entrnc', formData);
       console.log(response.data);
-      alert('Entrance exam details submitted successfully!');
-      
-      // Reset form data
+      alert('Entrance details entered successfully');
       setFormData({
         name: '',
         details: '',
-        eligibility: '',
+        education: '',
+        degree: [],
+        marksGeneral: '',
+        marksBackward: '',
         syllabus: '',
         startdate: '',
         enddate: '',
         howtoapply: '',
-        links: ''
+        link: ''
       });
-
       navigate('/manager/entrance');
     } catch (error) {
-      console.error('Error submitting the form', error);
-      alert('Error submitting the form');
+      console.error('Error submitting the form:', error);
     } finally {
       setLoading(false);
     }
@@ -63,55 +142,121 @@ const MEntranceForm = () => {
     <>
       <Header />
       <div className="entrance-form-container">
-        <h2>Submit Entrance Exam Details</h2>
+        <h2>Submit an Entrance</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Entrance Exam Name:</label>
+            <label>Name:</label>
             <input
               type="text"
               name="name"
-              placeholder="Enter the name of the entrance exam"
               value={formData.name}
               onChange={handleChange}
               required
             />
+            {errors.name && <p className="error">{errors.name}</p>}
           </div>
 
           <div>
-            <label>Exam Details:</label>
+            <label>Details:</label>
             <textarea
               name="details"
-              placeholder="Provide a brief description or details about the exam"
               value={formData.details}
               onChange={handleChange}
               required
             />
+            {errors.details && <p className="error">{errors.details}</p>}
           </div>
 
           <div>
-            <label>Eligibility Criteria:</label>
-            <textarea
-              name="eligibility"
-              placeholder="Enter the eligibility criteria for the exam"
-              value={formData.eligibility}
+            <label>Education:</label>
+            <select
+              name="education"
+              value={formData.education}
+              onChange={handleEducationChange}
+              required
+            >
+              <option value="">Select Education</option>
+              <option value="10th">10th</option>
+              <option value="12th">12th</option>
+              <option value="Undergraduate">Undergraduate</option>
+              <option value="Postgraduate">Postgraduate</option>
+            </select>
+            {errors.education && <p className="error">{errors.education}</p>}
+          </div>
+
+          {showUGDegrees && (
+            <div>
+              <label>Select Undergraduate Degrees:</label>
+              {degreesUG.map((degree) => (
+                <div key={degree}>
+                  <input
+                    type="checkbox"
+                    name="degree"
+                    value={degree}
+                    onChange={handleDegreeChange}
+                  />
+                  <label>{degree}</label>
+                </div>
+              ))}
+              {errors.degree && <p className="error">{errors.degree}</p>}
+            </div>
+          )}
+
+          {showPGDegrees && (
+            <div>
+              <label>Select Postgraduate Degrees:</label>
+              {degreesPG.map((degree) => (
+                <div key={degree}>
+                  <input
+                    type="checkbox"
+                    name="degree"
+                    value={degree}
+                    onChange={handleDegreeChange}
+                  />
+                  <label>{degree}</label>
+                </div>
+              ))}
+              {errors.degree && <p className="error">{errors.degree}</p>}
+            </div>
+          )}
+
+          <div>
+            <label>Marks for General Category:</label>
+            <input
+              type="text"
+              name="marksGeneral"
+              value={formData.marksGeneral}
               onChange={handleChange}
               required
             />
+            {errors.marksGeneral && <p className="error">{errors.marksGeneral}</p>}
+          </div>
+
+          <div>
+            <label>Marks for Backward Category:</label>
+            <input
+              type="text"
+              name="marksBackward"
+              value={formData.marksBackward}
+              onChange={handleChange}
+              required
+            />
+            {errors.marksBackward && <p className="error">{errors.marksBackward}</p>}
           </div>
 
           <div>
             <label>Syllabus:</label>
             <textarea
               name="syllabus"
-              placeholder="Provide details about the syllabus of the exam"
               value={formData.syllabus}
               onChange={handleChange}
               required
             />
+            {errors.syllabus && <p className="error">{errors.syllabus}</p>}
           </div>
 
           <div>
-            <label>Application Start Date:</label>
+            <label>Start Date:</label>
             <input
               type="date"
               name="startdate"
@@ -119,10 +264,11 @@ const MEntranceForm = () => {
               onChange={handleChange}
               required
             />
+            {errors.startdate && <p className="error">{errors.startdate}</p>}
           </div>
 
           <div>
-            <label>Application End Date:</label>
+            <label>End Date:</label>
             <input
               type="date"
               name="enddate"
@@ -130,29 +276,30 @@ const MEntranceForm = () => {
               onChange={handleChange}
               required
             />
+            {errors.enddate && <p className="error">{errors.enddate}</p>}
           </div>
 
           <div>
             <label>How to Apply:</label>
             <textarea
               name="howtoapply"
-              placeholder="Steps or guidelines on how to apply for the exam"
               value={formData.howtoapply}
               onChange={handleChange}
               required
             />
+            {errors.howtoapply && <p className="error">{errors.howtoapply}</p>}
           </div>
 
           <div>
-            <label>Relevant Links:</label>
+            <label>Link:</label>
             <input
               type="text"
-              name="links"
-              placeholder="Enter any relevant links (e.g., official website, application form)"
-              value={formData.links}
+              name="link"
+              value={formData.link}
               onChange={handleChange}
               required
             />
+            {errors.link && <p className="error">{errors.link}</p>}
           </div>
 
           <button type="submit" disabled={loading}>

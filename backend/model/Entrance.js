@@ -3,38 +3,48 @@ const mongoose = require('mongoose');
 const EntranceSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     details: {
         type: String,
-        required: true
+        required: true,
     },
-    eligibility: {
+    education: {
         type: String,
-        required: true
+        required: true,
+    },
+    degree: [{
+        type: String,
+        required: true,
+    }],
+    marksGeneral: {
+        type: String,
+        required: true,
+    },
+    marksBackward: {
+        type: String,
+        required: true,
     },
     syllabus: {
         type: String,
-        required: true
+        required: true,
     },
     startdate: {
         type: Date,
-        required: true
+        required: true,
     },
     enddate: {
         type: Date,
-        required: true
+        required: true,
     },
-    
     howtoapply: {
         type: String,
-        required: true
+        required: true,
     },
-    links: {
+    link: {
         type: String,
-        required: true
+        required: true,
     }
-});
+}, { timestamps: true });
 
-const EntranceModel = mongoose.model("Entrance", EntranceSchema);
-module.exports = EntranceModel;
+module.exports = mongoose.model('Entrance', EntranceSchema);

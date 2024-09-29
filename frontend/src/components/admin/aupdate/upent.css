@@ -1,72 +1,86 @@
 /* upent.css */
 
 .upent {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px; /* Increased padding for better spacing */
+    background-color: #ffffff; /* Changed to white for a cleaner look */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+    transition: transform 0.3s ease; /* Added transition for hover effect */
+}
+
+.upent:hover {
+    transform: scale(1.02); /* Subtle scaling on hover */
 }
 
 .upent h1 {
-    text-align: center;
-    color: #333;
-    font-size: 28px;
-    margin-bottom: 20px;
+    text-align: center; /* Center the title */
+    font-size: 28px; /* Increased font size for better visibility */
+    color: #333; /* Darker color for better contrast */
+    margin-bottom: 30px; /* Increased margin for spacing */
 }
 
 .upent form {
-    display: flex;
-    flex-direction: column;
+    display: flex; /* Flexbox for form layout */
+    flex-direction: column; /* Vertical layout */
 }
 
-.upent input, .upent textarea {
+
+
+.upent input,
+.upent textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
+    padding: 14px; /* Increased padding for comfort */
+    margin-bottom: 20px; /* Increased margin for better separation */
+    border: 1px solid #ddd; /* Lighter border for a softer look */
+    border-radius: 8px; /* Slightly larger border radius */
+    font-size: 16px; /* Consistent font size */
+    transition: border-color 0.3s ease; /* Added transition for focus */
 }
 
-.upent input[type="url"], .upent input[type="date"], .upent textarea {
-    resize: none;
+.upent input:focus,
+.upent textarea:focus {
+    border-color: #007bff; /* Highlighted border on focus */
+    outline: none; /* Remove default outline */
 }
 
 .upent textarea {
-    height: 100px;
+    min-height: 140px; /* Slightly taller textarea */
+    resize: vertical; /* Allow vertical resize */
+    font-family: Arial, sans-serif; /* Consistent font style */
 }
 
 .upent button {
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 14px; /* Increased padding for a better touch target */
+    background-color: #007bff; /* Primary button color */
+    color: #ffffff; /* White text color */
+    border: none; /* No border */
+    border-radius: 8px; /* Adjusted radius for consistency */
+    font-size: 16px; /* Consistent font size */
+    font-weight: bold; /* Bolder text for emphasis */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for hover */
 }
 
 .upent button:hover {
-    background-color: #218838;
-}
-
-.upent button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.upent input:focus, .upent textarea:focus {
-    border-color: #80bdff;
-    outline: none;
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: translateY(-2px); /* Slightly lift the button on hover */
 }
 
 @media (max-width: 768px) {
     .upent {
-        width: 90%;
-        padding: 10px;
+        width: 90%; /* Responsive width */
+        padding: 30px; /* Adjust padding for smaller screens */
+    }
+
+    .upent h1 {
+        font-size: 24px; /* Responsive font size for title */
+    }
+
+    .upent input,
+    .upent textarea,
+    .upent button {
+        font-size: 14px; /* Adjust font size for smaller screens */
     }
 }

@@ -1,13 +1,49 @@
 const express = require('express');
 const router = express.Router();
-const EntranceModel = require('../model/Entrance');
+const EntranceModel = require('../model/Entrance')// Make sure the path is correct
 
+// Middleware to validate dates
+const validateDates = (startdate, enddate) => {
+    const start = new Date(startdate);
+    const end = new Date(enddate);
+    const today = new Date();
+
+    if (start < today) {
+        return { valid: false, message: 'Start date must be today or in the future.' };
+    }
+    if (end <= start) {
+        return { valid: false, message: 'End date must be after the start date.' };
+    }
+    return { valid: true };
+};
+
+// POST route to create a new entrance
 router.post('/', async (req, res) => {
-    const { name, details, eligibility, syllabus, startdate, enddate, howtoapply, links } = req.body;
+    const { 
+        name, 
+        details, 
+        education, 
+        degree, 
+        marksGeneral, 
+        marksBackward, 
+        syllabus, 
+        startdate, 
+        enddate, 
+        howtoapply, 
+        link 
+    } = req.body;
 
     // Check for missing fields
-    if (!name || !details || !eligibility || !syllabus || !startdate || !enddate || !howtoapply || !links) {
+    if (!name || !details || !education || !degree || degree.length === 0 || 
+        !marksGeneral || !marksBackward || !syllabus || !startdate || !enddate || 
+        !howtoapply || !link) {
         return res.status(400).json({ message: 'All required fields must be complete' });
+    }
+
+    // Validate date fields
+    const dateValidation = validateDates(startdate, enddate);
+    if (!dateValidation.valid) {
+        return res.status(400).json({ message: dateValidation.message });
     }
 
     try {
@@ -21,12 +57,15 @@ router.post('/', async (req, res) => {
         const newEntrance = new EntranceModel({
             name,
             details,
-            eligibility,
+            education,
+            degree,
+            marksGeneral,
+            marksBackward,
             syllabus,
             startdate,
             enddate,
             howtoapply,
-            links
+            link
         });
 
         // Save to database
