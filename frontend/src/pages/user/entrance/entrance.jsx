@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import VHeader from "../../../components/user/vhead";
+import UEVHeader from "../../../components/user/vheads/uehead";
 import HeroSection from '../../../components/common/first'; // Ensure the import path is correct
 import MarginC from "../../../components/common/margin";
 import UEntranceList from "../../../components/user/UEntrancelist";
@@ -19,7 +19,7 @@ function Entrance() {
   return (
     <>
       <div>
-        <VHeader scrollToContact={scrollToContact} />
+        <UEVHeader scrollToContact={scrollToContact} />
         <HeroSection />
         <div className="scholar-container">
           <MarginC />

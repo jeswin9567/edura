@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import VHeader from "../../../components/user/vhead";
+import UVLHeader from "../../../components/user/vheads/ulhead";
 import HeroSection from '../../../components/common/first'; // Ensure the import path is correct
 import MarginC from "../../../components/common/margin";
 import ULoanList from "../../../components/user/ULoanlist";
@@ -20,7 +20,7 @@ function Loan() {
   return (
     <>
       <div>
-        <VHeader scrollToContact={scrollToContact} />
+        <UVLHeader scrollToContact={scrollToContact} />
         <HeroSection />
         <div className="scholar-container">
           <MarginC />

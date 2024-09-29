@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../../components/admin/ViewLoan.css'; // Assuming your CSS path is correct
-import Header from '../../../components/user/header';
+import VHeader from '../../../components/user/vhead';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../../../function/useAuth'; // Assuming this function is for authentication
 
@@ -36,7 +36,7 @@ const UVLoanDetails = () => {
 
     return (
         <div>
-            <Header />
+            <VHeader />
             <div className="loan-details">
                 <h1>{loan.loanName}</h1> {/* Loan Name heading */}
                 
