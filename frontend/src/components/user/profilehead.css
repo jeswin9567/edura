@@ -1,33 +1,33 @@
 /* Header Styles */
-.h1 {
+.userphead-header {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
     background-color: #FFFFFF;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Logo Styling */
-.l1 {
+  }
+  
+  /* Logo Styling */
+  .userphead-logo {
     display: flex;
     align-items: center;
-}
-
-.l2 {
+  }
+  
+  .userphead-small_logo {
     max-width: 150px;
     height: auto;
     margin-left: 20px;
-}
-
-/* Navigation Styling */
-.n1 {
+  }
+  
+  /* Navigation Styling */
+  .userphead-nav {
     display: flex;
     gap: 20px;
-    margin-left: -100px;
-}
-
-.n1 button {
+    margin-left: -800px;
+  }
+  
+  .userphead-nav button {
     font-size: 20px;
     background-color: transparent;
     border: none;
@@ -35,14 +35,18 @@
     color: #004429;
     cursor: pointer;
     margin: 0 5px;
-}
+    transition: color 0.3s ease;
+  }
+  
 
-.a1 {
+  
+  /* Authentication Buttons */
+  .userphead-auth-buttons {
     display: flex;
     gap: 30px;
-}
-
-.a2 {
+  }
+  
+  .userphead-login-btn {
     padding: 10px 20px;
     font-size: 20px;
     border-radius: 25px;
@@ -52,4 +56,11 @@
     color: #004429;
     cursor: pointer;
     width: 120px;
-}
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .userphead-login-btn:hover {
+    background-color: #004429;
+    color: #FFFFFF;
+  }
+  

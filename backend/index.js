@@ -22,6 +22,10 @@ const DelLoanRoute = require('./routes/delloan');
 const UpdLoanRoute = require('./routes/uplon');
 const UpdEnRoute = require('./routes/upentrance');
 const UpdSchoRoute = require('./routes/upscho');
+const VUProfileRoute = require('./routes/profile');
+const UpUProfileRoute = require('./routes/userupdatepro');
+
+
 
 
 
@@ -69,6 +73,9 @@ app.use('/delln', DelLoanRoute);
 app.use('/upln', UpdLoanRoute);
 app.use('/upentr',UpdEnRoute);
 app.use('/upscho', UpdSchoRoute);
+app.use('/vuprofile',VUProfileRoute);
+app.use('/updateprofile', UpUProfileRoute);
+
 
 
 

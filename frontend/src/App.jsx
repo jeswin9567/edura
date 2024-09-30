@@ -5,6 +5,8 @@ import Login from './pages/login/login';
 import SignUp from './pages/signup/signup'
 import ForgotPassword from './pages/login/forgotpass';
 import Uhome from './pages/uhome/userhome';
+import UVProfile from './pages/user/UProfile';
+import UpdateUserProfile from './pages/user/updateprofile';
 import Adhome from './pages/admin/adhome';
 import Mhome from './pages/Manager/mhome';
 import Scholarship from './pages/user/scholarships/scholar';
@@ -50,6 +52,8 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element= {<ForgotPassword />} />
         <Route path="/userhome" element={<Uhome/>} />
+        <Route path="/uvpro" element={<UVProfile />} />
+        <Route path="/upro" element={<UpdateUserProfile />} />
         <Route path="/adhome" element={<Adhome />} />
         <Route path="/mhome" element = {<Mhome />} />
         <Route path='/addManager' element={<AManager />} />

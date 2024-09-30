@@ -1,9 +1,11 @@
+
 const express = require('express');
 const router = express.Router();
 const UserModel = require('../model/User');
 const LoginModel = require('../model/login');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+require('dotenv').config();
 
 let OTPs = {}; // Temporary store for OTPs
 const OTP_EXPIRY_TIME = 30 * 1000; // 30 seconds in milliseconds
@@ -12,8 +14,8 @@ const OTP_EXPIRY_TIME = 30 * 1000; // 30 seconds in milliseconds
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Use your email service
   auth: {
-    user: 'jeswinmathew2025@mca.ajce.in', // Your email
-    pass: 'Zoom#2023', // Your email password or app password
+    user: process.env.EMAIL_USER, // Your email
+    pass: process.env.EMAIL_PASS, // Your email password or app password
   },
 });
 
@@ -56,6 +58,7 @@ router.post('/', async (req, res) => {
 });
 
 // OTP Verification Route
+// OTP Verification Route
 router.post('/verify-otp', async (req, res) => {
   const { email, otp } = req.body;
 
@@ -66,8 +69,18 @@ router.post('/verify-otp', async (req, res) => {
     if (storedOtp === otp && (Date.now() - generatedAt) <= OTP_EXPIRY_TIME) {
       const { name, phone, password } = OTPs[email]; // Get stored user details
       try {
-        const user = await UserModel.create({ name, email, phone, password });
+        // Update emailVerified to true after OTP verification
+        const user = await UserModel.create({
+          name,
+          email,
+          phone,
+          password,
+          emailVerified: true // Set emailVerified to true
+        });
+
+        // Create login details
         const login = await LoginModel.create({ email, password, role: 'user' });
+
         delete OTPs[email]; // Remove OTP after successful registration
 
         res.status(201).json({ message: "User created successfully", user, login });
@@ -81,5 +94,6 @@ router.post('/verify-otp', async (req, res) => {
     res.status(400).json({ message: "Invalid OTP" });
   }
 });
+
 
 module.exports = router;
