@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import '../../../components/admin/ScholarShipForm.css'
+import './addscho.css'
 import axios from 'axios';
 import Header from '../../../components/manager/head';
 import Footer from '../../../components/common/footer';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../../function/useAuth';
-
-
 
 const MScholarshipForm = () => {
   useAuth();
@@ -20,24 +18,25 @@ const MScholarshipForm = () => {
     enddate: '',
     link: '',
     howToApply: '',
-    gender: '' // Add gender to the formData
+    gender: '',
+    category: [],
   });
 
   const [selectedSubOptions, setSelectedSubOptions] = useState([]);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleEligibilityChange = (e) => {
     const eligibility = e.target.value;
     setFormData({ ...formData, eligibility });
-    setSelectedSubOptions([]); // Reset the sub-options when eligibility changes
+    setSelectedSubOptions([]);
   };
 
   const handleSubOptionChange = (option) => {
@@ -50,19 +49,27 @@ const MScholarshipForm = () => {
     });
   };
 
+  const handleCategoryChange = (option) => {
+    setFormData((prevData) => {
+      const updatedCategories = prevData.category.includes(option)
+        ? prevData.category.filter((item) => item !== option)
+        : [...prevData.category, option];
+      return { ...prevData, category: updatedCategories };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const formDataWithOptions = {
         ...formData,
-        subEligibility: selectedSubOptions, // Add selected sub-options to form data
+        subEligibility: selectedSubOptions,
       };
-      const response = await axios.post('http://localhost:5000/schship', formDataWithOptions); // Update the endpoint to match your backend
+      const response = await axios.post('http://localhost:5000/schship', formDataWithOptions);
       console.log(response.data);
       alert('Scholarship submitted successfully');
 
-      // Reset form data
       setFormData({
         name: '',
         description: '',
@@ -73,7 +80,8 @@ const MScholarshipForm = () => {
         enddate: '',
         link: '',
         howToApply: '',
-        gender: '' // Reset gender
+        gender: '',
+        category: [],
       });
       setSelectedSubOptions([]);
 
@@ -82,7 +90,7 @@ const MScholarshipForm = () => {
       console.error(error);
       alert('Error submitting scholarship: ' + (error.response?.data?.message || 'Unknown error'));
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
@@ -92,7 +100,7 @@ const MScholarshipForm = () => {
         return (
           <>
             <label>Select Classes:</label>
-            <div className="checkbox-group">
+            <div className="managerschoad-checkbox-group">
               {['4', '5', '6', '7', '8', '9', '10', '11', '12'].map((std) => (
                 <label key={std}>
                   <input
@@ -111,7 +119,7 @@ const MScholarshipForm = () => {
         return (
           <>
             <label>Select Undergraduate Degrees:</label>
-            <div className="checkbox-group">
+            <div className="managerschoad-checkbox-group">
               {['B.Sc', 'B.Com', 'B.A', 'B.Tech', 'B.E', 'BBA'].map((degree) => (
                 <label key={degree}>
                   <input
@@ -130,7 +138,7 @@ const MScholarshipForm = () => {
         return (
           <>
             <label>Select Postgraduate Degrees:</label>
-            <div className="checkbox-group">
+            <div className="managerschoad-checkbox-group">
               {['M.Sc', 'M.Com', 'M.A', 'MBA', 'M.Tech', 'M.E'].map((pgDegree) => (
                 <label key={pgDegree}>
                   <input
@@ -149,7 +157,7 @@ const MScholarshipForm = () => {
         return (
           <>
             <label>Select Diploma Courses:</label>
-            <div className="checkbox-group">
+            <div className="managerschoad-checkbox-group">
               {['Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics'].map((diploma) => (
                 <label key={diploma}>
                   <input
@@ -172,7 +180,7 @@ const MScholarshipForm = () => {
   return (
     <>
       <Header />
-      <div className="scholarship-form-container">
+      <div className="managerschoad-form-container">
         <h2>Submit a Scholarship</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -195,13 +203,13 @@ const MScholarshipForm = () => {
             />
           </div>
           <div>
-          <label>Award:</label>
+            <label>Award:</label>
             <input
-              type="number" // Change to 'number' input type
+              type="number"
               name="award"
               value={formData.award}
               onChange={handleChange}
-              min="0" // Ensure the number is not negative
+              min="0"
               required
             />
           </div>
@@ -245,11 +253,72 @@ const MScholarshipForm = () => {
                 <input
                   type="radio"
                   name="gender"
+                  value="Common"
+                  checked={formData.gender === 'Common'}
+                  onChange={handleChange}
+                />
+                Common
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
                   value="Other"
                   checked={formData.gender === 'Other'}
                   onChange={handleChange}
                 />
                 Other
+              </label>
+            </div>
+          </div>
+          <div>
+            <label>Category</label>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="category"
+                  value="General"
+                  checked={formData.category.includes('General')}
+                  onChange={() => handleCategoryChange('General')}
+                />
+                General
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="category"
+                  value="Scheduled Castes"
+                  checked={formData.category.includes('Scheduled Castes')}
+                  onChange={() => handleCategoryChange('Scheduled Castes')}
+                />
+                Scheduled Castes
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="category"
+                  value="Scheduled Tribes"
+                  checked={formData.category.includes('Scheduled Tribes')}
+                  onChange={() => handleCategoryChange('Scheduled Tribes')}
+                />
+                Scheduled Tribes
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="category"
+                  value="OBC"
+                  checked={formData.category.includes('OBC')}
+                  onChange={() => handleCategoryChange('OBC')}
+                />
+                OBC
               </label>
             </div>
           </div>
@@ -284,22 +353,25 @@ const MScholarshipForm = () => {
             />
           </div>
           <div>
-            <label>Link:</label>
-            <input
-              type="url"
-              name="link"
-              value={formData.link}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
             <label>How to Apply:</label>
             <textarea
               name="howToApply"
               value={formData.howToApply}
               onChange={handleChange}
+              required
             />
           </div>
+          <div>
+            <label>Official Link:</label>
+            <input
+              type="url"
+              name="link"
+              value={formData.link}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
           <button type="submit" disabled={loading}>
             {loading ? 'Submitting...' : 'Submit'}
           </button>

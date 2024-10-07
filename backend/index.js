@@ -24,6 +24,7 @@ const UpdEnRoute = require('./routes/upentrance');
 const UpdSchoRoute = require('./routes/upscho');
 const VUProfileRoute = require('./routes/profile');
 const UpUProfileRoute = require('./routes/userupdatepro');
+const UpUPassword = require('./routes/changepass');
 
 
 
@@ -75,6 +76,7 @@ app.use('/upentr',UpdEnRoute);
 app.use('/upscho', UpdSchoRoute);
 app.use('/vuprofile',VUProfileRoute);
 app.use('/updateprofile', UpUProfileRoute);
+app.use('/changePassword',UpUPassword);
 
 
 

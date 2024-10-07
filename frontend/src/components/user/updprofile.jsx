@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import './updprofile.css'
+import './updprofile.css';
 
 function EditProfile() {
   const [user, setUser] = useState({
@@ -20,8 +20,8 @@ function EditProfile() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const ugCourses = ['B.Tech', 'B.Sc', 'B.Com', 'BA']; // Example UG courses
-  const pgCourses = ['M.Tech', 'M.Sc', 'MBA', 'MA'];   // Example PG courses
+  const ugCourses = ['B.Tech', 'B.Sc', 'B.Com', 'BA'];
+  const pgCourses = ['M.Tech', 'M.Sc', 'MBA', 'MA'];
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -38,7 +38,7 @@ function EditProfile() {
           icon: 'error',
           confirmButtonText: 'OK'
         });
-        navigate('/login'); // Redirect to login if there's an error
+        navigate('/login');
       } finally {
         setLoading(false);
       }
@@ -52,7 +52,6 @@ function EditProfile() {
     setUser({ ...user, [name]: value });
 
     if (name === 'education') {
-      // Clear courses and marks when education changes
       setUser((prevState) => ({
         ...prevState,
         courses: [],
@@ -82,7 +81,7 @@ function EditProfile() {
         icon: 'success',
         confirmButtonText: 'OK'
       });
-      navigate('/uvpro'); // Redirect to profile page after successful update
+      navigate('/uvpro');
     } catch (error) {
       Swal.fire({
         title: 'Error!',
@@ -90,6 +89,51 @@ function EditProfile() {
         icon: 'error',
         confirmButtonText: 'OK'
       });
+    }
+  };
+
+  const handleChangePassword = async () => {
+    const { value: currentPassword } = await Swal.fire({
+      title: 'Enter Current Password',
+      input: 'password',
+      inputLabel: 'Current Password',
+      inputPlaceholder: 'Enter your current password',
+      showCancelButton: true
+    });
+
+    if (currentPassword) {
+      const { value: newPassword } = await Swal.fire({
+        title: 'Enter New Password',
+        input: 'password',
+        inputLabel: 'New Password',
+        inputPlaceholder: 'Enter your new password',
+        showCancelButton: true
+      });
+
+      if (newPassword) {
+        const { value: confirmPassword } = await Swal.fire({
+          title: 'Confirm New Password',
+          input: 'password',
+          inputLabel: 'Confirm New Password',
+          inputPlaceholder: 'Re-enter your new password',
+          showCancelButton: true
+        });
+
+        if (newPassword === confirmPassword) {
+          // Proceed to change password
+          const token = localStorage.getItem('token');
+          try {
+            await axios.put('http://localhost:5000/changePassword', { currentPassword, newPassword }, {
+              headers: { Authorization: token }
+            });
+            Swal.fire('Success!', 'Your password has been updated.', 'success');
+          } catch (error) {
+            Swal.fire('Error!', error.response?.data?.message || 'An unexpected error occurred.', 'error');
+          }
+        } else {
+          Swal.fire('Error!', 'New password and confirmation do not match.', 'error');
+        }
+      }
     }
   };
 
@@ -149,7 +193,6 @@ function EditProfile() {
           </select>
         </label>
 
-        {/* Courses Dropdown */}
         {user.education === 'Undergraduate' && (
           <label>
             Courses:
@@ -188,11 +231,9 @@ function EditProfile() {
           </label>
         )}
 
-        {/* Marks Inputs */}
         <h3>Marks:</h3>
         {user.education && (
           <>
-            {/* Always show 10th Mark if education is +2, Undergraduate, or PostGraduate */}
             {(user.education === '+2' || user.education === 'Undergraduate' || user.education === 'PostGraduate') && (
               <label>
                 Tenth Mark:
@@ -205,7 +246,6 @@ function EditProfile() {
               </label>
             )}
 
-            {/* 12th Mark is shown for +2, Undergraduate, and PostGraduate */}
             {['+2', 'Undergraduate', 'PostGraduate'].includes(user.education) && (
               <label>
                 Twelfth Mark:
@@ -218,7 +258,6 @@ function EditProfile() {
               </label>
             )}
 
-            {/* Degree Mark is shown for Undergraduate and PostGraduate */}
             {['Undergraduate', 'PostGraduate'].includes(user.education) && (
               <label>
                 Degree Mark:
@@ -231,7 +270,6 @@ function EditProfile() {
               </label>
             )}
 
-            {/* PG Mark is shown only for PostGraduate */}
             {user.education === 'PostGraduate' && (
               <label>
                 PG Mark:
@@ -247,6 +285,7 @@ function EditProfile() {
         )}
 
         <button type="submit">Update Profile</button>
+        <button type="button" onClick={handleChangePassword}>Change Password</button> {/* Button to change password */}
       </form>
     </div>
   );

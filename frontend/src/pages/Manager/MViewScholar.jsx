@@ -63,6 +63,7 @@ const MVScholarshipDetails = () => {
                         ))}
                     </div>
                 <p><strong>Gender:{scholarship.gender}</strong></p>
+                <p><strong>Category:{scholarship.category}</strong></p>
                 <p><strong>How to Apply:</strong> {scholarship.howToApply}</p>
                 <p><strong>Link:</strong> <a href={scholarship.link} target="_blank" rel="noopener noreferrer">{scholarship.link}</a></p>
                 <p className="date"><strong>Start Date:</strong> {new Date(scholarship.startdate).toLocaleDateString()}</p>

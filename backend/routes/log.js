@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const LoginModel = require('../model/login');
-const jwt=require("jsonwebtoken");
-require("dotenv").config;
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 // Login route
 router.post('/', (req, res) => {
@@ -14,12 +14,19 @@ router.post('/', (req, res) => {
         return res.status(404).json({ message: "Incorrect email or password" });
       }
 
-      if (user.password === password) {
-        const token = jwt.sign({ email: user.email }, 'sceret_key'); 
-        return res.json({ message: "success", role: user.role,token:token });
-      } else {
-        return res.status(401).json({ message: "Incorrect password" });
-      }
+      // Compare hashed password with the provided plain text password
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) {
+          return res.status(500).json({ message: "Error: " + err.message });
+        }
+
+        if (isMatch) {
+          const token = jwt.sign({ email: user.email }, 'sceret_key'); 
+          return res.json({ message: "success", role: user.role, token: token });
+        } else {
+          return res.status(401).json({ message: "Incorrect password" });
+        }
+      });
     })
     .catch(error => res.status(500).json({ message: "Error: " + error.message }));
 });

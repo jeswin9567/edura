@@ -18,7 +18,8 @@ const UpdateScholarship = () => {
         startdate: '',
         enddate: '',
         subEligibility: [], // Added subEligibility array
-        gender: '' // Added gender property
+        gender: '', // Added gender property
+        category: [] // Added category as an array to handle multiple selections
     });
 
     // Fetch scholarship details on component mount
@@ -66,6 +67,16 @@ const UpdateScholarship = () => {
                 ? prev.subEligibility.filter((item) => item !== option)
                 : [...prev.subEligibility, option];
             return { ...prev, subEligibility };
+        });
+    };
+
+    // Handle category checkbox changes
+    const handleCategoryChange = (option) => {
+        setScholarship((prev) => {
+            const updatedCategories = prev.category.includes(option)
+                ? prev.category.filter((item) => item !== option)
+                : [...prev.category, option];
+            return { ...prev, category: updatedCategories };
         });
     };
 
@@ -133,9 +144,31 @@ const UpdateScholarship = () => {
         );
     };
 
+    const renderCategoryOptions = () => {
+        const categories = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC'];
+        return (
+            <div>
+                <label>Select Category:</label>
+                <div className="checkbox-group">
+                    {categories.map((category) => (
+                        <label key={category}>
+                            <input
+                                type="checkbox"
+                                value={category}
+                                checked={scholarship.category.includes(category)}
+                                onChange={() => handleCategoryChange(category)}
+                            />
+                            {category}
+                        </label>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div>
-            <VSHeader    />
+            <VSHeader />
             <div className="uscho">
                 <h1 className="uscho-title">Update Scholarship Details</h1>
                 <form onSubmit={handleSubmit} className="uscho-form">
@@ -149,7 +182,7 @@ const UpdateScholarship = () => {
                         required
                         className="uscho-input"
                     />
-                    
+
                     <label>Description:</label>
                     <textarea
                         name="description"
@@ -159,7 +192,7 @@ const UpdateScholarship = () => {
                         required
                         className="uscho-textarea"
                     />
-                    
+
                     <label>Award Amount:</label>
                     <input
                         type="number" // Changed to number input
@@ -171,7 +204,7 @@ const UpdateScholarship = () => {
                         min="0" // Ensures a non-negative value
                         className="uscho-input"
                     />
-                    
+
                     <label>Eligibility:</label>
                     <select
                         name="eligibility"
@@ -186,9 +219,9 @@ const UpdateScholarship = () => {
                         <option value="Postgraduate">Postgraduate</option>
                         <option value="Diploma">Diploma</option>
                     </select>
-                    
+
                     {renderSubEligibilityOptions()} {/* Render sub-eligibility options */}
-                    
+
                     <label>Gender:</label>
                     <select
                         name="gender"
@@ -198,10 +231,13 @@ const UpdateScholarship = () => {
                         className="uscho-input"
                     >
                         <option value="">Select Gender</option>
+                        <option value="Common">Common</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
                     </select>
+
+                    {renderCategoryOptions()} {/* Render category options */}
 
                     <label>How to Apply:</label>
                     <input
@@ -213,7 +249,7 @@ const UpdateScholarship = () => {
                         required
                         className="uscho-input"
                     />
-                    
+
                     <label>Link:</label>
                     <input
                         type="url"
@@ -224,7 +260,7 @@ const UpdateScholarship = () => {
                         required
                         className="uscho-input"
                     />
-                    
+
                     <label>Start Date:</label>
                     <input
                         type="date"
@@ -234,7 +270,7 @@ const UpdateScholarship = () => {
                         required
                         className="uscho-input"
                     />
-                    
+
                     <label>End Date:</label>
                     <input
                         type="date"
@@ -244,7 +280,7 @@ const UpdateScholarship = () => {
                         required
                         className="uscho-input"
                     />
-                    
+
                     <button type="submit" className="uscho-button">Update Scholarship</button>
                 </form>
             </div>

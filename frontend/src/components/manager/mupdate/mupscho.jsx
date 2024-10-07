@@ -18,7 +18,8 @@ const MUpdateScholarship = () => {
         startdate: '',
         enddate: '',
         subEligibility: [], // Added subEligibility array
-        gender: '' // Added gender property
+        gender: '' ,// Added gender property
+        category:[]
     });
 
     // Fetch scholarship details on component mount
@@ -66,6 +67,15 @@ const MUpdateScholarship = () => {
                 ? prev.subEligibility.filter((item) => item !== option)
                 : [...prev.subEligibility, option];
             return { ...prev, subEligibility };
+        });
+    };
+
+    const handleCategoryChange = (option) => {
+        setScholarship((prev) => {
+            const updatedCategories = prev.category.includes(option)
+                ? prev.category.filter((item) => item !== option)
+                : [...prev.category, option];
+            return { ...prev, category: updatedCategories };
         });
     };
 
@@ -126,6 +136,27 @@ const MUpdateScholarship = () => {
                                 onChange={() => handleSubEligibilityChange(option)}
                             />
                             {option}
+                        </label>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+    const renderCategoryOptions = () => {
+        const categories = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC'];
+        return (
+            <div>
+                <label>Select Category:</label>
+                <div className="checkbox-group">
+                    {categories.map((category) => (
+                        <label key={category}>
+                            <input
+                                type="checkbox"
+                                value={category}
+                                checked={scholarship.category.includes(category)}
+                                onChange={() => handleCategoryChange(category)}
+                            />
+                            {category}
                         </label>
                     ))}
                 </div>
@@ -198,10 +229,13 @@ const MUpdateScholarship = () => {
                         className="uscho-input"
                     >
                         <option value="">Select Gender</option>
+                        <option value="Common">Common</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
                     </select>
+
+                    {renderCategoryOptions()}
 
                     <label>How to Apply:</label>
                     <input

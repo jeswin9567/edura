@@ -5,6 +5,9 @@ const LoginModel = require('../model/login');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
+const dotenv=require('dotenv')
+
+dotenv.config()
 
 let OTPs = {}; // Temporary store for OTPs
 const OTP_EXPIRY_TIME = 300000; // 5 minutes in milliseconds
@@ -13,8 +16,8 @@ const OTP_EXPIRY_TIME = 300000; // 5 minutes in milliseconds
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'jeswinmathew2025@mca.ajce.in', // Replace with your email
-    pass: 'Zoom#2023',    // Replace with your app password
+    user: process.env.EMAIL_USER, // Replace with your email
+    pass: process.env.EMAIL_PASS,    // Replace with your app password
   },
 });
 
@@ -65,7 +68,8 @@ router.post('/reset-password', async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   await UserModel.updateOne({ email }, { password: hashedPassword });
-  await LoginModel.updateOne({ email}, {password})
+  await LoginModel.updateOne({ email}, {password:  hashedPassword});
+
 
   // Remove OTP from memory
   delete OTPs[email];

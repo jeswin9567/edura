@@ -54,8 +54,12 @@ const ScholarShipSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ['Male', 'Female', 'Other'],
+        enum: ['Male', 'Female', 'Common', 'Other'],
         required: true
+    },
+    category : {
+        type:[String],
+        default: []
     }
 }, {
     timestamps: true // Automatically add `createdAt` and `updatedAt` timestamps

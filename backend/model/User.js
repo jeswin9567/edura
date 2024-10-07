@@ -34,7 +34,7 @@ const UserSchema = new mongoose.Schema({
   // New fields
   education: {
     type: String,
-    enum: ['10', '+2', 'Undergraduate', 'PostGraduate'], // Dropdown options
+    // enum: ['10', '+2', 'Undergraduate', 'PostGraduate'], // Dropdown options
     default: ''
   },
   courses: {

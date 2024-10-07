@@ -18,7 +18,8 @@ const ScholarshipForm = () => {
     enddate: '',
     link: '',
     howToApply: '',
-    gender: '' // Add gender to the formData
+    gender: '', // Add gender to the formData
+    category: [] // Change category to an array to handle multiple selections
   });
 
   const [selectedSubOptions, setSelectedSubOptions] = useState([]);
@@ -48,6 +49,17 @@ const ScholarshipForm = () => {
     });
   };
 
+  // Handle multiple category checkbox selections
+  const handleCategoryChange = (option) => {
+    setFormData((prevData) => {
+      const updatedCategories = prevData.category.includes(option)
+        ? prevData.category.filter((item) => item !== option) // Remove if already selected
+        : [...prevData.category, option]; // Add if not selected
+
+      return { ...prevData, category: updatedCategories };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true); // Set loading to true
@@ -71,7 +83,8 @@ const ScholarshipForm = () => {
         enddate: '',
         link: '',
         howToApply: '',
-        gender: '' // Reset gender
+        gender: '',
+        category: []
       });
       setSelectedSubOptions([]);
 
@@ -90,7 +103,7 @@ const ScholarshipForm = () => {
         return (
           <>
             <label>Select Classes:</label>
-            <div className="checkbox-group">
+            <div className="adminscho-checkbox-group">
               {['4', '5', '6', '7', '8', '9', '10', '11', '12'].map((std) => (
                 <label key={std}>
                   <input
@@ -109,7 +122,7 @@ const ScholarshipForm = () => {
         return (
           <>
             <label>Select Undergraduate Degrees:</label>
-            <div className="checkbox-group">
+            <div className="adminscho-checkbox-group">
               {['B.Sc', 'B.Com', 'B.A', 'B.Tech', 'B.E', 'BBA'].map((degree) => (
                 <label key={degree}>
                   <input
@@ -128,7 +141,7 @@ const ScholarshipForm = () => {
         return (
           <>
             <label>Select Postgraduate Degrees:</label>
-            <div className="checkbox-group">
+            <div className="adminscho-checkbox-group">
               {['M.Sc', 'M.Com', 'M.A', 'MBA', 'M.Tech', 'M.E'].map((pgDegree) => (
                 <label key={pgDegree}>
                   <input
@@ -147,7 +160,7 @@ const ScholarshipForm = () => {
         return (
           <>
             <label>Select Diploma Courses:</label>
-            <div className="checkbox-group">
+            <div className="adminscho-checkbox-group">
               {['Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics'].map((diploma) => (
                 <label key={diploma}>
                   <input
@@ -170,7 +183,7 @@ const ScholarshipForm = () => {
   return (
     <>
       <Header />
-      <div className="scholarship-form-container">
+      <div className="adminscho-scholarship-form-container">
         <h2>Submit a Scholarship</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -193,7 +206,7 @@ const ScholarshipForm = () => {
             />
           </div>
           <div>
-          <label>Award:</label>
+            <label>Award:</label>
             <input
               type="number" // Change to 'number' input type
               name="award"
@@ -243,6 +256,16 @@ const ScholarshipForm = () => {
                 <input
                   type="radio"
                   name="gender"
+                  value="Common"
+                  checked={formData.gender === 'Common'}
+                  onChange={handleChange}
+                />
+                Common
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
                   value="Other"
                   checked={formData.gender === 'Other'}
                   onChange={handleChange}
@@ -253,12 +276,64 @@ const ScholarshipForm = () => {
           </div>
 
           <div>
-            <label>Document:</label>
-            <textarea
+            <label>Category</label>
+            <div><label>
+              <input
+                type="checkbox"
+                name="category"
+                value="General"
+                checked={formData.category.includes('General')}
+                onChange={() => handleCategoryChange('General')}
+              />
+              General
+              </label>
+            </div>
+            <div>
+              <label>
+                <input 
+                  type="checkbox"
+                  name="category"
+                  value="Scheduled Castes"
+                  checked={formData.category.includes('Scheduled Castes')}
+                  onChange={() => handleCategoryChange('Scheduled Castes')}
+                />
+                Scheduled Castes
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="category"
+                  value="Scheduled Tribes"
+                  checked={formData.category.includes('Scheduled Tribes')}
+                  onChange={() => handleCategoryChange('Scheduled Tribes')}
+                />
+                Scheduled Tribes
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="category"
+                  value="OBC"
+                  checked={formData.category.includes('OBC')}
+                  onChange={() => handleCategoryChange('OBC')}
+                />
+                OBC
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label>Documents Required:</label>
+            <input
               type="text"
               name="document"
               value={formData.document}
               onChange={handleChange}
+              required
             />
           </div>
           <div>
@@ -288,6 +363,7 @@ const ScholarshipForm = () => {
               name="link"
               value={formData.link}
               onChange={handleChange}
+              required
             />
           </div>
           <div>
@@ -296,11 +372,10 @@ const ScholarshipForm = () => {
               name="howToApply"
               value={formData.howToApply}
               onChange={handleChange}
+              required
             />
           </div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Submitting...' : 'Submit'}
-          </button>
+          <button type="submit" disabled={loading}>{loading ? 'Submitting...' : 'Submit'}</button>
         </form>
       </div>
       <Footer />

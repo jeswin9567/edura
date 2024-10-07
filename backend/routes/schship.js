@@ -11,6 +11,7 @@ router.post('/', async (req, res) => {
     eligibility,
     subEligibility, // Add subEligibility from frontend
     gender,
+    category,
     document,
     startdate,
     enddate,
@@ -19,7 +20,7 @@ router.post('/', async (req, res) => {
   } = req.body;
 
   // Validate required fields
-  if (!name || !description || !award || !eligibility || !gender || !startdate || !enddate) {
+  if (!name || !description || !award || !eligibility || !gender || !category || !startdate || !enddate) {
     return res.status(400).json({ message: 'All required fields must be filled.' });
   }
 
@@ -49,6 +50,7 @@ router.post('/', async (req, res) => {
       eligibility,
       subEligibility, // Save subEligibility options
       gender,
+      category,
       document,
       startdate,
       enddate,
