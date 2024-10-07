@@ -120,7 +120,6 @@ function EditProfile() {
         });
 
         if (newPassword === confirmPassword) {
-          // Proceed to change password
           const token = localStorage.getItem('token');
           try {
             await axios.put('http://localhost:5000/changePassword', { currentPassword, newPassword }, {
@@ -234,7 +233,7 @@ function EditProfile() {
         <h3>Marks:</h3>
         {user.education && (
           <>
-            {(user.education === '+2' || user.education === 'Undergraduate' || user.education === 'PostGraduate') && (
+            {['10', '+2', 'Undergraduate', 'PostGraduate'].includes(user.education) && (
               <label>
                 Tenth Mark:
                 <input
@@ -285,7 +284,7 @@ function EditProfile() {
         )}
 
         <button type="submit">Update Profile</button>
-        <button type="button" onClick={handleChangePassword}>Change Password</button> {/* Button to change password */}
+        <button type="button" onClick={handleChangePassword}>Change Password</button>
       </form>
     </div>
   );

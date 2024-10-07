@@ -85,6 +85,7 @@ router.post('/verify-otp', async (req, res) => {
         res.status(201).json({ message: "User created successfully", user, login });
       } catch (error) {
         res.status(500).json({ message: "Error creating user", error: error.message });
+        console.log(error)
       }
     } else {
       res.status(400).json({ message: "Invalid or expired OTP" });

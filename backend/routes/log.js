@@ -14,7 +14,17 @@ router.post('/', (req, res) => {
         return res.status(404).json({ message: "Incorrect email or password" });
       }
 
-      // Compare hashed password with the provided plain text password
+      // If the user is an admin, directly compare plaintext passwords
+      if (user.role === 'admin') {
+        if (password === user.password) { // direct comparison for admin's plain password
+          const token = jwt.sign({ email: user.email }, 'sceret_key'); 
+          return res.json({ message: "success", role: user.role, token: token });
+        } else {
+          return res.status(401).json({ message: "Incorrect password" });
+        }
+      } 
+      
+      // For non-admins, compare hashed passwords
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
           return res.status(500).json({ message: "Error: " + err.message });

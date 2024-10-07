@@ -25,6 +25,7 @@ function UHead({ scrollToAbout, scrollToServices, scrollToContact }) {
         <button className="uhome-serb" onClick={scrollToServices}>Services</button>
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
         <Prof />
+
       </nav>
       <div className="uhome-auth-buttons">
         <button className="uhome-login-btn" onClick={logout}>Logout</button>
