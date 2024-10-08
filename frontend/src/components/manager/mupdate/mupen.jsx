@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MVEHeader from '../mviewservicehead/menhead';
-import '../../admin/aupdate/upent.css'
+import './mupen.css';
 import useAuth from '../../../../function/useAuth';
 
 const MUpdateEntrance = () => {
@@ -19,9 +19,13 @@ const MUpdateEntrance = () => {
         howtoapply: '',
         link: '',
         startdate: '',
-        enddate: ''
+        enddate: '',
+        state: '', // Add state here
+        examType: ''
     });
 
+    const states = ['All India', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
+    const examType = ['B.Tech','MBA','MCA','Medical','Law','Other'];
     useEffect(() => {
         const fetchEntranceDetails = async () => {
             try {
@@ -42,7 +46,7 @@ const MUpdateEntrance = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-    
+
         // Check if the changed field is education
         if (name === 'education') {
             // Reset degrees if the education level changes
@@ -98,7 +102,7 @@ const MUpdateEntrance = () => {
     return (
         <div>
             <MVEHeader />
-            <div className="upent">
+            <div className="manupdentr"> {/* Changed class name here */}
                 <h1>Update Entrance Details</h1>
                 <form onSubmit={handleSubmit}>
                     <input
@@ -116,6 +120,21 @@ const MUpdateEntrance = () => {
                         placeholder="Details"
                         required
                     />
+                                       {/* State Selection */}
+                                       <label>Exam Type</label>
+          <select
+            name="examType"
+            value={entrance.examType}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Exam Type</option>
+            {examType.map((examType) => (
+              <option key={examType} value={examType}>
+                {examType}
+              </option>
+            ))}
+          </select>
                     <select
                         name="education"
                         value={entrance.education}
@@ -128,10 +147,35 @@ const MUpdateEntrance = () => {
                         <option value="Undergraduate">Undergraduate</option>
                         <option value="Postgraduate">Postgraduate</option>
                     </select>
+
+                    {/* Dropdown for selecting state */}
+                    <select
+                        name="state"
+                        value={entrance.state}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select State</option>
+                        {states.map((state, index) => (
+                            <option key={index} value={state}>
+                                {state}
+                            </option>
+                        ))}
+                    </select>
+
                     <div>
                         <label>Select Degrees:</label>
                         {entrance.education === 'Undergraduate' && (
                             <>
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        value="BSW"
+                                        checked={entrance.degree.includes('BSW')}
+                                        onChange={handleDegreeChange}
+                                    />
+                                    <label>BSW</label>
+                                </div>
                                 <div>
                                     <input
                                         type="checkbox"
@@ -177,10 +221,50 @@ const MUpdateEntrance = () => {
                                     />
                                     <label>BTech</label>
                                 </div>
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        value="General Nursing"
+                                        checked={entrance.degree.includes('General Nursing')}
+                                        onChange={handleDegreeChange}
+                                    />
+                                    <label>General Nursing</label>
+                                </div>
+
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        value="other"
+                                        checked={entrance.degree.includes('other')}
+                                        onChange={handleDegreeChange}
+                                    />
+                                    <label>other</label>
+                                </div>
+                                
+
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        value="Other UG Courses including Mathematics"
+                                        checked={entrance.degree.includes('Other UG Courses including Mathematics')}
+                                        onChange={handleDegreeChange}
+                                    />
+                                    <label>Other UG Courses including Mathematics</label>
+                                </div>
                             </>
                         )}
                         {entrance.education === 'Postgraduate' && (
                             <>
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        value="MSW"
+                                        checked={entrance.degree.includes('MSW')}
+                                        onChange={handleDegreeChange}
+                                    />
+                                    <label>MSW</label>
+                                </div>
+                                
                                 <div>
                                     <input
                                         type="checkbox"
@@ -226,6 +310,26 @@ const MUpdateEntrance = () => {
                                     />
                                     <label>MTech</label>
                                 </div>
+
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        value="Other PG Courses including Mathematics"
+                                        checked={entrance.degree.includes('Other PG Courses including Mathematics')}
+                                        onChange={handleDegreeChange}
+                                    />
+                                    <label>Other PG Courses including Mathematics</label>
+                                </div>
+
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        value="other"
+                                        checked={entrance.degree.includes('other')}
+                                        onChange={handleDegreeChange}
+                                    />
+                                    <label>Other</label>
+                                </div>
                             </>
                         )}
                     </div>
@@ -264,7 +368,7 @@ const MUpdateEntrance = () => {
                     />
                     <input
                         type="url"
-                        name="links"
+                        name="link" // Changed 'links' to 'link'
                         value={entrance.link}
                         onChange={handleChange}
                         placeholder="Link"

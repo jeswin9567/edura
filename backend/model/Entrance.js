@@ -44,7 +44,15 @@ const EntranceSchema = new mongoose.Schema({
     link: {
         type: String,
         required: true,
-    }
+    },
+    state: {
+        type:String,
+        required: true,
+    },
+    examType: {
+        type: String,
+        required:true
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Entrance', EntranceSchema);

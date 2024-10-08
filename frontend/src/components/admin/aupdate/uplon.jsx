@@ -22,7 +22,8 @@ const UpdateLoan = () => {
         minInterestRate: '',
         maxInterestRate: '',
         collateral: '',
-        applicationProcess: ''
+        applicationProcess: '',
+        eligibilityCriteria: ''  // Added eligibility criteria
     });
 
     useEffect(() => {
@@ -69,7 +70,7 @@ const UpdateLoan = () => {
             console.error('Error updating loan:', error);
             alert('Could not update loan. Please try again later.');
         }
-    };  
+    };
 
     return (
         <div>
@@ -129,13 +130,15 @@ const UpdateLoan = () => {
                 </label>
                 <label className="uplon-label">
                     Loan Type:
-                    <input
-                        type="text"
+                    <select
                         name="loanType"
                         value={loan.loanType}
                         onChange={handleChange}
                         className="uplon-input"
-                    />
+                    >
+                        <option value="domestic">Domestic</option>
+                        <option value="international">International</option>
+                    </select>
                 </label>
                 <label className="uplon-label">
                     Field of Study:
@@ -148,11 +151,11 @@ const UpdateLoan = () => {
                     />
                 </label>
                 <label className="uplon-label">
-                    Program Length (Years):
+                    Repayment:
                     <input
-                        type="number"
-                        name="programLength"
-                        value={loan.programLength}
+                        type="text"
+                        name="repayment"
+                        value={loan.repayment}
                         onChange={handleChange}
                         className="uplon-input"
                     />
@@ -203,6 +206,15 @@ const UpdateLoan = () => {
                         type="text"
                         name="collateral"
                         value={loan.collateral}
+                        onChange={handleChange}
+                        className="uplon-input"
+                    />
+                </label>
+                <label className="uplon-label">
+                    Eligibility Criteria: {/* Added eligibility criteria */}
+                    <textarea
+                        name="eligibilityCriteria"
+                        value={loan.eligibilityCriteria}
                         onChange={handleChange}
                         className="uplon-input"
                     />

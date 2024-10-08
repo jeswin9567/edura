@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../../components/admin/EntranceForm.css'
+import './adden.css';
 import Header from '../../../components/manager/head';
 import Footer from '../../../components/common/footer';
 import { useNavigate } from 'react-router-dom';
@@ -20,17 +20,21 @@ const MEntranceForm = () => {
     startdate: '',
     enddate: '',
     howtoapply: '',
-    link: ''
+    link: '',
+    state: '',
+    examType: '',
   });
 
   const [showUGDegrees, setShowUGDegrees] = useState(false);
   const [showPGDegrees, setShowPGDegrees] = useState(false);
+  
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const degreesUG = ['BSc', 'BCA', 'BCom', 'BA', 'BTech'];
-  const degreesPG = ['MSc', 'MCA', 'MCom', 'MA', 'MTech'];
+  const examType = ['B.Tech','MBA','MCA','Medical','Law','Other'];
+  const degreesUG = ['BSW', 'BSc', 'BCA', 'BCom', 'BA', 'BTech', 'Other UG Courses including Mathematics','General Nursing','Other'];
+  const degreesPG = ['MSW', 'MSc', 'MCA', 'MCom', 'MA', 'MTech', 'Other PG Courses including Mathematics','Other'];
+  const states = ['All India', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
 
   const handleChange = (e) => {
     setFormData({
@@ -81,6 +85,7 @@ const MEntranceForm = () => {
     // Check for required fields
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.details.trim()) newErrors.details = 'Details are required';
+    if (!formData.examType) newErrors.examType = 'Exam type required';
     if (!formData.education) newErrors.education = 'Education is required';
     if (formData.education === 'Undergraduate' && formData.degree.length === 0)
       newErrors.degree = 'At least one undergraduate degree must be selected';
@@ -93,6 +98,7 @@ const MEntranceForm = () => {
     if (!formData.enddate) newErrors.enddate = 'End Date is required';
     if (!formData.howtoapply.trim()) newErrors.howtoapply = 'How to Apply is required';
     if (!formData.link.trim()) newErrors.link = 'Link is required';
+    if (!formData.state) newErrors.state = 'State is required';
 
     // Date validation
     const startDate = new Date(formData.startdate);
@@ -128,7 +134,9 @@ const MEntranceForm = () => {
         startdate: '',
         enddate: '',
         howtoapply: '',
-        link: ''
+        link: '',
+        state: '', 
+        examType:'' 
       });
       navigate('/manager/entrance');
     } catch (error) {
@@ -141,7 +149,7 @@ const MEntranceForm = () => {
   return (
     <>
       <Header />
-      <div className="entrance-form-container">
+      <div className="maddentracn"> {/* Updated class name here */}
         <h2>Submit an Entrance</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -165,6 +173,23 @@ const MEntranceForm = () => {
               required
             />
             {errors.details && <p className="error">{errors.details}</p>}
+          </div>
+          <div>
+            <label>Exam Type:</label>
+            <select
+              name="examType"
+              value={formData.examType}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Exam Type</option>
+              {examType.map((examType) => (
+                <option key={examType} value={examType}>
+                  {examType}
+                </option>
+              ))}
+            </select>
+            {errors.examType && <p className="error">{errors.examType}</p>}
           </div>
 
           <div>
@@ -219,6 +244,23 @@ const MEntranceForm = () => {
               {errors.degree && <p className="error">{errors.degree}</p>}
             </div>
           )}
+          <div>
+            <label>Select State:</label>
+            <select
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select State</option>
+              {states.map((state) => (
+                <option key={state} value={state}>
+                  {state}
+                </option>
+              ))}
+            </select>
+            {errors.state && <p className="error">{errors.state}</p>}
+          </div>
 
           <div>
             <label>Marks for General Category:</label>

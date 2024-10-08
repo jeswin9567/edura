@@ -40,9 +40,8 @@ const StudentLoanSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
-    programLength: {
-        type: Number,
+    repayment: {
+        type:String,
         required: true
     },
 

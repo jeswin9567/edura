@@ -30,13 +30,15 @@ router.post('/', async (req, res) => {
         startdate, 
         enddate, 
         howtoapply, 
-        link 
+        link ,
+        state,
+        examType
     } = req.body;
 
+
     // Check for missing fields
-    if (!name || !details || !education || !degree || degree.length === 0 || 
-        !marksGeneral || !marksBackward || !syllabus || !startdate || !enddate || 
-        !howtoapply || !link) {
+    if (!name || !details || !education || !marksGeneral || !marksBackward || !syllabus || !startdate || !enddate || 
+        !howtoapply || !link || !state || !examType) {
         return res.status(400).json({ message: 'All required fields must be complete' });
     }
 
@@ -65,7 +67,9 @@ router.post('/', async (req, res) => {
             startdate,
             enddate,
             howtoapply,
-            link
+            link,
+            state,
+            examType
         });
 
         // Save to database

@@ -16,7 +16,7 @@ const StudentLoanForm = () => {
     email: '',
     loanType: '',
     fieldOfStudy: '',
-    programLength: '',
+    repayment:'',
     minAmount: '',
     maxAmount: '',
     minInterestRate: '',
@@ -53,7 +53,7 @@ const StudentLoanForm = () => {
         email: '',
         loanType: '',
         fieldOfStudy: '',
-        programLength: '',
+        repayment: '',
         minAmount: '',
         maxAmount: '',
         minInterestRate: '',
@@ -143,7 +143,7 @@ const StudentLoanForm = () => {
           </div>
           <div className="fieldoffld">
             <label>Field of Study:</label>
-            <input
+            <textarea
               type="text"
               name="fieldOfStudy"
               value={formData.fieldOfStudy}
@@ -151,12 +151,12 @@ const StudentLoanForm = () => {
               required
             />
           </div>
-          <div className="programlengthfld">
-            <label>Program Length (in years):</label>
+          <div className="repayment">
+            <label>Repayment:</label>
             <input
-              type="number"
-              name="programLength"
-              value={formData.programLength}
+              type="text"
+              name="repayment"
+              value={formData.repayment}
               onChange={handleChange}
               required
             />
@@ -203,7 +203,7 @@ const StudentLoanForm = () => {
           </div>
           <div className="collateralfld">
             <label>Collateral Required:</label>
-            <input
+            <textarea
               type="text"
               name="collateral"
               value={formData.collateral}

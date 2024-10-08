@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../../components/admin/ViewEntrance.css'; // Ensure this CSS file is correctly set up
+import './entrance.css';
 import VHeader from '../../../components/user/vhead';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../../../function/useAuth';
@@ -33,20 +33,52 @@ const UVEntranceDetails = () => {
     return (
         <div>
             <VHeader />
-            <div className="entrance-details">
+            <div className="userviewentr">
+                {/* Heading at the top */}
                 <h1>{entrance.name}</h1>
-                <p>{entrance.details}</p>
-                <p><strong>Education Level:</strong> {entrance.education || 'N/A'}</p>
-                <p><strong>Degrees Offered:</strong> {entrance.degree.length > 0 ? entrance.degree.join(', ') : 'N/A'}</p>
-                <p><strong>Marks for General Category:</strong> {entrance.marksGeneral || 'N/A'}</p>
-                <p><strong>Marks for Backward Category:</strong> {entrance.marksBackward || 'N/A'}</p>
-                <p><strong>Syllabus:</strong> {entrance.syllabus || 'N/A'}</p>
-                <p><strong>How to Apply:</strong> {entrance.howtoapply || 'N/A'}</p>
-                <p><strong>Link:</strong> <a href={entrance.link} target="_blank" rel="noopener noreferrer">{entrance.link}</a></p>
-                <p className="date"><strong>Start Date:</strong> {new Date(entrance.startdate).toLocaleDateString()}</p>
-                <p className="date"><strong>End Date:</strong> {new Date(entrance.enddate).toLocaleDateString()}</p>
-                <div className="button-container">
-                    <button className="back-button" onClick={() => navigate(-1)}>Back</button>
+
+                {/* Content below the heading with separate headings for each section */}
+                <div className="userviewentr-content">
+                    <h2>Details</h2>
+                    <p>{entrance.details}</p>
+
+                    <h2>Exam Type</h2>
+                    <p>{entrance.examType}</p>
+
+                    <h2>Education Level</h2>
+                    <p>{entrance.education || 'N/A'}</p>
+
+                    <h2>Degrees Offered</h2>
+                    <p>{entrance.degree.length > 0 ? entrance.degree.join(', ') : 'N/A'}</p>
+
+                    <h2>Marks for General Category</h2>
+                    <p>{entrance.marksGeneral || 'N/A'}</p>
+
+                    <h2>Marks for Backward Category</h2>
+                    <p>{entrance.marksBackward || 'N/A'}</p>
+
+                    <h2>States</h2>
+                    <p>{entrance.state}</p>
+
+                    <h2>Syllabus</h2>
+                    <p>{entrance.syllabus || 'N/A'}</p>
+
+                    <h2>How to Apply</h2>
+                    <p>{entrance.howtoapply || 'N/A'}</p>
+
+                    <h2>Link</h2>
+                    <p><a href={entrance.link} target="_blank" rel="noopener noreferrer">{entrance.link}</a></p>
+
+                    <h2>Start Date</h2>
+                    <p>{new Date(entrance.startdate).toLocaleDateString()}</p>
+
+                    <h2>End Date</h2>
+                    <p>{new Date(entrance.enddate).toLocaleDateString()}</p>
+                </div>
+
+                {/* Back button at the bottom */}
+                <div className="userviewentr-button-container">
+                    <button className="userviewentr-back-button" onClick={() => navigate(-1)}>Back</button>
                 </div>
             </div>
         </div>

@@ -66,7 +66,7 @@ const VLoanDetails = () => {
     <div className="section-heading">Loan Details</div>
     <p><strong>Loan Type:</strong> {loan.loanType}</p>
     <p><strong>Field of Study:</strong> {loan.fieldOfStudy}</p>
-    <p><strong>Program Length (Years):</strong> {loan.programLength}</p>
+    <p><strong>Repayment Period:</strong> {loan.repayment}</p>
     <p><strong>Minimum Amount:</strong> {loan.minAmount}</p>
     <p><strong>Maximum Amount:</strong> {loan.maxAmount}</p>
     <p><strong>Minimum Interest Rate:</strong> {loan.minInterestRate}%</p>

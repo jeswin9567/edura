@@ -16,7 +16,7 @@ const MUpdateLoan = () => {
         email: '',
         loanType: '',
         fieldOfStudy: '',
-        programLength: '',
+        repayment: '',
         minAmount: '',
         maxAmount: '',
         minInterestRate: '',
@@ -148,11 +148,11 @@ const MUpdateLoan = () => {
                     />
                 </label>
                 <label className="uplon-label">
-                    Program Length (Years):
+                    Repayment Period:
                     <input
-                        type="number"
-                        name="programLength"
-                        value={loan.programLength}
+                        type="text"
+                        name="repayment"
+                        value={loan.repayment}
                         onChange={handleChange}
                         className="uplon-input"
                     />

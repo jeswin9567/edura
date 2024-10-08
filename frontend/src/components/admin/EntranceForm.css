@@ -1,95 +1,72 @@
-/* Form Container */
-.entrance-form-container {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 30px;
+.adminentranceadd {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
   background-color: #004429;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 
-/* Form Title */
-.entrance-form-container h2 {
+.adminentranceadd h2 {
   text-align: center;
-  color: #fff6f6;
+  color: #ffffff;
   margin-bottom: 20px;
-  font-family: 'Arial', sans-serif;
 }
 
-/* Form Labels */
-.entrance-form-container label {
-  display: block;
-  font-weight: 600;
-  color: #fff0f0;
-  margin-bottom: 8px;
-  font-family: 'Arial', sans-serif;
+.adminentranceadd form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* Form Inputs */
-.entrance-form-container input,
-.entrance-form-container textarea,
-.entrance-form-container select {
+.adminentranceadd label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+.adminentranceadd input[type="text"],
+.adminentranceadd input[type="date"],
+.adminentranceadd textarea,
+.adminentranceadd select {
   width: 100%;
-  padding: 12px 15px;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
+  background-color: #fff;
   font-size: 16px;
-  color: #333;
-  font-family: 'Arial', sans-serif;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
 }
 
-/* Focus Effect on Inputs */
-.entrance-form-container input:focus,
-.entrance-form-container textarea:focus,
-.entrance-form-container select:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
-}
-
-/* Textarea Styling */
-.entrance-form-container textarea {
-  min-height: 100px;
+.adminentranceadd textarea {
   resize: vertical;
+  height: 150px;
 }
 
-/* Submit Button */
-.entrance-form-container button {
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-family: 'Arial', sans-serif;
+.adminentranceadd input[type="checkbox"] {
+  margin-right: 10px;
 }
 
-/* Button Hover Effect */
-.entrance-form-container button:hover {
-  background-color: #0056b3;
-}
-
-/* Form Field Spacing */
-.entrance-form-container form div {
-  margin-bottom: 20px;
-}
-
-/* Error Message Styling */
-.error {
-  color: #ff4d4d; /* Red color for error messages */
+.adminentranceadd .error {
+  color: red;
   font-size: 14px;
-  margin-top: 5px;
 }
 
-/* Responsive Form for Smaller Screens */
-@media (max-width: 768px) {
-  .entrance-form-container {
-    padding: 20px;
-    margin: 20px;
-  }
+.adminentranceadd button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.adminentranceadd button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.adminentranceadd button:hover:not(:disabled) {
+  background-color: #0056b3;
 }

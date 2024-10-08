@@ -5,7 +5,7 @@ const EntranceModel = require('../model/Entrance') // Make sure to use the corre
 // PUT route to update an entrance by ID
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, details, education, degree, marksGeneral, marksBackward, syllabus, howtoapply, links, startdate, enddate } = req.body;
+    const { name, details, education, degree, marksGeneral, marksBackward, syllabus, howtoapply, link, startdate, enddate, state, examType } = req.body; // Changed 'links' to 'link'
 
     try {
         // Find the entrance by ID and update it
@@ -20,14 +20,15 @@ router.put('/:id', async (req, res) => {
                 marksBackward,
                 syllabus, 
                 howtoapply, 
-                links, 
+                link, // Changed here too
                 startdate, 
-                enddate 
+                enddate ,
+                state,
+                examType,
             },
             { new: true, runValidators: true } // Return the updated document
         );
 
-        // Check if the entrance was found and updated
         if (!updatedEntrance) {
             return res.status(404).json({ message: 'Entrance not found' });
         }
@@ -39,5 +40,6 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 module.exports = router;

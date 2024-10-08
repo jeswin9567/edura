@@ -13,13 +13,14 @@ router.put('/:id', async (req, res) => {
         email, 
         loanType, 
         fieldOfStudy, 
-        programLength, 
+        repayment,
         minAmount, 
         maxAmount, 
         minInterestRate, 
         maxInterestRate, 
         collateral, 
-        applicationProcess 
+        applicationProcess, 
+        eligibilityCriteria // Added eligibility criteria
     } = req.body;
 
     try {
@@ -34,13 +35,14 @@ router.put('/:id', async (req, res) => {
                 email,
                 loanType,
                 fieldOfStudy,
-                programLength,
+                repayment,
                 minAmount,
                 maxAmount,
                 minInterestRate,
                 maxInterestRate,
                 collateral,
                 applicationProcess,
+                eligibilityCriteria // Update eligibility criteria
             },
             { new: true, runValidators: true }
         );

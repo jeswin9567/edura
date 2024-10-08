@@ -49,7 +49,7 @@ const UVLoanDetails = () => {
                 <h2 className="section-heading">Loan Scheme</h2>
                 <p><strong>Loan Type:</strong> {loan.loanType}</p>
                 <p><strong>Field of Study:</strong> {loan.fieldOfStudy}</p>
-                <p><strong>Program Length:</strong> {loan.programLength} years</p>
+                <p><strong>Repayment Period:</strong> {loan.repayment } years</p>
 
                 <h2 className="section-heading">Interest Rate & Loan Amount</h2>
                 <p><strong>Amount:</strong> {loan.minAmount} - {loan.maxAmount} INR</p>

@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
         email,
         loanType,
         fieldOfStudy,
-        programLength,
+        repayment,
         minAmount,
         maxAmount,
         minInterestRate,
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
         !email ||
         !loanType ||
         !fieldOfStudy ||
-        !programLength ||
+        !repayment ||
         !minAmount ||
         !maxAmount ||
         !minInterestRate ||
@@ -57,7 +57,7 @@ router.post('/', async (req, res) => {
             email,
             loanType,
             fieldOfStudy,
-            programLength,
+            repayment,
             minAmount,
             maxAmount,
             minInterestRate,

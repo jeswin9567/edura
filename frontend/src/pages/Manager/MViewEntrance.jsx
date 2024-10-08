@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../components/admin/ViewEntrance.css'; // Create this CSS for styling
+import './MviewEntr.css'; // Create this CSS for styling
 import MVEHeader from '../../components/manager/mviewservicehead/menhead';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../../function/useAuth';
@@ -46,24 +46,58 @@ const MVEntranceDetails = () => {
     return (
         <div>
             <MVEHeader />
-            <div className="entrance-details">
-                <h1>{entrance.name}</h1>
-                <p>{entrance.details}</p>
-                <p><strong>Education Required:</strong> {entrance.education}</p>
-                <p><strong>Degrees Applicable:</strong> {entrance.degree.join(', ')}</p>
-                <p><strong>Marks for General Category:</strong> {entrance.marksGeneral}</p>
-                <p><strong>Marks for Backward Category:</strong> {entrance.marksBackward}</p>
-                <p><strong>Syllabus:</strong> {entrance.syllabus}</p>
-                <p><strong>How to Apply:</strong> {entrance.howtoapply}</p>
-                <p><strong>Link:</strong> <a href={entrance.link} target="_blank" rel="noopener noreferrer">{entrance.link}</a></p>
-                <p className="date"><strong>Start Date:</strong> {new Date(entrance.startdate).toLocaleDateString()}</p>
-                <p className="date"><strong>End Date:</strong> {new Date(entrance.enddate).toLocaleDateString()}</p>
-                <div className="button-container">
-                    <button className="back-button" onClick={() => navigate(-1)}>Back</button>
-                    <button className="delete-button" onClick={handleDelete}>Delete</button>
-                    <button className="update-button" onClick={() => navigate(`/mupdateentrance/${id}`)}>Update</button>
-                </div>
-            </div>
+            <div className="managerviewentr-details">
+    <h1>{entrance.name}</h1>
+    <h2>Details</h2>
+    <p>{entrance.details}</p>
+
+    <h2>Exam Type</h2>
+    <p>{entrance.examType}</p>
+
+    <h2>Education Required</h2>
+    <p>{entrance.education}</p>
+
+
+
+    {entrance.degree && entrance.degree.length > 0 && (
+                    <>
+                        <h3>Degrees Applicable</h3>
+                        <p>{entrance.degree.join(', ')}</p>
+                    </>
+                )}
+
+
+    <h2>State</h2>
+    <p>{entrance.state}</p>
+
+    <h2>Marks for General Category</h2>
+    <p>{entrance.marksGeneral}</p>
+
+    <h2>Marks for Backward Category</h2>
+    <p>{entrance.marksBackward}</p>
+
+    <h2>Syllabus</h2>
+    <p>{entrance.syllabus}</p>
+
+    <h2>How to Apply</h2>
+    <p>{entrance.howtoapply}</p>
+
+    <h2>Link</h2>
+    <p><a href={entrance.link} target="_blank" rel="noopener noreferrer">{entrance.link}</a></p>
+
+    <h2>Start Date</h2>
+    <p>{new Date(entrance.startdate).toLocaleDateString()}</p>
+
+    <h2>End Date</h2>
+    <p>{new Date(entrance.enddate).toLocaleDateString()}</p>
+
+    <div className="managerviewentr-button-container">
+        <button className="managerviewentr-back-button" onClick={() => navigate(-1)}>Back</button>
+        <button className="managerviewentr-delete-button" onClick={handleDelete}>Delete</button>
+        <button className="managerviewentr-update-button" onClick={() => navigate(`/mupdateentrance/${id}`)}>Update</button>
+    </div>
+</div>
+
         </div>
     );
 };
