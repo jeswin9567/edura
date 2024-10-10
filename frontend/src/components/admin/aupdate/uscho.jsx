@@ -12,17 +12,23 @@ const UpdateScholarship = () => {
         name: '',
         description: '',
         award: '',
+        awardDuration: '',
         eligibility: '',
         howToApply: '',
         link: '',
         startdate: '',
         enddate: '',
-        subEligibility: [], // Added subEligibility array
-        gender: '', // Added gender property
-        category: [] // Added category as an array to handle multiple selections
+        subEligibility: [],
+        gender: '',
+        category: [],
+        document: '',
+        states: '',
+        annualIncome: '', // New field for annual income
+        marks: '' // New field for marks
     });
 
-    // Fetch scholarship details on component mount
+    const states = ['All India', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
+
     useEffect(() => {
         const fetchScholarshipDetails = async () => {
             try {
@@ -31,7 +37,12 @@ const UpdateScholarship = () => {
                     throw new Error('Failed to fetch scholarship details');
                 }
                 const data = await response.json();
-                setScholarship(data);
+                setScholarship({
+                    ...data,
+                    states: data.states || '', // Ensure states has a default value
+                    annualIncome: data.annualIncome || '', // Ensure annualIncome has a default value
+                    marks: data.marks || '' // Ensure marks has a default value
+                });
             } catch (error) {
                 console.error('Error fetching scholarship details:', error);
                 alert('Could not fetch scholarship details. Please try again later.');
@@ -41,7 +52,6 @@ const UpdateScholarship = () => {
         fetchScholarshipDetails();
     }, [id]);
 
-    // Handle input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setScholarship((prev) => ({
@@ -50,7 +60,14 @@ const UpdateScholarship = () => {
         }));
     };
 
-    // Handle eligibility change separately
+    const handleStateChange = (e) => {
+        const selectedStates = Array.from(e.target.selectedOptions, (option) => option.value);
+        setScholarship((prev) => ({
+            ...prev,
+            states: selectedStates // Update the states array
+        }));
+    };
+
     const handleEligibilityChange = (e) => {
         const { value } = e.target;
         setScholarship((prev) => ({
@@ -60,7 +77,6 @@ const UpdateScholarship = () => {
         }));
     };
 
-    // Handle sub-eligibility changes
     const handleSubEligibilityChange = (option) => {
         setScholarship((prev) => {
             const subEligibility = prev.subEligibility.includes(option)
@@ -70,7 +86,6 @@ const UpdateScholarship = () => {
         });
     };
 
-    // Handle category checkbox changes
     const handleCategoryChange = (option) => {
         setScholarship((prev) => {
             const updatedCategories = prev.category.includes(option)
@@ -80,7 +95,6 @@ const UpdateScholarship = () => {
         });
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -94,7 +108,7 @@ const UpdateScholarship = () => {
 
             if (response.ok) {
                 alert('Scholarship updated successfully');
-                navigate(`/admin/scholar`); // Redirect to the updated scholarship details page
+                navigate(`/admin/scholar`);
             } else {
                 const errorMessage = await response.text();
                 alert(`Failed to update the scholarship: ${errorMessage}`);
@@ -195,21 +209,34 @@ const UpdateScholarship = () => {
 
                     <label>Award Amount:</label>
                     <input
-                        type="number" // Changed to number input
+                        type="number"
                         name="award"
                         value={scholarship.award}
                         onChange={handleChange}
                         placeholder="Enter award amount"
                         required
-                        min="0" // Ensures a non-negative value
+                        min="0"
                         className="uscho-input"
                     />
+
+                    <label>Award Duration:</label>
+                    <select
+                        name="awardDuration"
+                        value={scholarship.awardDuration}
+                        onChange={handleChange}
+                        required
+                        className="uscho-input"
+                    >
+                        <option value="">Select Award Duration</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select>
 
                     <label>Eligibility:</label>
                     <select
                         name="eligibility"
                         value={scholarship.eligibility}
-                        onChange={handleEligibilityChange} // Updated to handleEligibilityChange
+                        onChange={handleEligibilityChange}
                         required
                         className="uscho-input"
                     >
@@ -220,13 +247,13 @@ const UpdateScholarship = () => {
                         <option value="Diploma">Diploma</option>
                     </select>
 
-                    {renderSubEligibilityOptions()} {/* Render sub-eligibility options */}
+                    {renderSubEligibilityOptions()}
 
                     <label>Gender:</label>
                     <select
                         name="gender"
                         value={scholarship.gender}
-                        onChange={handleChange} // Use handleChange for gender input
+                        onChange={handleChange}
                         required
                         className="uscho-input"
                     >
@@ -237,35 +264,61 @@ const UpdateScholarship = () => {
                         <option value="Other">Other</option>
                     </select>
 
-                    {renderCategoryOptions()} {/* Render category options */}
+                    {renderCategoryOptions()}
+                    <label>State:</label>
+                    <select
+                        name="states"
+                        value={scholarship.states} // Ensure it's a single value
+                        onChange={(e) => setScholarship({ ...scholarship, states: e.target.value })} // Update to single selection
+                        className="uscho-input"
+                    >
+                        <option value="">Select State</option>
+                        {states.map((state) => (
+                            <option key={state} value={state}>
+                                {state}
+                            </option>
+                        ))}
+                    </select>
 
-                    <label>How to Apply:</label>
-                    <input
+                    <label>Documents Required:</label>
+                    <textarea
                         type="text"
-                        name="howToApply"
-                        value={scholarship.howToApply}
+                        name="document"
+                        value={scholarship.document}
                         onChange={handleChange}
-                        placeholder="Enter application details"
-                        required
-                        className="uscho-input"
+                        placeholder="Enter documents required"
+                        className="uscho-textarea"
                     />
 
-                    <label>Link:</label>
+                    <label>Annual Income:</label>
                     <input
-                        type="url"
-                        name="link"
-                        value={scholarship.link}
+                        type="number"
+                        name="annualIncome"
+                        value={scholarship.annualIncome} // Bind annualIncome
                         onChange={handleChange}
-                        placeholder="Enter link to the scholarship"
+                        placeholder="Enter annual income"
                         required
+                        min="0"
                         className="uscho-input"
                     />
 
-                    <label>Start Date:</label>
+                    <label>Marks:</label>
+                    <input
+                        type="number"
+                        name="marks"
+                        value={scholarship.marks} // Bind marks
+                        onChange={handleChange}
+                        placeholder="Enter required marks"
+                        required
+                        min="0"
+                        className="uscho-input"
+                    />
+
+<label>Start Date:</label>
                     <input
                         type="date"
                         name="startdate"
-                        value={scholarship.startdate.split('T')[0]} // Ensure proper date format
+                        value={scholarship.startdate.split('T')[0]}
                         onChange={handleChange}
                         required
                         className="uscho-input"
@@ -275,8 +328,29 @@ const UpdateScholarship = () => {
                     <input
                         type="date"
                         name="enddate"
-                        value={scholarship.enddate.split('T')[0]} // Ensure proper date format
+                        value={scholarship.enddate.split('T')[0]}
                         onChange={handleChange}
+                        required
+                        className="uscho-input"
+                    />
+
+                    <label>How to Apply:</label>
+                    <textarea
+                        name="howToApply"
+                        value={scholarship.howToApply}
+                        onChange={handleChange}
+                        placeholder="Enter application process"
+                        required
+                        className="uscho-textarea"
+                    />
+
+                    <label>Link:</label>
+                    <input
+                        type="url"
+                        name="link"
+                        value={scholarship.link}
+                        onChange={handleChange}
+                        placeholder="Enter link to scholarship"
                         required
                         className="uscho-input"
                     />

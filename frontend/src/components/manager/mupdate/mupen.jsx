@@ -20,12 +20,17 @@ const MUpdateEntrance = () => {
         link: '',
         startdate: '',
         enddate: '',
-        state: '', // Add state here
+        state: '',
         examType: ''
     });
 
     const states = ['All India', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
-    const examType = ['B.Tech','MBA','MCA','Medical','Law','Other'];
+    const examType = ['B.Tech', 'MBA', 'MCA', 'Medical', 'Law', 'Other'];
+
+    // Define dynamic degree options
+    const ugDegrees = ['BSW', 'BSc', 'BCA', 'BCom', 'BA', 'BTech', 'General Nursing', 'Other UG Courses including Mathematics'];
+    const pgDegrees = ['MSW', 'MSc', 'MCA', 'MCom', 'MA', 'MTech', 'Other PG Courses including Mathematics'];
+
     useEffect(() => {
         const fetchEntranceDetails = async () => {
             try {
@@ -102,7 +107,7 @@ const MUpdateEntrance = () => {
     return (
         <div>
             <MVEHeader />
-            <div className="manupdentr"> {/* Changed class name here */}
+            <div className="manupdentr">
                 <h1>Update Entrance Details</h1>
                 <form onSubmit={handleSubmit}>
                     <input
@@ -120,21 +125,20 @@ const MUpdateEntrance = () => {
                         placeholder="Details"
                         required
                     />
-                                       {/* State Selection */}
-                                       <label>Exam Type</label>
-          <select
-            name="examType"
-            value={entrance.examType}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Exam Type</option>
-            {examType.map((examType) => (
-              <option key={examType} value={examType}>
-                {examType}
-              </option>
-            ))}
-          </select>
+                    <label>Exam Type</label>
+                    <select
+                        name="examType"
+                        value={entrance.examType}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Exam Type</option>
+                        {examType.map((examType) => (
+                            <option key={examType} value={examType}>
+                                {examType}
+                            </option>
+                        ))}
+                    </select>
                     <select
                         name="education"
                         value={entrance.education}
@@ -142,8 +146,8 @@ const MUpdateEntrance = () => {
                         required
                     >
                         <option value="">Select Education Level</option>
-                        <option value="Class 10">Class 10</option> {/* Added Class 10 option */}
-                        <option value="Class 12">Class 12</option> {/* Added Class 12 option */}
+                        <option value="Class 10">Class 10</option>
+                        <option value="Class 12">Class 12</option>
                         <option value="Undergraduate">Undergraduate</option>
                         <option value="Postgraduate">Postgraduate</option>
                     </select>
@@ -165,173 +169,28 @@ const MUpdateEntrance = () => {
 
                     <div>
                         <label>Select Degrees:</label>
-                        {entrance.education === 'Undergraduate' && (
-                            <>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="BSW"
-                                        checked={entrance.degree.includes('BSW')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>BSW</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="BSc"
-                                        checked={entrance.degree.includes('BSc')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>BSc</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="BCA"
-                                        checked={entrance.degree.includes('BCA')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>BCA</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="BCom"
-                                        checked={entrance.degree.includes('BCom')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>BCom</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="BA"
-                                        checked={entrance.degree.includes('BA')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>BA</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="BTech"
-                                        checked={entrance.degree.includes('BTech')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>BTech</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="General Nursing"
-                                        checked={entrance.degree.includes('General Nursing')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>General Nursing</label>
-                                </div>
-
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="other"
-                                        checked={entrance.degree.includes('other')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>other</label>
-                                </div>
-                                
-
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="Other UG Courses including Mathematics"
-                                        checked={entrance.degree.includes('Other UG Courses including Mathematics')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>Other UG Courses including Mathematics</label>
-                                </div>
-                            </>
-                        )}
-                        {entrance.education === 'Postgraduate' && (
-                            <>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="MSW"
-                                        checked={entrance.degree.includes('MSW')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>MSW</label>
-                                </div>
-                                
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="MSc"
-                                        checked={entrance.degree.includes('MSc')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>MSc</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="MCA"
-                                        checked={entrance.degree.includes('MCA')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>MCA</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="MCom"
-                                        checked={entrance.degree.includes('MCom')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>MCom</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="MA"
-                                        checked={entrance.degree.includes('MA')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>MA</label>
-                                </div>
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="MTech"
-                                        checked={entrance.degree.includes('MTech')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>MTech</label>
-                                </div>
-
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="Other PG Courses including Mathematics"
-                                        checked={entrance.degree.includes('Other PG Courses including Mathematics')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>Other PG Courses including Mathematics</label>
-                                </div>
-
-                                <div>
-                                    <input
-                                        type="checkbox"
-                                        value="other"
-                                        checked={entrance.degree.includes('other')}
-                                        onChange={handleDegreeChange}
-                                    />
-                                    <label>Other</label>
-                                </div>
-                            </>
-                        )}
+                        {entrance.education === 'Undergraduate' && ugDegrees.map((degree) => (
+                            <div key={degree}>
+                                <input
+                                    type="checkbox"
+                                    value={degree}
+                                    checked={entrance.degree.includes(degree)}
+                                    onChange={handleDegreeChange}
+                                />
+                                <label>{degree}</label>
+                            </div>
+                        ))}
+                        {entrance.education === 'Postgraduate' && pgDegrees.map((degree) => (
+                            <div key={degree}>
+                                <input
+                                    type="checkbox"
+                                    value={degree}
+                                    checked={entrance.degree.includes(degree)}
+                                    onChange={handleDegreeChange}
+                                />
+                                <label>{degree}</label>
+                            </div>
+                        ))}
                     </div>
 
                     <input
@@ -368,7 +227,7 @@ const MUpdateEntrance = () => {
                     />
                     <input
                         type="url"
-                        name="link" // Changed 'links' to 'link'
+                        name="link"
                         value={entrance.link}
                         onChange={handleChange}
                         placeholder="Link"

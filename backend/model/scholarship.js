@@ -60,6 +60,22 @@ const ScholarShipSchema = new mongoose.Schema({
     category : {
         type:[String],
         default: []
+    },
+    states: {   
+        type: String,
+        required: true
+    },
+    awardDuration: {
+        type: String,
+        required:true
+    },
+    annualIncome: {
+        type: Number,
+        required: true
+    },
+    marks: {
+        type: Number,
+        required: true
     }
 }, {
     timestamps: true // Automatically add `createdAt` and `updatedAt` timestamps

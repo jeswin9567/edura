@@ -5,7 +5,7 @@ html, body, #root {
   padding: 0;
 }
 
-.container {
+.usersignup {
   display: flex;
   height: 100vh;
   width: 100vw;
@@ -121,3 +121,21 @@ html, body, #root {
   color: #000000;
   cursor: pointer;
 }
+
+/* Error message styles */
+.usigerror {
+  position: absolute;
+  width: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #e74c3c;
+  margin-top: 5px;
+}
+
+/* Position each error message below its respective input field */
+.fn + .usigerror { top: 250px; }
+.el + .usigerror { top: 320px; }
+.phn + .usigerror { top: 390px; }
+.psw + .usigerror { top: 460px; }
+.cnfp + .usigerror { top: 530px; }

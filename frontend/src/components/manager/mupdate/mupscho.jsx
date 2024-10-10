@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MVSHeader from '../mviewservicehead/mschohead';
-import '../../admin/aupdate/uscho.css'
+import '../../admin/aupdate/uscho.css';
 import useAuth from '../../../../function/useAuth';
 
 const MUpdateScholarship = () => {
@@ -17,10 +17,17 @@ const MUpdateScholarship = () => {
         link: '',
         startdate: '',
         enddate: '',
-        subEligibility: [], // Added subEligibility array
-        gender: '' ,// Added gender property
-        category:[]
+        subEligibility: [],
+        gender: '',
+        category: [],
+        document: '',
+        states: '',
+        awardDuration: '',
+        annualIncome: '',
+        marks: ''
     });
+
+    const states = ['All India', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
 
     // Fetch scholarship details on component mount
     useEffect(() => {
@@ -111,13 +118,13 @@ const MUpdateScholarship = () => {
                 options.push('Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12');
                 break;
             case 'Undergraduate':
-                options.push('B.Sc', 'B.Com', 'B.A', 'B.Tech', 'BBA',);
+                options.push('B.Sc', 'B.Com', 'B.A', 'B.Tech', 'BBA','Other');
                 break;
             case 'Postgraduate':
-                options.push('M.Sc', 'M.Com', 'M.A', 'MBA', 'M.Tech' );
+                options.push('M.Sc', 'M.Com', 'M.A', 'MBA', 'M.Tech','Other');
                 break;
             case 'Diploma':
-                options.push('Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics');
+                options.push('Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics','Other');
                 break;
             default:
                 return null;
@@ -142,6 +149,7 @@ const MUpdateScholarship = () => {
             </div>
         );
     };
+
     const renderCategoryOptions = () => {
         const categories = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC'];
         return (
@@ -193,13 +201,13 @@ const MUpdateScholarship = () => {
                     
                     <label>Award Amount:</label>
                     <input
-                        type="number" // Changed to number input
+                        type="number"
                         name="award"
                         value={scholarship.award}
                         onChange={handleChange}
                         placeholder="Enter award amount"
                         required
-                        min="0" // Ensures a non-negative value
+                        min="0"
                         className="uscho-input"
                     />
                     
@@ -207,7 +215,7 @@ const MUpdateScholarship = () => {
                     <select
                         name="eligibility"
                         value={scholarship.eligibility}
-                        onChange={handleEligibilityChange} // Updated to handleEligibilityChange
+                        onChange={handleEligibilityChange}
                         required
                         className="uscho-input"
                     >
@@ -218,13 +226,13 @@ const MUpdateScholarship = () => {
                         <option value="Diploma">Diploma</option>
                     </select>
                     
-                    {renderSubEligibilityOptions()} {/* Render sub-eligibility options */}
+                    {renderSubEligibilityOptions()}
                     
                     <label>Gender:</label>
                     <select
                         name="gender"
                         value={scholarship.gender}
-                        onChange={handleChange} // Use handleChange for gender input
+                        onChange={handleChange}
                         required
                         className="uscho-input"
                     >
@@ -263,7 +271,7 @@ const MUpdateScholarship = () => {
                     <input
                         type="date"
                         name="startdate"
-                        value={scholarship.startdate.split('T')[0]} // Ensure proper date format
+                        value={scholarship.startdate.split('T')[0]} 
                         onChange={handleChange}
                         required
                         className="uscho-input"
@@ -273,12 +281,76 @@ const MUpdateScholarship = () => {
                     <input
                         type="date"
                         name="enddate"
-                        value={scholarship.enddate.split('T')[0]} // Ensure proper date format
+                        value={scholarship.enddate.split('T')[0]} 
                         onChange={handleChange}
                         required
                         className="uscho-input"
                     />
-                    
+
+                    {/* New Fields */}
+                    <label>Document:</label>
+                    <input
+                        type="text"
+                        name="document"
+                        value={scholarship.document}
+                        onChange={handleChange}
+                        placeholder="Enter document details"
+                        required
+                        className="uscho-input"
+                    />
+
+<label>State:</label>
+                    <select
+                        name="states"
+                        value={scholarship.states} // Ensure it's a single value
+                        onChange={(e) => setScholarship({ ...scholarship, states: e.target.value })} // Update to single selection
+                        className="uscho-input"
+                    >
+                        <option value="">Select State</option>
+                        {states.map((state) => (
+                            <option key={state} value={state}>
+                                {state}
+                            </option>
+                        ))}
+                    </select>
+
+                    <label>Award Duration:</label>
+                    <select
+                        name="awardDuration"
+                        value={scholarship.awardDuration}
+                        onChange={handleChange}
+                        required
+                        className="uscho-input"
+                    >
+                        <option value="">Select Award Duration</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select>
+
+                    <label>Annual Income:</label>
+                    <input
+                        type="number"
+                        name="annualIncome"
+                        value={scholarship.annualIncome}
+                        onChange={handleChange}
+                        placeholder="Enter annual income limit"
+                        required
+                        min="0"
+                        className="uscho-input"
+                    />
+
+                    <label>Marks:</label>
+                    <input
+                        type="number"
+                        name="marks"
+                        value={scholarship.marks}
+                        onChange={handleChange}
+                        placeholder="Enter minimum marks required"
+                        required
+                        min="0"
+                        className="uscho-input"
+                    />
+
                     <button type="submit" className="uscho-button">Update Scholarship</button>
                 </form>
             </div>

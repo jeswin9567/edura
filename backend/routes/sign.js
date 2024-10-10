@@ -4,6 +4,8 @@ const UserModel = require('../model/User');
 const LoginModel = require('../model/login');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const dns = require('dns'); // Import the dns package
+
 require('dotenv').config();
 
 let OTPs = {}; // Temporary store for OTPs
@@ -18,6 +20,21 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Helper function to validate email domain
+const validateEmailDomain = (email) => {
+  const domain = email.split('@')[1]; // Extract the domain from the email
+  return new Promise((resolve, reject) => {
+    dns.resolveMx(domain, (err, addresses) => {
+      if (err || !addresses || addresses.length === 0) {
+        return reject(new Error("Invalid email domain or no MX records found"));
+      }
+      resolve(true); // Valid domain with MX records
+    });
+  });
+};
+
+
+
 // Signup route
 router.post('/', async (req, res) => {
   const { name, email, phone, password, confirmPassword } = req.body;
@@ -31,6 +48,13 @@ router.post('/', async (req, res) => {
   const existingUser = await UserModel.findOne({ email });
   if (existingUser) {
     return res.status(400).json({ message: "User already exists" });
+  }
+
+  // Validate email domain with DNS MX lookup
+  try {
+    await validateEmailDomain(email);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
   }
 
   // Generate OTP
@@ -56,7 +80,6 @@ router.post('/', async (req, res) => {
   res.status(200).json({ message: "OTP sent to your email", email });
 });
 
-// OTP Verification Route
 // OTP Verification Route
 router.post('/verify-otp', async (req, res) => {
   const { email, otp } = req.body;
@@ -94,6 +117,5 @@ router.post('/verify-otp', async (req, res) => {
     res.status(400).json({ message: "Invalid OTP" });
   }
 });
-
 
 module.exports = router;

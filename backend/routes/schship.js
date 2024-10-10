@@ -16,11 +16,15 @@ router.post('/', async (req, res) => {
     startdate,
     enddate,
     link,
-    howToApply
+    howToApply,
+    states,
+    awardDuration,
+    annualIncome,
+    marks
   } = req.body;
 
   // Validate required fields
-  if (!name || !description || !award || !eligibility || !gender || !category || !startdate || !enddate) {
+  if (!name || !description || !award || !eligibility || !gender || !category || !startdate  || !states|| !enddate || !awardDuration || !annualIncome || !marks) {
     return res.status(400).json({ message: 'All required fields must be filled.' });
   }
 
@@ -55,7 +59,11 @@ router.post('/', async (req, res) => {
       startdate,
       enddate,
       link,
-      howToApply
+      howToApply,
+      states,
+      awardDuration,
+      annualIncome,
+      marks
     });
 
     // Save to database

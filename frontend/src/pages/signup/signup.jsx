@@ -4,9 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-
 function SignUp() {
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -14,68 +12,94 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [otp, setOtp] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
-  let timeout; // Declare timeout variable
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
+  let timeout;
   const navigate = useNavigate();
 
-  const validateForm = () => {
+  const validateName = (name) => {
+    const nameRegex = /^[A-Za-z\s]+$/;
     if (!name.trim()) {
-      Swal.fire("Full name is required", "", "error");
+      setNameError("Full name is required");
+      return false;
+    } else if (!nameRegex.test(name)) {
+      setNameError("Full name must contain only alphabets");
       return false;
     }
+    setNameError('');
+    return true;
+  };
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+    
     if (!email) {
-      Swal.fire("Email is required", "", "error");
+      setEmailError("Email is required");
+      return false;
+    } else if (email.includes(' ')) {
+      setEmailError("Email cannot contain spaces");
       return false;
     } else if (!emailRegex.test(email)) {
-      Swal.fire("Invalid email format", "", "error");
+      setEmailError("Invalid email format or domain");
       return false;
     }
+    setEmailError('');
+    return true;
+  };
+  
+  
 
-    const phoneRegex = /^\+(\d{1,3})?[\s.-]?(\d{10,15})$/;
+  const validateForm = () => {
+    return validateName(name) && validateEmail(email) && validatePhone(phone) && validatePassword(password, confirmPassword);
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^[6-9]\d{9}$/;
     const invalidSequences = [
       "0123456789",
       "1234567890",
       "9876543210",
       "0987654321"
     ];
-    
+
     if (!phone) {
-      Swal.fire("Phone number is required", "", "error");
+      setPhoneError("Phone number is required");
       return false;
     } else if (!phoneRegex.test(phone)) {
-      Swal.fire("Invalid phone number. Ensure it starts with a country code", "", "error");
+      setPhoneError("Invalid phone number. Must be a 10-digit number starting with 6-9.");
       return false;
-    } else {
-      const cleanedPhone = phone.replace(/[\s.-]/g, '').replace(/^\+(\d{1,3})/, ''); // Removes separators and country code
-      if (/^(\d)\1+$/.test(cleanedPhone)) {
-        Swal.fire("Invalid phone number.", "", "error");
-        return false;
-      } else if (invalidSequences.includes(cleanedPhone)) {
-        Swal.fire("Invalid phone number.", "", "error");
-        return false;
-      }
+    } else if (invalidSequences.includes(phone)) {
+      setPhoneError("Invalid phone number.");
+      return false;
     }
-    
+    setPhoneError('');
+    return true;
+  };
 
+  const validatePassword = (password, confirmPassword) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
     if (!password) {
-      Swal.fire("Password is required", "", "error");
+      setPasswordError("Password is required");
       return false;
     } else if (!passwordRegex.test(password)) {
-      Swal.fire("Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.", "", "error");
+      setPasswordError("At least 8 characters long, include special character");
       return false;
     }
+    setPasswordError('');
 
     if (!confirmPassword) {
-      Swal.fire("Please confirm your password", "", "error");
+      setConfirmPasswordError("Please confirm your password");
       return false;
     } else if (confirmPassword !== password) {
-      Swal.fire("Passwords do not match", "", "error");
+      setConfirmPasswordError("Passwords do not match");
       return false;
     }
-
+    setConfirmPasswordError('');
     return true;
   };
 
@@ -90,7 +114,7 @@ function SignUp() {
       .then(result => {
         Swal.fire("Success!", "OTP sent to your email. Please check your inbox.", "success");
         setIsOtpSent(true);
-        showOtpPopup(); // Show OTP input as a popup
+        showOtpPopup();
       })
       .catch(error => {
         Swal.fire("Error", error.response?.data?.message || "An unexpected error occurred.", "error");
@@ -114,17 +138,16 @@ function SignUp() {
         return value;
       }
     }).then((result) => {
-      clearTimeout(timeout); // Clear the timeout on user action
+      clearTimeout(timeout);
       if (result.isConfirmed) {
-        handleOtpSubmit(result.value); // Pass OTP to handleOtpSubmit
+        handleOtpSubmit(result.value);
       }
     });
 
-    // Set a timeout to show "Time's up!" message after 30 seconds
     timeout = setTimeout(() => {
-      Swal.close(); // Close the popup
+      Swal.close();
       Swal.fire("Time's up!", "The OTP verification window has closed.", "info");
-    }, 30000); // 30 seconds
+    }, 60000);
   };
 
   const handleOtpSubmit = (otp) => {
@@ -159,41 +182,71 @@ function SignUp() {
             name='name' 
             className='fn' 
             placeholder='Full Name' 
-            onChange={(e) => setName(e.target.value)} 
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              validateName(e.target.value); // Validate as user types
+            }} 
             required 
           />
+          {nameError && <span className="usigerror">{nameError}</span>}
+          
           <input 
             type='email' 
             name='email' 
             className='el' 
             placeholder='Email' 
-            onChange={(e) => setEmail(e.target.value)} 
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              validateEmail(e.target.value); // Live validation
+            }} 
             required 
           />
+          {emailError && <span className="usigerror">{emailError}</span>}
+          
           <input 
             type='text' 
             name='phone' 
             className='phn' 
             placeholder='Phone' 
-            onChange={(e) => setPhone(e.target.value)} 
+            value={phone}
+            onChange={(e) => {
+              setPhone(e.target.value);
+              validatePhone(e.target.value); // Live validation
+            }} 
             required 
           />
+          {phoneError && <span className="usigerror">{phoneError}</span>}
+          
           <input 
             type='password' 
             name='password' 
             className='psw' 
             placeholder='Password' 
-            onChange={(e) => setPassword(e.target.value)} 
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              validatePassword(e.target.value, confirmPassword); // Live validation
+            }} 
             required 
           />
+          {passwordError && <span className="usigerror">{passwordError}</span>}
+          
           <input 
             type='password' 
             name='confirmPassword' 
             className='cnfp' 
             placeholder='Confirm Password' 
-            onChange={(e) => setConfirmPassword(e.target.value)} 
+            value={confirmPassword}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              validatePassword(password, e.target.value); // Live validation
+            }} 
             required 
           />
+          {confirmPasswordError && <span className="usigerror">{confirmPasswordError}</span>}
+          
           <button type="submit" className='signbut'>Sign Up</button>
         </form>
       </div>
