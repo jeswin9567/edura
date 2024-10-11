@@ -52,6 +52,9 @@
     cursor: pointer;
   }
   
+  .adderror-message {
+    color: red;
+  }
   .manager-form-btn:hover {
     background-color: #0056b3;
   }

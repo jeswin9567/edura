@@ -24,7 +24,7 @@
   .userphead-nav {
     display: flex;
     gap: 20px;
-    margin-left: -800px;
+    margin-right: 40%;
   }
   
   .userphead-nav button {

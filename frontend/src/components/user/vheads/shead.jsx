@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import UServiceButton from '../button/uservice';
+import Prof from '../button/profile';
 import '../header.css'
 
 function UVSHeader({ scrollToContact }) {
@@ -19,7 +21,9 @@ function UVSHeader({ scrollToContact }) {
       </div>
       <nav className="uhome-nav">
         <button className="uhome-homb" onClick={() => navigate('/userhome')}>Home</button>
+        <UServiceButton />
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
+        <Prof />
       </nav>
       <div className="uhome-search-box">
         <input

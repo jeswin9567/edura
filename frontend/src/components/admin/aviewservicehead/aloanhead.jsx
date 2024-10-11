@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddLoan from '../abutton/Loan_btn';
+import ServiceButton from '../abutton/adservicebtn';
+import AddManager from '../abutton/Manager_btn';
 
 import './aloanhead.css'
 
@@ -25,6 +27,9 @@ function VLHeader({ scrollToContact }) {
       <nav className="ALn1">
         <button className="ALn2" onClick={() => navigate('/adhome')}>Home</button>
         <AddLoan />
+        <ServiceButton />
+        <AddManager />
+
       </nav>
 
       <div className="ALa1">

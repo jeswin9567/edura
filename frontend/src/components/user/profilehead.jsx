@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import UServiceButton from './button/uservice';
 import './profilehead.css'
-function UPHead() {
+function UPHead({scrollToAbout,scrollToContact}) {
     const navigate = useNavigate();
     const logout = () => {
       const token = localStorage.getItem('token');
@@ -18,6 +19,9 @@ function UPHead() {
       </div>
       <nav className="userphead-nav">
         <button className="userphead-homb" onClick={() => navigate('/userhome')}>Home</button>
+        <UServiceButton />
+        <button className='userphead-homb' onClick={scrollToAbout}>About</button>
+        <button className='userphead-homb' onClick={scrollToContact}>Contact Us</button>
       </nav>
       <div className="userphead-auth-buttons">
         <button className="userphead-login-btn" onClick={logout}>Logout</button>

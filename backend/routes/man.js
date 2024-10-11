@@ -3,6 +3,22 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const ManagerModel = require('../model/Manager');
 const LoginModel = require('../model/login');
+const dns = require('dns');
+
+// Function to validate email domain using DNS
+const validateEmailDomain = (email) => {
+  const domain = email.split('@')[1]; // Extract domain from email
+  return new Promise((resolve, reject) => {
+    // Lookup MX records for the domain
+    dns.resolveMx(domain, (err, addresses) => {
+      if (err || addresses.length === 0) {
+        resolve(false); // Domain is not valid if there's an error or no MX records
+      } else {
+        resolve(true); // Domain is valid
+      }
+    });
+  });
+};
 
 router.post('/', async (req, res) => {
   const { name, email, password, confirmPass } = req.body;
@@ -10,6 +26,12 @@ router.post('/', async (req, res) => {
   // Check if passwords match
   if (password !== confirmPass) {
     return res.status(400).json({ message: 'Passwords do not match' });
+  }
+
+  // Validate email domain
+  const isDomainValid = await validateEmailDomain(email);
+  if (!isDomainValid) {
+    return res.status(400).json({ message: 'Invalid email domain' });
   }
 
   try {
@@ -44,5 +66,7 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'Error creating manager', error });
   }
 });
+
+
 
 module.exports = router;

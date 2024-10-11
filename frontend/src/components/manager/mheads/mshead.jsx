@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MAddscholar from '../button/maddscho';
+import MServiceButton from '../button/mservice';
 
 import '../../admin/heads/shead.css'
 
@@ -22,6 +23,7 @@ function MSHeader({ scrollToContact }) {
       <nav className="ScH-nav-container">
         <button className="ScH-nav-home-btn" onClick={() => navigate('/mhome')}>Home</button>
         <MAddscholar />
+        <MServiceButton />
         <button className="ScH-nav-contact-btn" onClick={scrollToContact}>Contact Us</button>
       </nav>
       <div className="ScH-search-container">

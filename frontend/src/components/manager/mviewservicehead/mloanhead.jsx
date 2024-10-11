@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MAddln from '../button/maddlon';
+import MServiceButton from '../button/mservice';
 
 import './mloanhead.css'
 
@@ -25,6 +26,7 @@ function MVLHeader({ scrollToContact }) {
       <nav className="MLn1">
         <button className="MLn2" onClick={() => navigate('/mhome')}>Home</button>
         <MAddln />
+        <MServiceButton />
       </nav>
 
       <div className="MLa1">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './ScholarShipForm.css';
 import axios from 'axios';
 import Header from './headd';
@@ -8,6 +8,7 @@ import useAuth from '../../../function/useAuth';
 
 const ScholarshipForm = () => {
   useAuth();
+  const footerRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -120,7 +121,7 @@ const ScholarshipForm = () => {
 
   return (
     <>
-      <Header />
+      <Header scrollToContact={() => footerRef.current?.scrollIntoView({behavior:'smooth'})}/>
       <div className="adminscho-scholarship-form-container">
         <h2>Submit a Scholarship</h2>
         <form onSubmit={handleSubmit}>
@@ -264,7 +265,7 @@ const ScholarshipForm = () => {
           </button>
         </form>
       </div>
-      <Footer />
+      <Footer ref = {footerRef} />
     </>
   );
 };

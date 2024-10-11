@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AddEntrace from './abutton/Entrance_btn';
 import AddLoan from './abutton/Loan_btn';
 import Addscholar from './abutton/Scholarship_btn';
+import ServiceButton from './abutton/adservicebtn';
 
 import './aheadd.css';
 
@@ -29,6 +30,7 @@ function Header({ scrollToContact }) {
         <AddEntrace />
         <AddLoan />
         <Addscholar />
+        <ServiceButton/>
         <button className="n3" onClick={scrollToContact}>Contact Us</button>
       </nav>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MAddentr from '../button/maddent';
+import MServiceButton from '../button/mservice';
 
 import '../../admin/heads/ehead.css'
 
@@ -23,6 +24,7 @@ function MEHeader({ scrollToContact }) {
       <nav className="EH-nav-container">
         <button className="EH-nav-home-btn" onClick={() => navigate('/mhome')}>Home</button>
         <MAddentr />
+        <MServiceButton />
         <button className="EH-nav-contact-btn" onClick={scrollToContact}>Contact Us</button>
       </nav>
       <div className="EH-search-container">

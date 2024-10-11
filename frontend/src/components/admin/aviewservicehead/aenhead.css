@@ -24,7 +24,7 @@
   .VAEH-nav-container {
     display: flex;
     gap: 20px;
-    margin-left: -800px;
+    margin-left: -600px;
   }
   
   .VAEH-nav-container button {

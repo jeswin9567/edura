@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './EntranceForm.css';
 import Header from './headd';
@@ -8,12 +8,13 @@ import useAuth from '../../../function/useAuth';
 
 const EntranceForm = () => {
   useAuth();
+  const footerRef = useRef(null)
 
   const [formData, setFormData] = useState({
     name: '',
     details: '',
     education: '',
-    degree: [],
+    degree: [], 
     marksGeneral: '',
     marksBackward: '',
     syllabus: '',
@@ -146,9 +147,17 @@ const EntranceForm = () => {
     }
   };
 
+ // Function to scroll to footer
+
+ const srollToFooter = () =>
+ {
+  if(footerRef.current)
+    footerRef.current.scrollIntoView({behavior:'smooth'})
+ }
+
   return (
     <>
-      <Header />
+      <Header scrollToContact={srollToFooter}/>
       <div className="adminentranceadd">
         <h2>Submit an Entrance</h2>
         <form onSubmit={handleSubmit}>
@@ -350,7 +359,7 @@ const EntranceForm = () => {
           </button>
         </form>
       </div>
-      <Footer />
+      <Footer ref={footerRef}/>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import './StudentLoan.css';
 import axios from 'axios';
 import Header from './headd';
@@ -8,6 +8,7 @@ import useAuth from '../../../function/useAuth';
 
 const StudentLoanForm = () => {
   useAuth();
+  const footerRef = useRef(null);
   const [formData, setFormData] = useState({
     loanName: '',
     bankName: '',
@@ -74,7 +75,7 @@ const StudentLoanForm = () => {
 
   return (
     <>
-      <Header />
+      <Header scrollToContact={()=>footerRef.current?.scrollIntoView({behavior:'smooth'})}/>
       <div className="formdata">
         <h2>Submit a Student Loan</h2>
         <form onSubmit={handleSubmit}>
@@ -231,7 +232,7 @@ const StudentLoanForm = () => {
           </button>
         </form>
       </div>
-      <Footer />
+      <Footer ref={footerRef}/>
     </>
   );
 };

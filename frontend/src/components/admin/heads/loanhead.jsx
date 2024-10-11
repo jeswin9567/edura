@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddLoan from '../abutton/Loan_btn';
+import ServiceButton from '../abutton/adservicebtn';
+import AddManager from '../abutton/Manager_btn';
 
 import './lhead.css';
 
@@ -23,6 +25,8 @@ function LHeader({ scrollToContact }) {
       <nav className="LH-nav-container">
         <button className="LH-nav-home-btn" onClick={() => navigate('/adhome')}>Home</button>
         <AddLoan />
+        <ServiceButton />
+        <AddManager />
         <button className="LH-nav-contact-btn" onClick={scrollToContact}>Contact Us</button>
       </nav>
       <div className="LH-search-container">
