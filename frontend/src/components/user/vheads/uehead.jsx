@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import USearchEntrance from '../button/search/uentsear';
 import UServiceButton from '../button/uservice';
 import Prof from '../button/profile';
 import '../header.css'
@@ -26,12 +27,7 @@ function UEVHeader({ scrollToContact }) {
         <Prof />
       </nav>
       <div className="uhome-search-box">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="uhome-search-input"
-        />
-        <button className="uhome-search-button">Search</button>
+       <USearchEntrance />
       </div>
       <div className="uhome-auth-buttons">
         <button className="uhome-login-btn" onClick={logout}>Logout</button>

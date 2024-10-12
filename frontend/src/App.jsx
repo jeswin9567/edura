@@ -40,6 +40,9 @@ import UpdateScholarship from './components/admin/aupdate/uscho';
 import MUpdateLoan from './components/manager/mupdate/mupln';
 import MUpdateEntrance from './components/manager/mupdate/mupen';
 import MUpdateScholarship from './components/manager/mupdate/mupscho';
+import USearchSchoResults from './pages/user/Search/Uschorslt';
+import USearchEntrResults from './pages/user/Search/Uentrsl';
+import USearchLnResults from './pages/user/Search/Uloanrslt';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -87,8 +90,9 @@ function App() {
         <Route path='/mupdateloan/:id' element ={<MUpdateLoan />} />
         <Route path='/mupdateentrance/:id' element ={<MUpdateEntrance />} />
         <Route path='/mupdatescholar/:id' element={<MUpdateScholarship />} />
- 
-
+        <Route path="/search-results" element={<USearchSchoResults />} />
+        <Route path="/ensearch-results" element={<USearchEntrResults />} />
+        <Route path="/loansearch-results" element={<USearchLnResults />} />
       </Routes>
     </Router>
   );

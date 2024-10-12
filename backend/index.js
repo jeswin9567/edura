@@ -25,6 +25,11 @@ const UpdSchoRoute = require('./routes/upscho');
 const VUProfileRoute = require('./routes/profile');
 const UpUProfileRoute = require('./routes/userupdatepro');
 const UpUPassword = require('./routes/changepass');
+const USchoRoute = require('./routes/searchscho');
+const USrchEntraceRoute = require('./routes/searchentr');
+const USrchLoanRoute = require('./routes/searchloan');
+
+
 
 
 
@@ -77,6 +82,11 @@ app.use('/upscho', UpdSchoRoute);
 app.use('/vuprofile',VUProfileRoute);
 app.use('/updateprofile', UpUProfileRoute);
 app.use('/changePassword',UpUPassword);
+app.use('/',USchoRoute);
+app.use('/',USrchEntraceRoute);
+app.use('/',USrchLoanRoute);
+
+
 
 
 

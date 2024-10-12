@@ -30,7 +30,7 @@ const ULoanList = () => {
                         <div className="loan-name">{loan.loanName}</div> 
                     </Link>
                 </div>
-            ))}
+            ))} 
         </div>
     );
 };

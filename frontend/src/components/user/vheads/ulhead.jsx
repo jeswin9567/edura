@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import UServiceButton from '../button/uservice';
 import Prof from '../button/profile';
+import USearchLoan from '../button/search/ulnsear';
 import '../header.css';
 
 function UVLHeader({ scrollToContact }) {
@@ -26,12 +27,7 @@ function UVLHeader({ scrollToContact }) {
         <Prof />
       </nav>
       <div className="uhome-search-box">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="uhome-search-input"
-        />
-        <button className="uhome-search-button">Search</button>
+      <USearchLoan /> 
       </div>
       <div className="uhome-auth-buttons">
         <button className="uhome-login-btn" onClick={logout}>Logout</button>
