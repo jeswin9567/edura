@@ -4,14 +4,38 @@ const StudentLoanModel = require('../model/StudentLoan');
 
 // Get all Details
 
+// In your router file
+
 router.get('/', async (req, res) => {
     try {
-        const Loans = await StudentLoanModel.find();
-        res.json(Loans);
+        const { bankName, loanType, fieldOfStudy, amount, interestRate } = req.query;
+
+        // Build a filter object based on provided query parameters
+        const filter = {};
+        
+        if (bankName) {
+            filter.bankName = { $in: bankName.split(',') }; // If multiple bank names are selected
+        }
+        if (loanType) {
+            filter.loanType = { $in: loanType.split(',') }; // If multiple loan types are selected
+        }
+        if (fieldOfStudy) {
+            filter.fieldOfStudy = { $in: fieldOfStudy.split(',') }; // If multiple fields of study are selected
+        }
+        if (amount) {
+            filter.maxAmount = { $gte: amount }; // Loans with max amount greater than or equal to the selected amount
+        }
+        if (interestRate) {
+            filter.minInterestRate = { $lte: interestRate }; // Loans with min interest rate less than or equal to the selected interest rate
+        }
+
+        const loans = await StudentLoanModel.find(filter);
+        res.json(loans);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-})
+});
+
 
 // Get by Id
 

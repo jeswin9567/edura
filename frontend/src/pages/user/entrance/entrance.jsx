@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import UEVHeader from "../../../components/user/vheads/uehead";
 import HeroSection from '../../../components/common/first'; // Ensure the import path is correct
-import MarginC from "../../../components/common/margin";
+import MarginCEntr from "../../../components/common/marginen";
 import UEntranceList from "../../../components/user/UEntrancelist";
 import Footer from "../../../components/common/footer"; // Ensure the import path is correct
 import '../../../pages/admin/functionalities/ascholar.css'
@@ -11,6 +11,13 @@ function Entrance() {
 
   useAuth();
   const footerRef = useRef(null);
+
+  const [filters, setFilters] = useState({
+    education: [],
+    examType: [],
+    state: [],
+    degrees: [],
+  });
 
   const scrollToContact = () => {
     footerRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -22,8 +29,8 @@ function Entrance() {
         <UEVHeader scrollToContact={scrollToContact} />
         <HeroSection />
         <div className="scholar-container">
-          <MarginC />
-          <UEntranceList />
+          <MarginCEntr setFilters={setFilters}/>
+          <UEntranceList filters= {filters} />
         </div>
         <Footer ref={footerRef} />
       </div>
