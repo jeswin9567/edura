@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 20px; /* Add some padding around the list */
+    max-height: 100px;
 }
 
 .scholarship-item {

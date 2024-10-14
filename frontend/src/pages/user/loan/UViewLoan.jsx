@@ -48,7 +48,13 @@ const UVLoanDetails = () => {
 
                 <h2 className="section-heading">Loan Scheme</h2>
                 <p><strong>Loan Type:</strong> {loan.loanType}</p>
-                <p><strong>Field of Study:</strong> {loan.fieldOfStudy}</p>
+                <p>
+                    <strong>Field of Study:</strong> 
+                    {Array.isArray(loan.fieldOfStudy) 
+                        ? loan.fieldOfStudy.join(', ') // Join array values with commas and space
+                        : loan.fieldOfStudy} {/* If it's not an array, just render it directly */}
+                </p>
+
                 <p><strong>Repayment Period:</strong> {loan.repayment } years</p>
 
                 <h2 className="section-heading">Interest Rate & Loan Amount</h2>

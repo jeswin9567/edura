@@ -1,10 +1,14 @@
-import React, { useState,useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './StudentLoan.css';
 import axios from 'axios';
 import Header from './headd';
 import Footer from '../common/footer';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../function/useAuth';
+
+const fieldOfStudyOptions = [
+  'Engineering', 'Medicine', 'Business', 'Law', 'Arts', 'Science', 'Technology'
+];
 
 const StudentLoanForm = () => {
   useAuth();
@@ -16,25 +20,41 @@ const StudentLoanForm = () => {
     contactNumber: '',
     email: '',
     loanType: '',
-    fieldOfStudy: '',
-    repayment:'',
+    fieldOfStudy: [],  // Now an array for multiple selections
+    repayment: '',
     minAmount: '',
     maxAmount: '',
     minInterestRate: '',
     maxInterestRate: '',
     collateral: '',
     applicationProcess: '',
-    eligibilityCriteria: '' // Field for eligibility criteria
+    eligibilityCriteria: ''
   });
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value, type, checked } = e.target;
+    if (name === 'fieldOfStudy') {
+      // Handle multiple checkbox selections for fieldOfStudy
+      if (checked) {
+        setFormData((prevData) => ({
+          ...prevData,
+          fieldOfStudy: [...prevData.fieldOfStudy, value]
+        }));
+      } else {
+        setFormData((prevData) => ({
+          ...prevData,
+          fieldOfStudy: prevData.fieldOfStudy.filter((field) => field !== value)
+        }));
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -44,8 +64,6 @@ const StudentLoanForm = () => {
       const response = await axios.post('http://localhost:5000/studln', formData);
       console.log(response.data);
       alert('Student loan submitted successfully');
-
-      // Reset form data
       setFormData({
         loanName: '',
         bankName: '',
@@ -53,7 +71,7 @@ const StudentLoanForm = () => {
         contactNumber: '',
         email: '',
         loanType: '',
-        fieldOfStudy: '',
+        fieldOfStudy: [],
         repayment: '',
         minAmount: '',
         maxAmount: '',
@@ -61,10 +79,9 @@ const StudentLoanForm = () => {
         maxInterestRate: '',
         collateral: '',
         applicationProcess: '',
-        eligibilityCriteria: '' // Reset eligibility criteria
+        eligibilityCriteria: ''
       });
-
-      navigate('/admin/loan'); // Redirect to the loans page
+      navigate('/admin/loan');
     } catch (error) {
       console.error(error);
       alert('Error submitting loan: ' + (error.response?.data?.message || 'Unknown error'));
@@ -75,7 +92,7 @@ const StudentLoanForm = () => {
 
   return (
     <>
-      <Header scrollToContact={()=>footerRef.current?.scrollIntoView({behavior:'smooth'})}/>
+      <Header scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
       <div className="formdata">
         <h2>Submit a Student Loan</h2>
         <form onSubmit={handleSubmit}>
@@ -144,13 +161,20 @@ const StudentLoanForm = () => {
           </div>
           <div className="fieldoffld">
             <label>Field of Study:</label>
-            <textarea
-              type="text"
-              name="fieldOfStudy"
-              value={formData.fieldOfStudy}
-              onChange={handleChange}
-              required
-            />
+            <div className="uplon-checkbox-group">
+              {fieldOfStudyOptions.map((field) => (
+                <label key={field} className="uplon-checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="fieldOfStudy"
+                    value={field}
+                    checked={formData.fieldOfStudy.includes(field)}
+                    onChange={handleChange}
+                  />
+                  {field}
+                </label>
+              ))}
+            </div>
           </div>
           <div className="repayment">
             <label>Repayment:</label>
@@ -232,7 +256,7 @@ const StudentLoanForm = () => {
           </button>
         </form>
       </div>
-      <Footer ref={footerRef}/>
+      <Footer ref={footerRef} />
     </>
   );
 };

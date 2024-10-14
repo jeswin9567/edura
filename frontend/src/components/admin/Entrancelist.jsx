@@ -3,13 +3,19 @@ import './EntranceList.css'; // Create this CSS for styling
 import { Link } from 'react-router-dom';
 
 
-const EntranceList = () => {
+const EntranceList = ({filters}) => {
     const [entrances, setEntrances] = useState([]);
 
     useEffect(() => {
         const fetchEntrances = async () => {
             try {
-                const response = await fetch('http://localhost:5000/viewentr');
+                const queryParams = new URLSearchParams({
+                    education: filters.education.join(','),
+                    examType: filters.examType.join(','),
+                    state: filters.state.join(','),
+                    degrees: filters.degrees.join(','),  // Fix: corrected to 'degrees'
+                }).toString();
+                const response = await fetch(`http://localhost:5000/viewentr?${queryParams}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -21,7 +27,7 @@ const EntranceList = () => {
         };
 
         fetchEntrances();
-    }, []);
+    }, [filters]);
 
     return (
         <div className="entrance-list">

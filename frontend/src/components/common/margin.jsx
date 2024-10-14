@@ -5,7 +5,7 @@ const MarginC = ({ setFilters }) => {
     const initialFilterState = {
         bankName: [],
         loanType: [],
-        fieldOfStudy: [],
+        fieldOfStudy: [], // Added fieldOfStudy
         amount: 1000000, // Default amount value
         interestRate: 10 // Default interest rate value
     };
@@ -51,6 +51,11 @@ const MarginC = ({ setFilters }) => {
             label: 'Loan Type',
             type: 'checkbox',
             options: ['domestic', 'international']
+        },
+        fieldOfStudy: {
+            label: 'Field of Study',  // Added Field of Study filter
+            type: 'checkbox',
+            options: ['Engineering', 'Medicine', 'Business', 'Law', 'Arts', 'Science', 'Technology']
         },
         amount: {
             label: 'Amount',

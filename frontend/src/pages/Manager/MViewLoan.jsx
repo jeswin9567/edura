@@ -65,7 +65,12 @@ const MVLoanDetails = () => {
 
     <div className="section-heading">Loan Details</div>
     <p><strong>Loan Type:</strong> {loan.loanType}</p>
-    <p><strong>Field of Study:</strong> {loan.fieldOfStudy}</p>
+    <p>
+                    <strong>Field of Study:</strong> 
+                    {Array.isArray(loan.fieldOfStudy) 
+                        ? loan.fieldOfStudy.join(', ') // Join array values with commas and space
+                        : loan.fieldOfStudy} {/* If it's not an array, just render it directly */}
+                </p>
     <p><strong>Repayment period:</strong>{loan.repayment}</p>
     <p><strong>Minimum Amount:</strong> {loan.minAmount}</p>
     <p><strong>Maximum Amount:</strong> {loan.maxAmount}</p>

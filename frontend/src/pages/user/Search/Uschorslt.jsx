@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import UVSHeader from '../../../components/user/vheads/shead';
 import HeroSection from '../../../components/common/first';
-import MarginC from '../../../components/common/margin';
+import MarginCScho from '../../../components/common/marginscho';
 import Footer from '../../../components/common/footer';
 import '../../../pages/admin/functionalities/ascholar.css'
 import { useLocation, Link } from 'react-router-dom';
@@ -52,7 +52,7 @@ const USearchSchoResults = () => {
         <HeroSection />
         <div className="scholar-container" ref = {marginCref}>
 
-            <MarginC/>
+            <MarginCScho/>
     
 
       {/* Error Message */}

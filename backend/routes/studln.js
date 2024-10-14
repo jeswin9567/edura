@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
         !contactNumber ||
         !email ||
         !loanType ||
-        !fieldOfStudy ||
+        !fieldOfStudy||
         !repayment ||
         !minAmount ||
         !maxAmount ||

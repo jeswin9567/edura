@@ -39,6 +39,16 @@
     margin: 0 5px;
   }
   
+  .uhome-token {
+    margin-left: 40px;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Limit the display width for long tokens */
+  }
+  
   .uhome-auth-buttons {
     display: flex;
     gap: 30px;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import UEVHeader from '../../../components/user/vheads/uehead';
 import HeroSection from '../../../components/common/first';
-import MarginC from '../../../components/common/margin';
+import MarginCEntr from '../../../components/common/marginen';
 import Footer from '../../../components/common/footer';
 import '../../../pages/admin/functionalities/aentrance.css'
 import { useLocation, Link } from 'react-router-dom';
@@ -52,7 +52,7 @@ const USearchEntrResults = () => {
         <HeroSection />
         <div className="entrance-container" ref = {marginCref}>
 
-            <MarginC/>
+            <MarginCEntr/>
     
 
       {/* Error Message */}
