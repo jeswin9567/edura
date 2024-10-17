@@ -3,7 +3,7 @@ import './addscho.css'
 import axios from 'axios';
 import Header from '../../../components/manager/head';
 import Footer from '../../../components/common/footer';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import useAuth from '../../../../function/useAuth';
 
 const MScholarshipForm = () => {
@@ -29,15 +29,20 @@ const MScholarshipForm = () => {
 
   const [availableSubOptions, setAvailableSubOptions] = useState([]);
   const [loading, setLoading] = useState(false); 
+  const [errors , setErrors] = useState({});
   const navigate = useNavigate();
 
   const statesOptions = ['All India', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
 
   const handleChange = (e) => {
+    const {name, value} = e.target;
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
+    validateField(name, value);
   };
 
   const handleEligibilityChange = (e) => {
@@ -54,7 +59,7 @@ const MScholarshipForm = () => {
         setAvailableSubOptions(['M.Sc', 'M.Com', 'M.A', 'MBA', 'M.Tech', 'Other']);
         break;
       case 'Diploma':
-        setAvailableSubOptions(['Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics']);
+        setAvailableSubOptions(['Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics','Other']);
         break;
       default:
         setAvailableSubOptions([]);
@@ -81,8 +86,85 @@ const MScholarshipForm = () => {
     });
   };
 
+  const validateField = (name, value) => {
+    let errorMsg = '';
+  
+    switch (name) {
+      case 'name':
+        // Allow letters, numbers, and parentheses, but must contain at least one letter
+        if (!/^[a-zA-Z0-9(), ]+$/.test(value)) {
+          errorMsg = 'Name can only contain letters, numbers, and ().';
+        } else if (!/[a-zA-Z]/.test(value)) {
+          errorMsg = 'Name must contain at least one letter.';
+        } else if (!value.trim()) {
+          errorMsg = 'Name is required.';
+        }
+        break;
+      case 'description':
+        // Allow letters, numbers, and spaces, but must contain at least one letter
+        if (!/^[a-zA-Z0-9.,: ]+$/.test(value)) {
+          errorMsg = 'Description can only contain letters, numbers, and spaces.';
+        } else if (!/[a-zA-Z]/.test(value)) {
+          errorMsg = 'Description must contain at least one letter.';
+        } else if (!value.trim()) {
+          errorMsg = 'Description is required.';
+        }
+        break;
+      case 'document':
+        // Allow letters, numbers, and spaces, but must contain at least one letter
+        if (!/^[a-zA-Z0-9.,: ]+$/.test(value)) {
+          errorMsg = 'Documents required field can only contain letters, numbers, and spaces.';
+        } else if (!/[a-zA-Z]/.test(value)) {
+          errorMsg = 'Documents field must contain at least one letter.';
+        } else if (!value.trim()) {
+          errorMsg = 'Documents required is required.';
+        }
+        break;
+      case 'award':
+        if (!value || value <= 0) {
+          errorMsg = 'Award must be greater than 0.';
+        }
+        break;
+      case 'annualIncome':
+        if (!value || value <= 0) {
+          errorMsg = 'Annual income must be greater than 0.';
+        }
+        break;
+      case 'marks':
+        if (!value || value < 0) {
+          errorMsg = 'Marks must be 0 or more.';
+        }
+        break;
+      case 'link':
+        const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+        if (!urlPattern.test(value)) {
+          errorMsg = 'Invalid URL format.';
+        }
+        break;
+      case 'startdate':
+      case 'enddate':
+        if (!value) {
+          errorMsg = 'Date is required.';
+        }
+        break;
+      default:
+        break;
+    }
+  
+    setErrors(prevErrors => ({ ...prevErrors, [name]: errorMsg }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // check validation before submission
+    const formErrors = Object.values(errors).filter((error) => error);
+    if (formErrors.length > 0) {
+      alert('Please fix validation errors before submitting.');
+      return;
+    }
+
+    
     setLoading(true);
     try {
       const response = await axios.post('http://localhost:5000/schship', formData);
@@ -126,10 +208,12 @@ const MScholarshipForm = () => {
           <div>
             <label>Name:</label>
             <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+            {errors.name && <p className="merror-message">{errors.name}</p>}
           </div>
           <div>
             <label>Description:</label>
             <textarea name="description" value={formData.description} onChange={handleChange} required />
+            {errors.description && <p className="merror-message">{errors.description}</p>}
           </div>
           <div>
             <label>States:</label>
@@ -145,6 +229,7 @@ const MScholarshipForm = () => {
           <div>
             <label>Award:</label>
             <input type="number" name="award" value={formData.award} onChange={handleChange} min="0" required />
+            {errors.award && <p className="merror-message">{errors.award}</p>} 
           </div>
 
           {/* New Monthly/Yearly dropdown */}
@@ -190,6 +275,7 @@ const MScholarshipForm = () => {
           <div>
             <label>Minimum Marks:</label>
             <input type="number" name="marks" value={formData.marks} onChange={handleChange} min="0" required />
+            {errors.marks && <p className="merror-message">{errors.marks}</p>}
           </div>
 
           <div>
@@ -216,7 +302,7 @@ const MScholarshipForm = () => {
 
           <div>
             <label>Category:</label>
-            {['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC'].map((category) => (
+            {['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC','Minority','Disabled'].map((category) => (
               <label key={category}>
                 <input
                   type="checkbox"
@@ -232,6 +318,7 @@ const MScholarshipForm = () => {
           <div>
             <label>Documents Required:</label>
             <textarea type="text" name="document" value={formData.document} onChange={handleChange} required />
+            {errors.document && <p className="merror-message">{errors.document}</p>}
           </div>
 
           <div>
@@ -251,6 +338,7 @@ const MScholarshipForm = () => {
           <div>
             <label>Link:</label>
             <input type="url" name="link" value={formData.link} onChange={handleChange} required />
+            {errors.link && <p className="merror-message">{errors.link}</p>}
           </div>
 
           <div>

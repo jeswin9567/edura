@@ -2,13 +2,24 @@ import React, { useEffect, useState } from 'react';
 import '../admin/Scholarlist.css';
 import { Link } from 'react-router-dom';
 
-const ManScholarshipList = () => {
+const ManScholarshipList = ({filters}) => {
     const [scholarships, setScholarships] = useState([]);
 
     useEffect(() => {
         const fetchScholarships = async () => {
             try {
-                const response = await fetch('http://localhost:5000/viewscho');
+                const queryParams = new URLSearchParams({
+                    eligibility: filters.eligibility.join(','),
+                    subEligibility: Object.values(filters.subEligibility).flat().join(','),
+                    gender: filters.gender,
+                    category: filters.category.join(','),
+                    states: filters.states.join(','),
+                    awardDuration: filters.awardDuration.join(','),
+                    annualIncome: filters.annualIncome ? filters.annualIncome : '', 
+                    marks: filters.marks,
+                }).toString();
+
+                const response = await fetch(`http://localhost:5000/viewscho?${queryParams}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -20,7 +31,7 @@ const ManScholarshipList = () => {
         };
 
         fetchScholarships();
-    }, []);
+    }, [filters]);
 
     return (
         <div className="scholarship-list">

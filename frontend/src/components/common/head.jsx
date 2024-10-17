@@ -5,7 +5,6 @@ import './head.css'; // Ensure this file contains the header-specific styles
 function Header({ scrollToAbout, scrollToServices, scrollToContact }) {
     const navigate = useNavigate();
 
-    const emailtoken = localStorage.getItem('userEmail')
     const logout = () => {
       const token=localStorage.getItem('token');
       if (token){
@@ -26,7 +25,6 @@ function Header({ scrollToAbout, scrollToServices, scrollToContact }) {
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
       </nav>
 
-      {emailtoken && <p className="uhome-token"> {emailtoken}</p>}
       <div className="uhome-auth-buttons">
         <button className="uhome-login-btn" onClick={logout}>Logout</button>
       </div>

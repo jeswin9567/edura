@@ -15,7 +15,7 @@ const EntranceSchema = new mongoose.Schema({
     },
     degree: [{
         type: String,
-        required: true,
+        required: false,
     }],
     marksGeneral: {
         type: String,

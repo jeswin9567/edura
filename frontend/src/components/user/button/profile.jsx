@@ -1,15 +1,26 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import SessEmail from "../../namesession";
 
-function Prof(){
+function Prof() {
     const navigate = useNavigate();
 
-    return(
+    return (
         <>
-        <div>
-            <button onClick={() => navigate("/uvpro")}>Profile</button>
-
-        </div>
+            <div>
+                <button 
+                    onClick={() => navigate("/uvpro")} 
+                    style={{
+                        backgroundColor: 'transparent', 
+                        border: 'none', 
+                        color: '#004429', 
+                        fontSize: '14px', 
+                        cursor: 'pointer'
+                    }}
+                >
+                    <SessEmail />
+                </button>
+            </div>
         </>
     );
 }

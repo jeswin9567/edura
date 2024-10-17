@@ -99,6 +99,9 @@
   cursor: not-allowed;
 }
 
+.merror-message{
+  color: red;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .managerschoad-form-container {

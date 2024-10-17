@@ -70,6 +70,7 @@ function Login() {
             type='text' 
             className='un' 
             placeholder='username/email' 
+            id="emailid"
             value={email}
             onChange={(e) => setEmail(e.target.value)}  // Capture email input
             required
@@ -78,6 +79,7 @@ function Login() {
             type='password' 
             className='pass' 
             placeholder='password' 
+            id="passwords"
             value={pass}
             onChange={(e) => setPassword(e.target.value)}  // Capture password input
             required
@@ -85,7 +87,7 @@ function Login() {
           <a href="/forgotpassword" className='fp'>Forgot password?</a>
 
           {/* Submit button */}
-          <button type="submit" className='lb'>Login</button>
+          <button type="submit" id="login" className='lb'>Login</button>
         </form>
 
         <p className='not'>

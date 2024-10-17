@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import MSHeader from "./mheads/mshead";
 import HeroSection from "../common/first";
-import MarginC from "../common/margin";
+import MarginCScho from "../common/marginscho";
 import ManScholarshipList from "./MScholarlist";
 import Footer from "../common/footer";
 import '../../pages/admin/functionalities/ascholar.css'
@@ -12,14 +12,25 @@ function Mscholar() {
   
   const footerRef = useRef(null);
 
+  const [filters, setFilters] = useState({
+    eligibility: [],
+    subEligibility: {},
+    gender: '',
+    category: [],
+    states: [],
+    awardDuration: [],
+    annualIncome: '',
+    marks: ''
+  });
+
   return (
     <>
       <div>
         <MSHeader scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
         <HeroSection />
         <div className="scholar-container">
-          <MarginC />
-          <ManScholarshipList />
+          <MarginCScho setFilters={setFilters}/>
+          <ManScholarshipList filters={filters}/>
         </div>
         <Footer ref={footerRef} />
       </div>

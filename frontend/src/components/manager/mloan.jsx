@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import MHeader from "./mheads/mlhead";
 import HeroSection from "../common/first";
 import MarginC from "../common/margin";
@@ -12,6 +12,13 @@ function Mloan() {
   useAuth();
 
   const footerRef = useRef(null);
+  const [filters, setFilters] = useState({
+    bankName: [],
+    loanType: [],
+    fieldOfStudy: [],
+    amount: 1000000,
+    interestRate: 10,
+  });
 
   return (
     <>  
@@ -19,8 +26,8 @@ function Mloan() {
         <MHeader scrollToContact={() => footerRef.current?.scrollIntoView({ behavior: 'smooth' })} />
         <HeroSection />
         <div className="mloan-container">
-          <MarginC />
-          <MLoanList />
+          <MarginC setFilters={setFilters}/>
+          <MLoanList filters={filters}/>
         </div>
         <Footer ref={footerRef} />
       </div>

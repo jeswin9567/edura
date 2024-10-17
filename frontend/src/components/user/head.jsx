@@ -6,7 +6,6 @@ import './head.css'
 
 function UHead({ scrollToAbout, scrollToServices, scrollToContact }) {
     const navigate = useNavigate();
-    const emailtoken = localStorage.getItem('userEmail')
     const logout = () => {
       const token=localStorage.getItem('token');
       if (token){
@@ -26,14 +25,17 @@ function UHead({ scrollToAbout, scrollToServices, scrollToContact }) {
         <button className="uhome-serb" onClick={scrollToServices}>Services</button>
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
         
-        <Prof />
+       
         
 
       </nav>
+      <div className="uhome-profsession">
+      <Prof />
+      </div>
 
-      {emailtoken && <p className="uhome-token"> {emailtoken}</p>}
    
       <div className="uhome-auth-buttons">
+      
       
         <button className="uhome-login-btn" onClick={logout}>Logout</button>
       </div>

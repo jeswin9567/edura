@@ -17,14 +17,14 @@ const MarginCScho = ({ setFilters }) => {
 
     const eligibilityOptions = ['School', 'Undergraduate', 'Postgraduate', 'Diploma'];
     const genderOptions = ['Male', 'Female', 'Common', 'Other'];
-    const categoryOptions = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC'];
+    const categoryOptions = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC','Minority','Disabled'];
     const statesOptions = ['All India', 'Andhra Pradesh', 'Assam', 'Bihar', 'Goa'];
     const awardDurationOptions = ['Monthly', 'Yearly'];
 
     const schoolOptions = ['4', '5', '6', '7', '8', '9', '10', '11', '12'];
     const undergraduateOptions = ['B.Sc', 'B.Com', 'B.A', 'B.Tech', 'BBA', 'Other'];
     const postgraduateOptions = ['M.Sc', 'M.Com', 'M.A', 'MBA', 'M.Tech', 'Other'];
-    const diplomaOptions = ['Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics'];
+    const diplomaOptions = ['Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics','Other'];
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;

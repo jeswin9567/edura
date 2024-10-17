@@ -126,13 +126,13 @@ const UpdateScholarship = () => {
                 options.push('Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12');
                 break;
             case 'Undergraduate':
-                options.push('B.Sc', 'B.Com', 'B.A', 'B.Tech', 'B.E', 'BBA');
+                options.push('B.Sc', 'B.Com', 'B.A', 'B.Tech', 'B.E', 'BBA','Other');
                 break;
             case 'Postgraduate':
-                options.push('M.Sc', 'M.Com', 'M.A', 'MBA', 'M.Tech', 'M.E');
+                options.push('M.Sc', 'M.Com', 'M.A', 'MBA', 'M.Tech', 'M.E','Other');
                 break;
             case 'Diploma':
-                options.push('Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics');
+                options.push('Mechanical', 'Civil', 'Electrical', 'Computer Science', 'Electronics','Other');
                 break;
             default:
                 return null;
@@ -159,7 +159,7 @@ const UpdateScholarship = () => {
     };
 
     const renderCategoryOptions = () => {
-        const categories = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC'];
+        const categories = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC','Minority','Disabled'];
         return (
             <div>
                 <label>Select Category:</label>

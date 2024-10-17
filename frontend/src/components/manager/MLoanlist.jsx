@@ -2,16 +2,24 @@ import React, { useEffect, useState } from 'react';
 import '../../components/admin/Loanlist.css';
 import { Link } from 'react-router-dom';
 
-const MLoanList = () => {
+const MLoanList = ({filters}) => {
         const [loans, setLoans] = useState([]);
     
         useEffect(() => {
             const fetchLoans = async () => {
                 try {
-                    const response = await fetch('http://localhost:5000/viewln');
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch loans');
-                    }
+                    const queryParams = new URLSearchParams({
+                    bankName: filters.bankName.join(','),
+                    loanType: filters.loanType.join(','),
+                    fieldOfStudy: filters.fieldOfStudy.join(','),
+                    amount: filters.amount,
+                    interestRate: filters.interestRate,
+                }).toString();
+
+                const response = await fetch(`http://localhost:5000/viewln?${queryParams}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch loans');
+                }
                     const data = await response.json();
                     setLoans(data);
                 } catch (error) {
@@ -20,7 +28,7 @@ const MLoanList = () => {
             };
     
             fetchLoans();
-        }, []);
+        }, [filters]);
     
         return (
             <div className="loan-list">

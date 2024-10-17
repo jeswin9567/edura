@@ -151,7 +151,7 @@ const MUpdateScholarship = () => {
     };
 
     const renderCategoryOptions = () => {
-        const categories = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC'];
+        const categories = ['General', 'Scheduled Castes', 'Scheduled Tribes', 'OBC','Minority','Disabled'];
         return (
             <div>
                 <label>Select Category:</label>
