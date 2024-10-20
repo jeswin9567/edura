@@ -163,7 +163,9 @@ const MarginCEntr = ({ setFilters }) => {
         </div>
 
         <button type="submit" className="entrfiltr-button">Apply Filters</button>
-        <button type="button" onClick={clearFilters}>Clear Filters</button>
+        <br></br>
+        <br></br>
+        <button type="button" className="entrfiltr-button" onClick={clearFilters}>Clear Filters</button>
       </form>
     </div>
   );

@@ -9,6 +9,7 @@ import UVProfile from './pages/user/UProfile';
 import UpdateUserProfile from './pages/user/updateprofile';
 import Adhome from './pages/admin/adhome';
 import Mhome from './pages/Manager/mhome';
+import ManagerProfile from './pages/Manager/Profile';
 import Scholarship from './pages/user/scholarships/scholar';
 import Entrance from './pages/user/entrance/entrance';
 import Loan from './pages/user/loan/loan';
@@ -43,6 +44,9 @@ import MUpdateScholarship from './components/manager/mupdate/mupscho';
 import USearchSchoResults from './pages/user/Search/Uschorslt';
 import USearchEntrResults from './pages/user/Search/Uentrsl';
 import USearchLnResults from './pages/user/Search/Uloanrslt';
+import ManagerDelEntr from './pages/Manager/MViewDEntr';
+import MVDScholar from './pages/Manager/MViewDScholar';
+import MVDLoan from './pages/Manager/MViewDLoan';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -59,6 +63,7 @@ function App() {
         <Route path="/upro" element={<UpdateUserProfile />} />
         <Route path="/adhome" element={<Adhome />} />
         <Route path="/mhome" element = {<Mhome />} />
+        <Route path="/manager/profile" element = {<ManagerProfile />} />
         <Route path='/addManager' element={<AManager />} />
         <Route path="/scholarship" element={<Scholarship />} />
         <Route path="/entrance" element={<Entrance />} />
@@ -77,13 +82,16 @@ function App() {
         <Route path='/maddScholarship' element={<MScholarshipForm />} />
         <Route path='/scholarshipdetails/:id' element={<VScholarshipDetails />} />
         <Route path='/mscholarshipdetails/:id' element={<MVScholarshipDetails />} />
+        <Route path = '/mvdelscho' element ={<MVDScholar />} />
         <Route path='/uscholarshipdetails/:id' element={<UVScholarshipDetails />} />
         <Route path='/uentrancedetails/:id' element={<UVEntranceDetails />} />
         <Route path='/uloandetails/:id' element= {<UVLoanDetails />} />
         <Route path='/ventrancedetails/:id' element={<VEntranceDetails />} />
         <Route path='/vloandetails/:id' element={<VLoanDetails />} />
         <Route path='/mloandetails/:id' element={<MVLoanDetails />} />
+        <Route path='/mvdelln' element = {<MVDLoan />} />
         <Route path='/mventrancedetails/:id' element={<MVEntranceDetails />} />
+        <Route path = '/mvdelentrs' element={<ManagerDelEntr />} />
         <Route path='/updateloan/:id' element={<UpdateLoan />} />
         <Route path='/updateentr/:id' element={<UpdateEntrance />} />
         <Route path='/updatescho/:id' element={<UpdateScholarship />} />

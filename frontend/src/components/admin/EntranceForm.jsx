@@ -8,7 +8,7 @@ import useAuth from '../../../function/useAuth';
 
 const EntranceForm = () => {
   useAuth();
-  const footerRef = useRef(null)
+  const footerRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -38,10 +38,13 @@ const EntranceForm = () => {
   const states = ['All India', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value,
     });
+
+    validateField(name, value);
   };
 
   const handleDegreeChange = (e) => {
@@ -49,14 +52,16 @@ const EntranceForm = () => {
     if (checked) {
       setFormData({
         ...formData,
-        degree: [...formData.degree, value]
+        degree: [...formData.degree, value],
       });
     } else {
       setFormData({
         ...formData,
-        degree: formData.degree.filter((degree) => degree !== value)
+        degree: formData.degree.filter((degree) => degree !== value),
       });
     }
+
+    validateField('degree', formData.degree);
   };
 
   const handleEducationChange = (e) => {
@@ -64,7 +69,7 @@ const EntranceForm = () => {
     setFormData({
       ...formData,
       education: selectedEducation,
-      degree: [] // Clear degrees if education changes
+      degree: [], // Clear degrees if education changes
     });
 
     if (selectedEducation === 'Undergraduate') {
@@ -77,52 +82,100 @@ const EntranceForm = () => {
       setShowUGDegrees(false);
       setShowPGDegrees(false);
     }
+
+    validateField('education', selectedEducation);
   };
 
-  // Validation function
-  const validateForm = () => {
-    const newErrors = {};
+  // Validation for individual field
+  const validateField = (name, value) => {
+    const newErrors = { ...errors };
 
-    // Check for required fields
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.details.trim()) newErrors.details = 'Details are required';
-    if (!formData.education) newErrors.education = 'Education is required';
-    if (formData.education === 'Undergraduate' && formData.degree.length === 0)
-      newErrors.degree = 'At least one undergraduate degree must be selected';
-    if (formData.education === 'Postgraduate' && formData.degree.length === 0)
-      newErrors.degree = 'At least one postgraduate degree must be selected';
-    if (!formData.examType) newErrors.examType = 'Exam type is required';
-    if (!formData.marksGeneral.trim()) newErrors.marksGeneral = 'Marks for General Category are required';
-    if (!formData.marksBackward.trim()) newErrors.marksBackward = 'Marks for Backward Category are required';
-    if (!formData.syllabus.trim()) newErrors.syllabus = 'Syllabus is required';
-    if (!formData.startdate) newErrors.startdate = 'Start Date is required';
-    if (!formData.enddate) newErrors.enddate = 'End Date is required';
-    if (!formData.howtoapply.trim()) newErrors.howtoapply = 'How to Apply is required';
-    if (!formData.link.trim()) newErrors.link = 'Link is required';
-    if (!formData.state) newErrors.state = 'State is required';
+    // Name validation
+    if (name === 'name') {
+      if (!value.trim()) {
+        newErrors.name = 'Name is required';
+      } else if (value.length < 3) {
+        newErrors.name = 'Name must be at least 3 characters long';
+      } else {
+        delete newErrors.name;
+      }
+    }
 
-    // Date validation
-    const startDate = new Date(formData.startdate);
-    const endDate = new Date(formData.enddate);
-    const today = new Date();
+    // Details validation
+    if (name === 'details') {
+      if (!value.trim()) {
+        newErrors.details = 'Details are required';
+      } else if (value.length < 10) {
+        newErrors.details = 'Details must be at least 10 characters long';
+      } else {
+        delete newErrors.details;
+      }
+    }
 
-    if (startDate < today) newErrors.startdate = 'Start Date cannot be in the past';
-    if (endDate <= startDate) newErrors.enddate = 'End Date must be after the Start Date';
+    // Marks validation
+    if (name === 'marksGeneral') {
+      if (!value.trim()) {
+        newErrors.marksGeneral = 'Marks for General Category are required';
+      } else if (isNaN(value) || value < 0 || value > 100) {
+        newErrors.marksGeneral = 'Marks for General Category must be a number between 0 and 100';
+      } else {
+        delete newErrors.marksGeneral;
+      }
+    }
+
+    if (name === 'marksBackward') {
+      if (!value.trim()) {
+        newErrors.marksBackward = 'Marks for Backward Category are required';
+      } else if (isNaN(value) || value < 0 || value > 100) {
+        newErrors.marksBackward = 'Marks for Backward Category must be a number between 0 and 100';
+      } else {
+        delete newErrors.marksBackward;
+      }
+    }
+
+    // Syllabus validation
+    if (name === 'syllabus') {
+      if (!value.trim()) {
+        newErrors.syllabus = 'Syllabus is required';
+      } else {
+        delete newErrors.syllabus;
+      }
+    }
+
+    // Link validation
+    if (name === 'link') {
+      const urlPattern = new RegExp(
+        '^(https?:\\/\\/)?' + 
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' +
+        '((\\d{1,3}\\.){3}\\d{1,3}))' +
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + 
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + 
+        '(\\#[-a-z\\d_]*)?$',
+        'i'
+      );
+
+      if (!value.trim()) {
+        newErrors.link = 'Link is required';
+      } else if (!urlPattern.test(value)) {
+        newErrors.link = 'Link must be a valid URL';
+      } else {
+        delete newErrors.link;
+      }
+    }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return; // Do not submit if validation fails
+    // Ensure final form validation on submit
+    if (!validateForm()) return; 
 
     setLoading(true);
 
     try {
       const response = await axios.post('http://localhost:5000/entrnc', formData);
-      console.log(response.data);
       alert('Entrance details entered successfully');
       setFormData({
         name: '',
@@ -136,8 +189,8 @@ const EntranceForm = () => {
         enddate: '',
         howtoapply: '',
         link: '',
-        state: '', // Reset the state field
-        examType:''
+        state: '',
+        examType: ''
       });
       navigate('/admin/entrance');
     } catch (error) {
@@ -147,17 +200,15 @@ const EntranceForm = () => {
     }
   };
 
- // Function to scroll to footer
-
- const srollToFooter = () =>
- {
-  if(footerRef.current)
-    footerRef.current.scrollIntoView({behavior:'smooth'})
- }
+  // Scroll to footer
+  const srollToFooter = () => {
+    if (footerRef.current)
+      footerRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <>
-      <Header scrollToContact={srollToFooter}/>
+      <Header scrollToContact={srollToFooter} />
       <div className="adminentranceadd">
         <h2>Submit an Entrance</h2>
         <form onSubmit={handleSubmit}>
@@ -183,8 +234,9 @@ const EntranceForm = () => {
             />
             {errors.details && <p className="error">{errors.details}</p>}
           </div>
-           {/* Add Exam Type field */}
-           <div>
+
+          {/* Exam Type */}
+          <div>
             <label>Exam Type:</label>
             <select
               name="examType"
@@ -201,6 +253,7 @@ const EntranceForm = () => {
             </select>
             {errors.examType && <p className="error">{errors.examType}</p>}
           </div>
+
           <div>
             <label>Education:</label>
             <select
@@ -210,8 +263,8 @@ const EntranceForm = () => {
               required
             >
               <option value="">Select Education</option>
-              <option value="10th">10th</option>
-              <option value="12th">12th</option>
+              <option value="10">10th</option>
+              <option value="+2">12th</option>
               <option value="Undergraduate">Undergraduate</option>
               <option value="Postgraduate">Postgraduate</option>
             </select>
@@ -220,42 +273,42 @@ const EntranceForm = () => {
 
           {showUGDegrees && (
             <div>
-              <label>Select Undergraduate Degrees:</label>
+              <label>UG Degree:</label>
               {degreesUG.map((degree) => (
                 <div key={degree}>
                   <input
                     type="checkbox"
                     name="degree"
                     value={degree}
+                    checked={formData.degree.includes(degree)}
                     onChange={handleDegreeChange}
                   />
-                  <label>{degree}</label>
+                  {degree}
                 </div>
               ))}
-              {errors.degree && <p className="error">{errors.degree}</p>}
             </div>
           )}
 
           {showPGDegrees && (
             <div>
-              <label>Select Postgraduate Degrees:</label>
+              <label>PG Degree:</label>
               {degreesPG.map((degree) => (
                 <div key={degree}>
                   <input
                     type="checkbox"
                     name="degree"
                     value={degree}
+                    checked={formData.degree.includes(degree)}
                     onChange={handleDegreeChange}
                   />
-                  <label>{degree}</label>
+                  {degree}
                 </div>
               ))}
-              {errors.degree && <p className="error">{errors.degree}</p>}
             </div>
           )}
 
           <div>
-            <label>Marks for General Category:</label>
+            <label>Marks (General Category):</label>
             <input
               type="text"
               name="marksGeneral"
@@ -263,11 +316,13 @@ const EntranceForm = () => {
               onChange={handleChange}
               required
             />
-            {errors.marksGeneral && <p className="error">{errors.marksGeneral}</p>}
+            {errors.marksGeneral && (
+              <p className="error">{errors.marksGeneral}</p>
+            )}
           </div>
 
           <div>
-            <label>Marks for Backward Category:</label>
+            <label>Marks (Backward Category):</label>
             <input
               type="text"
               name="marksBackward"
@@ -275,7 +330,9 @@ const EntranceForm = () => {
               onChange={handleChange}
               required
             />
-            {errors.marksBackward && <p className="error">{errors.marksBackward}</p>}
+            {errors.marksBackward && (
+              <p className="error">{errors.marksBackward}</p>
+            )}
           </div>
 
           <div>
@@ -298,7 +355,6 @@ const EntranceForm = () => {
               onChange={handleChange}
               required
             />
-            {errors.startdate && <p className="error">{errors.startdate}</p>}
           </div>
 
           <div>
@@ -310,7 +366,6 @@ const EntranceForm = () => {
               onChange={handleChange}
               required
             />
-            {errors.enddate && <p className="error">{errors.enddate}</p>}
           </div>
 
           <div>
@@ -321,7 +376,6 @@ const EntranceForm = () => {
               onChange={handleChange}
               required
             />
-            {errors.howtoapply && <p className="error">{errors.howtoapply}</p>}
           </div>
 
           <div>
@@ -337,7 +391,7 @@ const EntranceForm = () => {
           </div>
 
           <div>
-            <label>Select State:</label>
+            <label>State:</label>
             <select
               name="state"
               value={formData.state}
@@ -359,7 +413,7 @@ const EntranceForm = () => {
           </button>
         </form>
       </div>
-      <Footer ref={footerRef}/>
+      <Footer ref={footerRef} />
     </>
   );
 };

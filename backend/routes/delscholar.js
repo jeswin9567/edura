@@ -6,9 +6,9 @@ const ScholarshipModel = require('../model/scholarship'); // Adjust the path bas
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
 
-    try {
+    try {   
         // Find the scholarship by ID and delete it
-        const scholarship = await ScholarshipModel.findByIdAndDelete(id);
+        const scholarship = await ScholarshipModel.findByIdAndUpdate(id, {status: false}, {new: true});
 
         // Check if the scholarship was found and deleted
         if (!scholarship) {
@@ -22,5 +22,21 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
+router.put('/managerescho/:id', async (req, res) => {
+    try {
+        const scholarship = await ScholarshipModel.findByIdAndUpdate(req.params.id, { status: true }, { new: true });
+        
+        if (!scholarship) {
+            return res.status(404).json({ message: 'Scholarship not found' });
+        }
+
+        res.json(scholarship);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 module.exports = router;

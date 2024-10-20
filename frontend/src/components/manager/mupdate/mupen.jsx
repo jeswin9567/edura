@@ -146,8 +146,8 @@ const MUpdateEntrance = () => {
                         required
                     >
                         <option value="">Select Education Level</option>
-                        <option value="Class 10">Class 10</option>
-                        <option value="Class 12">Class 12</option>
+                        <option value="10">Class 10</option>
+                        <option value="+2">Class 12</option>
                         <option value="Undergraduate">Undergraduate</option>
                         <option value="Postgraduate">Postgraduate</option>
                     </select>

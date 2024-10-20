@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import Header from "../../components/common/head";
+import ManHomHeader from "../../components/manager/mheads/mhomehead";
 import HeroSec from "../../components/common/herosec";
 import Serve from "../../components/manager/servi";
 import MissionSection from "../../components/common/Mission";
@@ -31,7 +31,7 @@ function Mhome()
     return(
         <>
         <div>
-            <Header 
+            <ManHomHeader 
             scrollToAbout={scrollToAbout}
             scrollToServices={scrollToServices}
             scrollToContact={scrollToContact}/>

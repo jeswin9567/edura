@@ -4,6 +4,7 @@ const StudentLoanSchema = new mongoose.Schema({
     loanName: { type: String, required: true, trim: true },
     bankName: { type: String, required: true, trim: true },
     bankWebsite: { type: String, required: true, trim: true },
+    status : { type: Boolean, default: true},
     contactNumber: { type: String, required: true },
     email: { type: String, required: true, trim: true },
     loanType: { type: String, required: true, enum: ['domestic', 'international'] },

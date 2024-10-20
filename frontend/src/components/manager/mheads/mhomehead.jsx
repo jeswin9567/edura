@@ -1,11 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ManProfileBtn from '../button/mprofile';
-import MAddentr from '../button/maddent';
 import MServiceButton from '../button/mservice';
 import '../../common/head.css'; // Ensure this file contains the header-specific styles
 
-function ManSerHeader({ scrollToAbout, scrollToServices, scrollToContact }) {
+function ManHomHeader({ scrollToAbout, scrollToServices, scrollToContact }) {
     const navigate = useNavigate();
 
     const logout = () => {
@@ -22,9 +21,9 @@ function ManSerHeader({ scrollToAbout, scrollToServices, scrollToContact }) {
         <img src="/images/mainl.png" alt="main" className="uhome-small_logo" />
       </div>
       <nav className="uhome-nav">
-        <button className="uhome-homb" onClick={() => navigate('/mhome')}>Home</button>
-        <MAddentr />
-        <MServiceButton />
+        <button className="uhome-homb">Home</button>
+        <button className="uhome-aboutb" onClick={scrollToAbout}>About</button>
+        <button className="uhome-serb" onClick={scrollToServices}>Services</button>
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
         <ManProfileBtn />
       </nav>
@@ -36,4 +35,4 @@ function ManSerHeader({ scrollToAbout, scrollToServices, scrollToContact }) {
   );
 }
 
-export default ManSerHeader;
+export default ManHomHeader;

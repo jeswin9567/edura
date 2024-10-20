@@ -28,6 +28,7 @@ const UpUPassword = require('./routes/changepass');
 const USchoRoute = require('./routes/searchscho');
 const USrchEntraceRoute = require('./routes/searchentr');
 const USrchLoanRoute = require('./routes/searchloan');
+const ManagerProf = require('./routes/manvpro');
 
 
 
@@ -85,6 +86,7 @@ app.use('/changePassword',UpUPassword);
 app.use('/',USchoRoute);
 app.use('/',USrchEntraceRoute);
 app.use('/',USrchLoanRoute);
+app.use('/',ManagerProf)
 
 
 

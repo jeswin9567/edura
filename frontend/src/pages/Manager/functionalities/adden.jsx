@@ -201,8 +201,8 @@ const MEntranceForm = () => {
               required
             >
               <option value="">Select Education</option>
-              <option value="10th">10th</option>
-              <option value="12th">12th</option>
+              <option value="10">10th</option>
+              <option value="+2">12th</option>
               <option value="Undergraduate">Undergraduate</option>
               <option value="Postgraduate">Postgraduate</option>
             </select>

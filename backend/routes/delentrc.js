@@ -8,7 +8,7 @@ router.delete('/:id', async (req, res) => {
 
     try {
         // Find the entrance by ID and delete it
-        const entrance = await EntranceModel.findByIdAndDelete(id);
+        const entrance = await EntranceModel.findByIdAndUpdate(id, {status: false}, {new: true});
 
         // Check if the entrance was found and deleted
         if (!entrance) {
@@ -22,5 +22,21 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
+router.put('/managerena/:id', async (req, res) => {
+    try {
+        const entrance = await EntranceModel.findByIdAndUpdate(req.params.id, { status: true }, { new: true });
+        
+        if (!entrance) {
+            return res.status(404).json({ message: 'Entrance not found' });
+        }
+
+        res.json(entrance);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 module.exports = router;
