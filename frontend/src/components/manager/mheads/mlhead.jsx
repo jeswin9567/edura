@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MAddln from '../button/maddlon';
+import ManProfileBtn from '../button/mprofile';
 import MServiceButton from '../button/mservice';
 
 import '../../admin/heads/lhead.css'
@@ -25,15 +26,8 @@ function MHeader({ scrollToContact }) {
         <MAddln />
         <MServiceButton />
         <button className="LH-nav-contact-btn" onClick={scrollToContact}>Contact Us</button>
+        <ManProfileBtn />
       </nav>
-      <div className="LH-search-container">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="LH-search-input"
-        />
-        <button className="LH-search-btn">Search</button>
-      </div>
       <div className="LH-auth-container">
         <button className="LH-logout-btn" onClick={logout}>Logout</button>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Search.css'; // Importing external CSS file
 
 const USearchEntrance = () => {
   const [query, setQuery] = useState('');
@@ -11,24 +12,24 @@ const USearchEntrance = () => {
       setError('Please enter a search term.');
       return;
     }
-    // Navigate to the search results page with the query as a URL parameter
     navigate(`/ensearch-results?query=${encodeURIComponent(query)}`);
   };
 
   return (
-    <div>
+    <div className="usearch-container">
 
       {/* Search Input */}
       <input
         type="text"
+        className="usearch-input"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search Entrance..."
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className="usearch-button" onClick={handleSearch}>Search</button>
 
       {/* Error Message */}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="uerror-message">{error}</p>}
     </div>
   );
 };

@@ -9,6 +9,10 @@ const EntranceSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    status: {
+        type: Boolean,
+        default: true,
+    },
     education: {
         type: String,
         required: true,

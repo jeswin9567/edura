@@ -27,14 +27,6 @@ function EHeader({ scrollToContact }) {
                 <AddManager />
                 <button className="EH-nav-contact-btn" onClick={scrollToContact}>Contact Us</button> {/* Use the passed function */}
             </nav>
-            <div className="EH-search-container">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    className="EH-search-input"
-                />
-                <button className="EH-search-btn">Search</button>
-            </div>
             <div className="EH-auth-container">
                 <button className="EH-logout-btn" onClick={logout}>Logout</button>
             </div>

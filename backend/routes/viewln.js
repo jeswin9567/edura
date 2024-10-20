@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         const { bankName, loanType, fieldOfStudy, amount, interestRate } = req.query;
 
         // Build a filter object based on provided query parameters
-        const filter = {};
+        const filter = {status: true};
         
         if (bankName) {
             filter.bankName = { $in: bankName.split(',') }; // If multiple bank names are selected
@@ -31,6 +31,24 @@ router.get('/', async (req, res) => {
 
         const loans = await StudentLoanModel.find(filter);
         res.json(loans);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+// Get loans where status is false
+router.get('/managerdellaon', async (req, res) => {
+    try {
+        const loans = await StudentLoanModel.find({ status: false }); // Fetch loans with status false
+
+        if (!loans || loans.length === 0) {
+            return res.status(404).json({ message: "No loans found" });
+        }
+        
+        // If loans are found, return them with a 200 status code
+        return res.status(200).json(loans); 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

@@ -12,6 +12,10 @@ const ScholarShipSchema = new mongoose.Schema({
         required: true,
         minlength: 10 // Ensure description is not too short
     },
+    status: {
+        type: Boolean,
+        default: true,
+    },
     award: {
         type: Number,
         required: true

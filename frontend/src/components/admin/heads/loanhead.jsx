@@ -29,14 +29,6 @@ function LHeader({ scrollToContact }) {
         <AddManager />
         <button className="LH-nav-contact-btn" onClick={scrollToContact}>Contact Us</button>
       </nav>
-      <div className="LH-search-container">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="LH-search-input"
-        />
-        <button className="LH-search-btn">Search</button>
-      </div>
       <div className="LH-auth-container">
         <button className="LH-logout-btn" onClick={logout}>Logout</button>
       </div>

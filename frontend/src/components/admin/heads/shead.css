@@ -26,6 +26,7 @@
 .ScH-nav-container {
   display: flex;
   gap: 20px;
+  margin-right: 50px;
 }
 
 .ScH-nav-container button {

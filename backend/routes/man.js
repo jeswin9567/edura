@@ -2,8 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const ManagerModel = require('../model/Manager');
+const nodemailer = require('nodemailer');
 const LoginModel = require('../model/login');
 const dns = require('dns');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // Function to validate email domain using DNS
 const validateEmailDomain = (email) => {
@@ -19,6 +23,14 @@ const validateEmailDomain = (email) => {
     });
   });
 };
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
 
 router.post('/', async (req, res) => {
   const { name, email, password, confirmPass } = req.body;
@@ -59,14 +71,29 @@ router.post('/', async (req, res) => {
       role: 'manager'
     });
 
-    // Send success response
-    res.status(201).json({ message: "Manager created successfully", manager, login });
+    // Prepare email options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,  // Ensure you use the environment variable for sender email
+      to: email,  // Send to the manager's email
+      subject: 'Manager Account Created',
+      text: `Hello ${name},\n\nYour manager account has been created successfully.\n\nHere are your login credentials:\nEmail: ${email}\nPassword: ${password}\n\nPlease change your password after your first login.\n\nBest regards,\nAdmin Team`
+    };
+
+    // Send email with login details
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log('Error sending email:', error);
+        return res.status(500).json({ message: 'Manager created but error sending email', error });
+      } else {
+        console.log('Email sent:', info.response);
+        res.status(201).json({ message: "Manager created and email sent successfully", manager, login });
+      }
+    });
+
   } catch (error) {
     // Handle any server errors
     res.status(500).json({ message: 'Error creating manager', error });
   }
 });
-
-
 
 module.exports = router;

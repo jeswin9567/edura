@@ -29,14 +29,6 @@ function SHeader({ scrollToContact }) {
         <AddManager />
         <button className="ScH-nav-contact-btn" onClick={scrollToContact}>Contact Us</button>
       </nav>
-      <div className="ScH-search-container">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="ScH-search-input"
-        />
-        <button className="ScH-search-btn">Search</button>
-      </div>
       <div className="ScH-auth-container">
         <button className="ScH-logout-btn" onClick={logout}>Logout</button>
       </div>

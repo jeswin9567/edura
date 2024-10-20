@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Search.css'
 
 const USearchLoan = () => {
   const [query, setQuery] = useState('');
@@ -21,11 +22,12 @@ const USearchLoan = () => {
       {/* Search Input */}
       <input
         type="text"
+        className='usearch-input'
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Loan Search"
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className = "usearch-button" onClick={handleSearch}>Search</button>
 
       {/* Error Message */}
       {error && <p style={{ color: 'red' }}>{error}</p>}

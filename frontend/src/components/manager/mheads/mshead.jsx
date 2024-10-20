@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MAddscholar from '../button/maddscho';
 import MServiceButton from '../button/mservice';
+import ManProfileBtn from '../button/mprofile';
 
 import '../../admin/heads/shead.css'
 
@@ -25,15 +26,9 @@ function MSHeader({ scrollToContact }) {
         <MAddscholar />
         <MServiceButton />
         <button className="ScH-nav-contact-btn" onClick={scrollToContact}>Contact Us</button>
+        <ManProfileBtn />
       </nav>
-      <div className="ScH-search-container">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="ScH-search-input"
-        />
-        <button className="ScH-search-btn">Search</button>
-      </div>
+
       <div className="ScH-auth-container">
         <button className="ScH-logout-btn" onClick={logout}>Logout</button>
       </div>

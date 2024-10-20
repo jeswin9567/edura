@@ -6,7 +6,7 @@ const ScholarShipModel = require('../model/scholarship');
 router.get('/', async (req, res) => {
     try {
         const { eligibility, subEligibility, gender, category, states, awardDuration, annualIncome, marks } = req.query;
-        const filter = {};
+        const filter = {status: true};
 
         if (eligibility) {
             filter.eligibility = { $in: eligibility.split(',') };
@@ -43,6 +43,23 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+// to get deleted
+
+router.get('/managerdelscho', async(req, res) => {
+    try {
+        const scholarship = await ScholarShipModel.find({status:false});
+
+        if(!scholarship || scholarship.length === 0) {
+            return res.status(404).json({ message: 'No scholarship found' });
+        }
+
+        res.json(scholarship);
+    }
+    catch(error){
+        res.status(500).json({ message: error.message });
+    }
+})
 
 // GET a specific scholarship by ID
 router.get('/:id', async (req, res) => {
