@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import SessEmail from "../../namesession";
 
-const ManProfileBtn = () => {
     
+const ManProfileBtn = () => {
     const navigate = useNavigate();
     return(
         <>
@@ -16,6 +16,6 @@ const ManProfileBtn = () => {
         </div>
         </>
     );
-};
+}
 
 export default ManProfileBtn;
