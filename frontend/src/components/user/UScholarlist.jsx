@@ -49,7 +49,7 @@ const UScholarshipList = ({ filters }) => {
                     </div>
                 ))
             ) : (
-                <div>No scholarships available based on current filters.</div>
+                <div className="no-scholarships-message">No scholarships available based on current filters.</div>
             )}
         </div>
     );

@@ -12,7 +12,7 @@ const UEntranceList = ({ filters }) => {
                     education: filters.education.join(','),
                     examType: filters.examType.join(','),
                     state: filters.state.join(','),
-                    degrees: filters.degrees.join(','),  // Fix: corrected to 'degrees'
+                    degrees: filters.degrees.join(','),
                 }).toString();
                 const response = await fetch(`http://localhost:5000/viewentr?${queryParams}`);
                 if (!response.ok) {
@@ -26,22 +26,26 @@ const UEntranceList = ({ filters }) => {
         };
 
         fetchEntrances();
-    }, [filters]); // Fix: added filters as a dependency
+    }, [filters]);
 
     return (
         <div className="entrance-list">
-            {entrances.map((entrance) => (
-                <div key={entrance._id} className="entrance-item">
-                    <Link to={`/uentrancedetails/${entrance._id}`}>
-                        <div className="entrance-name">{entrance.name}</div>
-                        <div className="entrance-dates">
-                            {entrance.startdate && entrance.enddate
-                                ? `${new Date(entrance.startdate).toLocaleDateString()} - ${new Date(entrance.enddate).toLocaleDateString()}`
-                                : 'Dates not available'}
-                        </div>
-                    </Link>
-                </div>
-            ))}
+            {entrances.length === 0 ? (
+                <p className="no-entrances-message">No entrances available.</p>
+            ) : (
+                entrances.map((entrance) => (
+                    <div key={entrance._id} className="entrance-item">
+                        <Link to={`/uentrancedetails/${entrance._id}`}>
+                            <div className="entrance-name">{entrance.name}</div>
+                            <div className="entrance-dates">
+                                {entrance.startdate && entrance.enddate
+                                    ? `${new Date(entrance.startdate).toLocaleDateString()} - ${new Date(entrance.enddate).toLocaleDateString()}`
+                                    : 'Dates not available'}
+                            </div>
+                        </Link>
+                    </div>
+                ))
+            )}
         </div>
     );
 };

@@ -53,6 +53,9 @@ import ViewMock from './pages/Manager/ViewMocks';
 import UpdateMock from './pages/Manager/Mocktestupdate';
 import VMockTestDet from './pages/Manager/MockTestDetails';
 import VDeletedMockTest from './pages/Manager/Viewdeletedmocktest';
+import UserViewMockTest from './pages/user/ViewMock';
+import UEachMock from './pages/user/UViewMocks';
+import Quiz from './pages/user/UQuiz';
 
 
 function App() {
@@ -114,6 +117,9 @@ function App() {
         <Route path="/manager/updatemocktest/:mockTestId" element={<UpdateMock />} />
         <Route path="/manager/mocktestdetails/:mockTestId" element={<VMockTestDet />} />
         <Route path = "/manager/deletedmocktest" element = {<VDeletedMockTest />} />
+        <Route path= "/user/mocktest" element={<UserViewMockTest />} />
+        <Route path = "/user/mocktest/:examId" element={<UEachMock />} /> 
+        <Route path = "/user/quiz/:mockTestId" element={<Quiz />} />
       </Routes>
     </Router>
   );

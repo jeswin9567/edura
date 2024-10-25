@@ -30,6 +30,9 @@ const USrchEntraceRoute = require('./routes/searchentr');
 const USrchLoanRoute = require('./routes/searchloan');
 const ManagerProf = require('./routes/manvpro');
 const MockTestRoute = require('./routes/mocktest');
+const Quiz = require('./routes/quizan');
+
+
 
 
 
@@ -89,6 +92,8 @@ app.use('/',USrchEntraceRoute);
 app.use('/',USrchLoanRoute);
 app.use('/',ManagerProf);
 app.use('/mocktest',MockTestRoute);
+app.use('/quiz',Quiz);
+
 
 
 

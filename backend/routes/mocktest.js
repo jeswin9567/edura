@@ -110,7 +110,17 @@ router.get('/deletedmocktests', async (req, res) => {
 });
 
 
+// get a mocktest for user
 
+router.get('/umocktest/:id', async (req, res) => {
+  try {
+    const mockTest = await MockTest.findById(req.params.id);
+    if (!mockTest) return res.status(404).json({ message: 'Mock Test not found' });
+    res.json(mockTest);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 // Get a single mock test by ID with entrance exam details
 router.get('/mockTest/:id', async (req, res) => {
   try {

@@ -31,13 +31,17 @@ const ULoanList = ({ filters }) => {
 
     return (
         <div className="loan-list">
-            {loans.map((loan) => (
-                <div key={loan._id} className="loan-item">
-                    <Link to={`/uloandetails/${loan._id}`}>
-                        <div className="loan-name">{loan.loanName}</div> 
-                    </Link>
-                </div>
-            ))} 
+            {loans.length === 0 ? ( // Check if there are no loans
+                <p className="no-loans-message">No loans available.</p>
+            ) : (
+                loans.map((loan) => (
+                    <div key={loan._id} className="loan-item">
+                        <Link to={`/uloandetails/${loan._id}`}>
+                            <div className="loan-name">{loan.loanName}</div>
+                        </Link>
+                    </div>
+                ))
+            )}
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import USearchEntrance from '../button/search/uentsear';
 import UServiceButton from '../button/uservice';
 import Prof from '../button/profile';
+import UMockTestBtn from '../button/mocktest';
 import '../header.css'
 
 function UEVHeader({ scrollToContact }) {
@@ -24,6 +25,8 @@ function UEVHeader({ scrollToContact }) {
         <button className="uhome-homb" onClick={() => navigate('/userhome')}>Home</button>
         <UServiceButton />
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
+        
+        <UMockTestBtn />
         <Prof />
       </nav>
       <div className="uhome-search-box">

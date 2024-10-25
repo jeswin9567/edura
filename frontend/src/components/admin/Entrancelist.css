@@ -40,3 +40,11 @@
     color: #555; /* Lighter color for dates */
     margin-top: 4px; /* Space above the dates */
 }
+
+.no-entrances-message {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+    margin-top: 20px;
+}
+
