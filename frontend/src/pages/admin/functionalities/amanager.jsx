@@ -118,6 +118,7 @@ function AManager() {
             <label className="manager-form-label">Name:</label>
             <input
               type="text"
+              id="name"
               className="manager-form-input"
               value={name}
               onChange={(e) => {
@@ -133,6 +134,7 @@ function AManager() {
             <label className="manager-form-label">Email:</label>
             <input
               type="email"
+              id="email"
               className="manager-form-input"
               value={email}
               onChange={(e) => {
@@ -148,6 +150,7 @@ function AManager() {
             <label className="manager-form-label">Password:</label>
             <input
               type="password"
+              id="password"
               className="manager-form-input"
               value={password}
               onChange={(e) => {
@@ -163,6 +166,7 @@ function AManager() {
             <label className="manager-form-label">Confirm Password:</label>
             <input
               type="password"
+              id="confirmPassword"
               className="manager-form-input"
               value={confirmPass}
               onChange={(e) => {
@@ -174,7 +178,7 @@ function AManager() {
             {confirmPassError && <span className="adderror-message">{confirmPassError}</span>}
           </div>
 
-          <button type="submit" className="manager-form-btn">
+          <button id = "submitManager" type="submit" className="manager-form-btn">
             Add Manager
           </button>
         </form>

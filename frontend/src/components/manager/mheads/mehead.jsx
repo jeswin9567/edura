@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ManProfileBtn from '../button/mprofile';
 import MAddentr from '../button/maddent';
 import MServiceButton from '../button/mservice';
+import MockTestBtn from '../button/maddmocktest';
 import '../../common/head.css'; // Ensure this file contains the header-specific styles
 
 function ManSerHeader({ scrollToAbout, scrollToServices, scrollToContact }) {
@@ -26,6 +27,7 @@ function ManSerHeader({ scrollToAbout, scrollToServices, scrollToContact }) {
         <MAddentr />
         <MServiceButton />
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
+        <MockTestBtn />
         <ManProfileBtn />
       </nav>
 

@@ -50,13 +50,17 @@ const EntranceSchema = new mongoose.Schema({
         required: true,
     },
     state: {
-        type:String,
+        type: String,
         required: true,
     },
     examType: {
         type: String,
-        required:true
+        required: true,
     },
+    mockTests: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'MockTest', // Reference to the MockTest model
+    }],
 }, { timestamps: true });
 
 module.exports = mongoose.model('Entrance', EntranceSchema);

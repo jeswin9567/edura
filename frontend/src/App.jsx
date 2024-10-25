@@ -47,6 +47,13 @@ import USearchLnResults from './pages/user/Search/Uloanrslt';
 import ManagerDelEntr from './pages/Manager/MViewDEntr';
 import MVDScholar from './pages/Manager/MViewDScholar';
 import MVDLoan from './pages/Manager/MViewDLoan';
+import MockTest from './pages/Manager/Mocktest';
+import ManageMock from './pages/Manager/ManageMock';
+import ViewMock from './pages/Manager/ViewMocks';
+import UpdateMock from './pages/Manager/Mocktestupdate';
+import VMockTestDet from './pages/Manager/MockTestDetails';
+import VDeletedMockTest from './pages/Manager/Viewdeletedmocktest';
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -101,6 +108,12 @@ function App() {
         <Route path="/search-results" element={<USearchSchoResults />} />
         <Route path="/ensearch-results" element={<USearchEntrResults />} />
         <Route path="/loansearch-results" element={<USearchLnResults />} />
+        <Route path = "/manager/mocktest" element={<MockTest />}  />
+        <Route path="/manager/managemocktest" element={<ManageMock />} />
+        <Route path="/manager/viewmocktest/:examId" element={<ViewMock />} />
+        <Route path="/manager/updatemocktest/:mockTestId" element={<UpdateMock />} />
+        <Route path="/manager/mocktestdetails/:mockTestId" element={<VMockTestDet />} />
+        <Route path = "/manager/deletedmocktest" element = {<VDeletedMockTest />} />
       </Routes>
     </Router>
   );

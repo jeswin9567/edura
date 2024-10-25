@@ -13,13 +13,13 @@ function AddManager() {
       onMouseEnter={() => setShowDropdown(true)}
       onMouseLeave={() => setShowDropdown(false)}
     >
-      <button className="manager-button">
+      <button id = "manager"className="manager-button">
         Manager
       </button>
 
       {showDropdown && (
         <div className="dropdown">
-          <button className="dropdown-item" onClick={ () => navigate('/addManager')}>Add</button>
+          <button id ="addManager" className="dropdown-item" onClick={ () => navigate('/addManager')}>Add</button>
           <button className="dropdown-item">Manage</button>
         </div>
       )}

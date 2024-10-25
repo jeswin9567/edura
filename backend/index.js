@@ -29,6 +29,7 @@ const USchoRoute = require('./routes/searchscho');
 const USrchEntraceRoute = require('./routes/searchentr');
 const USrchLoanRoute = require('./routes/searchloan');
 const ManagerProf = require('./routes/manvpro');
+const MockTestRoute = require('./routes/mocktest');
 
 
 
@@ -86,7 +87,8 @@ app.use('/changePassword',UpUPassword);
 app.use('/',USchoRoute);
 app.use('/',USrchEntraceRoute);
 app.use('/',USrchLoanRoute);
-app.use('/',ManagerProf)
+app.use('/',ManagerProf);
+app.use('/mocktest',MockTestRoute);
 
 
 

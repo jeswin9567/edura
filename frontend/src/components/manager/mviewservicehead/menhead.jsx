@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MAddentr from '../button/maddent';
 import MServiceButton from '../button/mservice';
+import MockTestBtn from '../button/maddmocktest';
 import './menhead.css';
 
 function MVEHeader({ scrollToContact }) {
@@ -23,6 +24,7 @@ function MVEHeader({ scrollToContact }) {
         <button className="VMEH-nav-home-btn" onClick={() => navigate('/mhome')}>Home</button>
         <MAddentr />
         <MServiceButton />
+        <MockTestBtn />
       </nav>
       <div className="VMEH-auth-container">
         <button className="VMEH-logout-btn" onClick={logout}>Logout</button>
