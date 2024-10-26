@@ -1,38 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import './UViewMocktests.css'; // Optional CSS file for styling
+import './UViewMocktests.css';
 
 const UMockTestList = () => {
-  const { examId } = useParams(); // Get the exam ID from the URL
+  const { examId } = useParams();
   const [mockTests, setMockTests] = useState([]);
   const [error, setError] = useState('');
+  const [participateCount, setParticipateCount] = useState(0);
+  const [isPremium, setIsPremium] = useState(false);
+  const [showPremiumPopup, setShowPremiumPopup] = useState(false);
   const navigate = useNavigate();
 
-  // Fetch mock tests for the specific entrance exam
+  const userEmail = localStorage.getItem('userEmail');
+
   useEffect(() => {
     const fetchMockTests = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/mocktest/viewmocktests/${examId}`); // Adjust URL to your API endpoint
+        const response = await axios.get(`http://localhost:5000/mocktest/viewmocktests/${examId}`);
         setMockTests(response.data);
       } catch (error) {
         setError('Error fetching mock tests');
         console.error('Error fetching mock tests:', error);
       }
     };
-    fetchMockTests();
-  }, [examId]);
 
-  // Handle navigation to participate in the mock test
-  const Participate = (mockTestId) => {
-    navigate(`/user/quiz/${mockTestId}`); // Adjust route as needed
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/user/user/${userEmail}`);
+        setParticipateCount(response.data.participate);
+        setIsPremium(response.data.premium);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+
+    fetchMockTests();
+    fetchUserDetails();
+  }, [examId, userEmail]);
+
+  const handleParticipate = (mockTestId) => {
+    if (isPremium || participateCount < 3) {
+      navigate(`/user/quiz/${mockTestId}`);
+    } else {
+      setShowPremiumPopup(true);
+    }
   };
 
   return (
     <div className="uservmdets-list">
       <h2>Mock Tests for Entrance Exam</h2>
       {error && <p className="uservmdets-error-message">{error}</p>}
-      {mockTests.length === 0 ? ( // Check if there are no mock tests
+      {mockTests.length === 0 ? (
         <p className="uservmdets-no-tests">No mock tests available.</p>
       ) : (
         <div className="uservmdets-grid">
@@ -44,15 +63,24 @@ const UMockTestList = () => {
               <p>Questions: {mockTest.numberOfQuestions}</p>
               <p>Passing Marks: {mockTest.passingMarks}</p>
               
-              {/* Participate button */}
               <button 
                 className="uservmdets-update-button" 
-                onClick={() => Participate(mockTest._id)}
+                onClick={() => handleParticipate(mockTest._id)}
               >
                 Participate
               </button>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Premium Popup */}
+      {showPremiumPopup && (
+        <div className="premium-popup">
+          <div className="premium-popup-content">
+            <p>Just participate the test with Eduraa Premium to access unlimited tests!</p>
+            <button onClick={() => setShowPremiumPopup(false)}>Close</button>
+          </div>
         </div>
       )}
     </div>

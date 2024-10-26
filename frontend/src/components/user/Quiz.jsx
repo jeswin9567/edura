@@ -56,7 +56,7 @@ const UQuizPage = () => {
     }
   };
 
-  const calculateScore = () => {
+  const calculateScore = async () => {
     let calculatedScore = 0;
     mockTest.questions.forEach((question, index) => {
       const correctOptionIndex = question.options.findIndex((option) => option.isCorrect);
@@ -66,14 +66,28 @@ const UQuizPage = () => {
     });
     setScore(calculatedScore);
     setSubmitted(true);
-    saveAnswers(calculatedScore);
+  
+    await saveAnswers(calculatedScore);
+    await incrementParticipateCount(); // Increment participate count
   };
+  
+  // Function to increment participate count
+  const incrementParticipateCount = async () => {
+    try {
+      await axios.post('http://localhost:5000/user/user/incrementParticipate', {
+        email: userEmail,
+      });
+      console.log('Participate count incremented successfully');
+    } catch (error) {
+      console.error('Error incrementing participate count:', error);
+    }
+  };
+  
 
   const handleBack = () => {
     console.log("Navigating back");
     navigate(-1);
-};
-
+  };
 
   const saveAnswers = async (calculatedScore) => {
     if (!userEmail) {
@@ -98,27 +112,27 @@ const UQuizPage = () => {
 
   const handleRestart = async () => {
     if (!userEmail) {
-        console.error('User email missing');
-        return;
+      console.error('User email missing');
+      return;
     }
 
     const deleteData = {
-        email: userEmail,
-        mockTestId,
+      email: userEmail,
+      mockTestId,
     };
 
     try {
-        await axios.delete('http://localhost:5000/quiz/deleteAnswers', { data: deleteData });
-        console.log('Answers deleted successfully.');
+      await axios.delete('http://localhost:5000/quiz/deleteAnswers', { data: deleteData });
+      console.log('Answers deleted successfully.');
     } catch (error) {
-        console.error('Error deleting answers:', error);
+      console.error('Error deleting answers:', error);
     }
 
     // Reset local state after deleting the data
     setUserAnswers({}); // Clear user answers
     setScore(null); // Clear the score
     setSubmitted(false); // Mark the quiz as not submitted
-};
+  };
 
   if (!mockTest) return <div className="loading">{errorMessage || 'Loading...'}</div>;
 
@@ -151,9 +165,17 @@ const UQuizPage = () => {
       <button onClick={calculateScore} className="quizattmpt-submit-button" disabled={submitted}>
         {submitted ? 'Submitted' : 'Submit'}
       </button>
+
       <button className="quizattmpt-submit-button" onClick={handleBack}>
-    Back
-</button>
+        Back
+      </button>
+
+      {/* New View Steps button, only visible after quiz is submitted */}
+      {submitted && (
+        <button className="quizattmpt-view-steps-button" onClick={() => navigate(`/user/answers/${mockTestId}`)}>
+          View Steps
+        </button>
+      )}
 
       {/* Show the result below the submit button */}
       {submitted && score !== null && (

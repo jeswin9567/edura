@@ -58,6 +58,15 @@ const UserSchema = new mongoose.Schema({
       type: Number,
       default: 0
     }
+  },
+  premium: {
+    type: Boolean,
+    default: false,
+  },
+
+  participate: {
+    type: Number,
+    default: 0,
   }
 }, { timestamps: true });
 

@@ -113,6 +113,29 @@
     background-color: #27ae60; /* Darker green on hover */
 }
 
+.premium-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .premium-popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .premium-popup-content p {
+    margin: 0 0 20px;
+  }
+  
 /* Mobile responsiveness */
 @media (max-width: 600px) {
     .uservmdets-grid {

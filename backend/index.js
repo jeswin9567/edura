@@ -31,6 +31,8 @@ const USrchLoanRoute = require('./routes/searchloan');
 const ManagerProf = require('./routes/manvpro');
 const MockTestRoute = require('./routes/mocktest');
 const Quiz = require('./routes/quizan');
+const ViewAns = require('./routes/viewanswers');
+const UserStatus = require('./routes/user');
 
 
 
@@ -93,6 +95,8 @@ app.use('/',USrchLoanRoute);
 app.use('/',ManagerProf);
 app.use('/mocktest',MockTestRoute);
 app.use('/quiz',Quiz);
+app.use('/viewans',ViewAns);
+app.use('/user',UserStatus);
 
 
 
