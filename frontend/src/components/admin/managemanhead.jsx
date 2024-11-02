@@ -20,7 +20,7 @@ function ManageManHeader({ scrollToAbout, scrollToContact }) {
         <img src="/images/mainl.png" alt="main" className="mhhome-small_logo" />
       </div>
       <nav className="mhhome-nav">
-        <button className="mhhome-homb">Home</button>
+        <button className="mhhome-homb" onClick={() => navigate('/adhome')}>Home</button>
         <ServiceButton />
         <AddManager />
         <button className="mhhome-contb" onClick={scrollToContact}>Contact Us</button>

@@ -33,6 +33,7 @@ const MockTestRoute = require('./routes/mocktest');
 const Quiz = require('./routes/quizan');
 const ViewAns = require('./routes/viewanswers');
 const UserStatus = require('./routes/user');
+const PriceRoute = require('./routes/price');
 
 
 
@@ -97,6 +98,7 @@ app.use('/mocktest',MockTestRoute);
 app.use('/quiz',Quiz);
 app.use('/viewans',ViewAns);
 app.use('/user',UserStatus);
+app.use('/price',PriceRoute);
 
 
 
