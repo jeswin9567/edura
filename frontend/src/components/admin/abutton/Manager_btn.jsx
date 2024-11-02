@@ -20,7 +20,7 @@ function AddManager() {
       {showDropdown && (
         <div className="dropdown">
           <button id ="addManager" className="dropdown-item" onClick={ () => navigate('/addManager')}>Add</button>
-          <button className="dropdown-item">Manage</button>
+          <button className="dropdown-item" onClick={() => navigate("/admin/manager")}>Manage</button>
         </div>
       )}
     </div>

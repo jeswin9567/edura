@@ -12,6 +12,11 @@ const ManagerSchema = new mongoose.Schema({
         unique: true
     },
 
+    status: {
+        type: Boolean,
+        default: true
+    },
+
     password:{
         type: String,
         required: true

@@ -24,6 +24,7 @@ const validateEmailDomain = (email) => {
   });
 };
 
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -31,6 +32,56 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS
   }
 });
+
+router.get('/managers', async (req, res) => {
+  try {
+    const managers = await ManagerModel.find(); // Retrieve all managers
+    res.json(managers);
+  } catch (error) {
+    console.error('Error fetching managers:', error);
+    res.status(500).json({ message: 'Failed to fetch managers' });
+  }
+});
+
+// Route to toggle manager status (already provided for reference)
+router.put('/managers/toggleStatus/:id', async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    // Update status in ManagerModel
+    const manager = await ManagerModel.findByIdAndUpdate(id, { status }, { new: true });
+    if (!manager) return res.status(404).json({ message: 'Manager not found' });
+
+    // Update status in LoginModel
+    await LoginModel.findOneAndUpdate({ email: manager.email }, { status });
+
+    // Send deactivation email if status is set to false
+    if (!status) {
+      const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: manager.email,
+        subject: 'Account Deactivation Notification',
+        text: `Hello ${manager.name},\n\nYour manager account has been deactivated due to certain policy requirements or performance concerns.\n\nIf you believe this was done in error or would like to discuss further, please contact the admin at admin@example.com.\n\nThank you,\nAdmin Team`
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log('Error sending deactivation email:', error);
+        } else {
+          console.log('Deactivation email sent:', info.response);
+        }
+      });
+    }
+
+    res.json({ message: 'Status updated successfully', status: manager.status });
+  } catch (error) {
+    console.error('Error updating manager status:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 router.post('/', async (req, res) => {
   const { name, email, password, confirmPass } = req.body;

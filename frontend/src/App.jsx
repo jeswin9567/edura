@@ -57,6 +57,7 @@ import UserViewMockTest from './pages/user/ViewMock';
 import UEachMock from './pages/user/UViewMocks';
 import Quiz from './pages/user/UQuiz';
 import ViewAns from './pages/user/ViewAns';
+import ManageManager from './pages/admin/ManageMan';
 
 
 function App() {
@@ -122,6 +123,7 @@ function App() {
         <Route path = "/user/mocktest/:examId" element={<UEachMock />} /> 
         <Route path = "/user/quiz/:mockTestId" element={<Quiz />} />
         <Route path = "/user/answers/:mockTestId" element={<ViewAns />} />
+        <Route path = "/admin/manager" element={<ManageManager />} />
       </Routes>
     </Router>
   );

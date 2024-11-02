@@ -14,10 +14,15 @@ router.post('/', (req, res) => {
         return res.status(404).json({ message: "Incorrect email or password" });
       }
 
+      // Check if the user's status is active
+      if (!user.status) {
+        return res.status(403).json({ message: "Account is inactive. Please contact the administrator." });
+      }
+
       // If the user is an admin, directly compare plaintext passwords
       if (user.role === 'admin') {
         if (password === user.password) { // direct comparison for admin's plain password
-          const token = jwt.sign({ email: user.email }, 'sceret_key'); 
+          const token = jwt.sign({ email: user.email }, 'secret_key'); 
           return res.json({ message: "success", role: user.role, token: token });
         } else {
           return res.status(401).json({ message: "Incorrect password" });
@@ -31,7 +36,7 @@ router.post('/', (req, res) => {
         }
 
         if (isMatch) {
-          const token = jwt.sign({ email: user.email }, 'sceret_key'); 
+          const token = jwt.sign({ email: user.email }, 'secret_key'); 
           return res.json({ message: "success", role: user.role, token: token });
         } else {
           return res.status(401).json({ message: "Incorrect password" });
