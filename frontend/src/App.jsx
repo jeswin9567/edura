@@ -59,6 +59,8 @@ import Quiz from './pages/user/UQuiz';
 import ViewAns from './pages/user/ViewAns';
 import ManageManager from './pages/admin/ManageMan';
 import Amount from './pages/Manager/Amount';
+import ViewPrices from './pages/Manager/ViewPrice';
+import EditPr from './pages/Manager/EditPr';
 
 
 function App() {
@@ -126,6 +128,9 @@ function App() {
         <Route path = "/user/answers/:mockTestId" element={<ViewAns />} />
         <Route path = "/admin/manager" element={<ManageManager />} />
         <Route path = "/manager/price" element={<Amount />} />
+        <Route path = "/manager/vprice" element={<ViewPrices />} />
+        <Route path = "/manager/eprice/:id" element={<EditPr />} />
+
       </Routes>
     </Router>
   );

@@ -34,6 +34,7 @@ const Quiz = require('./routes/quizan');
 const ViewAns = require('./routes/viewanswers');
 const UserStatus = require('./routes/user');
 const PriceRoute = require('./routes/price');
+const PaymentRoute = require('./routes/paymt');
 
 
 
@@ -99,6 +100,7 @@ app.use('/quiz',Quiz);
 app.use('/viewans',ViewAns);
 app.use('/user',UserStatus);
 app.use('/price',PriceRoute);
+app.use('/payment',PaymentRoute);
 
 
 
