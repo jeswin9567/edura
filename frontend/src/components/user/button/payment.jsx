@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PaymentOptionsModal from '../paymentop';
+import './BuyPremiumButton.css'; // Import custom styles
 
 const BuyPremiumButton = () => {
   const [showModal, setShowModal] = useState(false);
@@ -9,8 +10,10 @@ const BuyPremiumButton = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleShowModal}>Buy Premium</button>
+    <div className="buy-premium-container">
+      <button className="buy-premium-button" onClick={handleShowModal}>
+        Buy Premium
+      </button>
       {showModal && <PaymentOptionsModal closeModal={() => setShowModal(false)} />}
     </div>
   );

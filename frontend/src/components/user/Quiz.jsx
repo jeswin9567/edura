@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import FeedbackModal from './Feedback';
 import './Quiz.css';
 
 const UQuizPage = () => {
@@ -11,6 +12,7 @@ const UQuizPage = () => {
   const [score, setScore] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   // Retrieve user data from local storage
   const userEmail = localStorage.getItem('userEmail');
@@ -134,6 +136,34 @@ const UQuizPage = () => {
     setSubmitted(false); // Mark the quiz as not submitted
   };
 
+  // Function to handle feedback submission
+  const handleSubmitFeedback = async (feedback) => {
+    const entranceExamName = mockTest.entranceExamName || "Unknown Exam"; // Set a default if undefined
+  
+    console.log({
+      email: userEmail,
+      mockTestId,
+      feedback,
+      entranceExamName,
+      mockTestName: mockTest.title,
+    });
+  
+    try {
+      await axios.post('http://localhost:5000/feed/feedback', {
+        email: userEmail,
+        mockTestId,
+        feedback,
+        entranceExamName,
+        mockTestName: mockTest.title,
+      });
+      console.log('Feedback submitted successfully');
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+    }
+  };
+  
+
+
   if (!mockTest) return <div className="loading">{errorMessage || 'Loading...'}</div>;
 
   return (
@@ -183,9 +213,17 @@ const UQuizPage = () => {
           <h3 className="quizattmpt-completed">Quiz Completed!</h3>
           <p className="quizattmpt-score">Your Score: {score} / {mockTest.totalMarks}</p>
           <button onClick={handleRestart} className="quizattmpt-restart-button">Restart Quiz</button>
+          <button onClick={() => setShowFeedbackModal(true)} className="quizattmpt-feedback-button">Feedback</button>
         </div>
+        
       )}
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        closeModal={() => setShowFeedbackModal(false)}
+        onSubmitFeedback={handleSubmitFeedback}
+      />
     </div>
+    
   );
 };
 
