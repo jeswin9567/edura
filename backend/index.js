@@ -58,7 +58,7 @@ app.use(session({
 }));
 
 app.use(cors({
-  origin: '*', // Adjust to specific Netlify URL if preferred
+  origin: 'https://sunny-pothos-b07bbf.netlify.app', // Adjust to specific Netlify URL if preferred
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
