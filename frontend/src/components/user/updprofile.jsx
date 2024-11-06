@@ -20,8 +20,8 @@ function EditProfile() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const ugCourses = ['B.Tech', 'B.Sc', 'B.Com', 'BA'];
-  const pgCourses = ['M.Tech', 'M.Sc', 'MBA', 'MA'];
+  const ugCourses = ['B.Tech', 'B.Sc', 'B.Com', 'BA','BCA','Other'];
+  const pgCourses = ['M.Tech', 'M.Sc', 'MBA', 'MA','MCA','Other'];
 
   useEffect(() => {
     const fetchUserProfile = async () => {

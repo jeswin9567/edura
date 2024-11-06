@@ -121,7 +121,7 @@ function Profile() {
         <>
           <p className="premium-message">You have access to Eduraa Premium!</p>
           <p><strong>Subscription Expiry Date:</strong> {new Date(expirationDate).toLocaleDateString()}</p>
-          <button className="cancel-button" onClick={confirmCancelPremium}>Cancel Subscription</button>
+          <button id = "cancel" className="cancel-button" onClick={confirmCancelPremium}>Cancel Subscription</button>
         </>
       ) : (
         <BuyPremiumButton />
@@ -133,7 +133,7 @@ function Profile() {
         <div className="pr-confirm-modal-overlay">
           <div className="pr-confirm-modal-content">
             <p>Are you sure you want to cancel your subscription?</p>
-            <button onClick={handleConfirmCancel}>Yes</button>
+            <button id="yes" onClick={handleConfirmCancel}>Yes</button>
             <button onClick={() => setShowConfirmModal(false)}>No</button>
           </div>
         </div>

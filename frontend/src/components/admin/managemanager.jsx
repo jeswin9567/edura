@@ -55,7 +55,7 @@ const VManagerList = () => {
                 {manager.status ? 'Active' : 'Inactive'}
               </td>
               <td>
-                <button
+                <button id = "deactivate"
                   className={`mstatus-toggle-button ${manager.status ? 'mdeactivate' : 'mactivate'}`}
                   onClick={() => toggleStatus(manager._id, manager.status)}
                 >

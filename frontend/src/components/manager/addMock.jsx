@@ -129,8 +129,10 @@ const ManMockTestForm = () => {
       return;
     }
   
-    if (calculateTotalAssignedMarks() > totalMarks) {
-      setError(`The total marks assigned to questions exceed the total marks (${totalMarks}).`);
+    const totalAssignedMarks = calculateTotalAssignedMarks();
+  
+    if (totalAssignedMarks !== totalMarks) {
+      setError(`The sum of the marks assigned to questions (${totalAssignedMarks}) does not match the total marks (${totalMarks}).`);
       return;
     }
   
@@ -172,6 +174,7 @@ const ManMockTestForm = () => {
       }
     }
   };
+  
 
   return (
     <form className="manmocktest-form" onSubmit={handleSubmit}>

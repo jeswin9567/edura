@@ -64,7 +64,8 @@ router.post('/', async (req, res) => {
             maxInterestRate,
             collateral,
             applicationProcess,
-            eligibilityCriteria // Optional field
+            eligibilityCriteria, // Optional fielda
+            status:true,
         });
 
         // Save the new loan

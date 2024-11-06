@@ -62,7 +62,7 @@ app.use(cors());
 // Connect to MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/Project');
+    await mongoose.connect('mongodb+srv://jeswinmathew2025:UyHHB610kn6p7Xsh@eduraa.hztx3.mongodb.net/?retryWrites=true&w=majority&appName=Eduraa');
     console.log('MongoDB connected');
   } catch (error) {
     console.error('MongoDB connection error:', error);

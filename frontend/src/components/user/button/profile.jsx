@@ -8,7 +8,7 @@ function Prof() {
     return (
         <>
             <div>
-                <button 
+                <button id = "profile" 
                     onClick={() => navigate("/uvpro")} 
                     style={{
                         backgroundColor: 'transparent', 

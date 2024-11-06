@@ -17,7 +17,7 @@ const ServicesSec = React.forwardRef((props, ref) => {
             Prepare confidently for your entrance exams with our comprehensive resources, including detailed syllabi, mock tests, and crucial exam dates.
           </p>
         </button>
-        <button className="uhome-service-btn" onClick={() => navigate('/scholarship')}>
+        <button id="scholarship" className="uhome-service-btn" onClick={() => navigate('/scholarship')}>
           <img src="./images/Scholarship images.png" alt="Scholarships" />
           <h3>Scholarships</h3>
           <p>

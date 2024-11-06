@@ -136,14 +136,17 @@ router.get('/mockTest/:id', async (req, res) => {
 // Update a mock test by ID
 router.put('/upmockTest/:id', async (req, res) => {
   try {
-    // Check if another mock test with the same title exists (excluding the current one)
+    const { title, examId } = req.body; // Extract title and examId from the request body
+
+    // Check if another mock test with the same title exists for the same exam (excluding the current one)
     const existingMockTest = await MockTest.findOne({
-      title: req.body.title, // Compare by title
+      title,
+      examId, // Ensure it matches the same exam ID
       _id: { $ne: req.params.id }, // Exclude the current mock test by its ID
     });
 
     if (existingMockTest) {
-      return res.status(400).json({ message: 'A mock test with the same title already exists' });
+      return res.status(400).json({ message: 'A mock test with the same title already exists for this exam.' });
     }
 
     // Proceed with the update if no conflict

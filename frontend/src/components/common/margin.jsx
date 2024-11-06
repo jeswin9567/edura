@@ -45,7 +45,7 @@ const MarginC = ({ setFilters }) => {
         bankName: {
             label: 'Bank Name',
             type: 'checkbox',
-            options: ['State Bank of India', 'State Bank', 'Axis Bank']
+            options: ['State Bank of India', 'Axis Bank', 'Federal Bank','HDFC Bank','ICICI Bank', 'Canara Bank']
         },
         loanType: {
             label: 'Loan Type',

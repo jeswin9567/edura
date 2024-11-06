@@ -22,7 +22,7 @@ function UHead({ scrollToAbout, scrollToServices, scrollToContact }) {
       <nav className="uhome-nav">
         <button className="uhome-homb"onClick={() => navigate('/userhome')}>Home</button>
         <button className="uhome-aboutb" onClick={scrollToAbout}>About</button>
-        <button className="uhome-serb" onClick={scrollToServices}>Services</button>
+        <button id ="service" className="uhome-serb" onClick={scrollToServices}>Services</button>
         <button className="uhome-contb" onClick={scrollToContact}>Contact Us</button>
         
        

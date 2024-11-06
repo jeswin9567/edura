@@ -26,6 +26,23 @@ const MockTestUpdate = () => {
     fetchMockTest();
   }, [mockTestId]);
 
+  // Calculate total marks from questions
+  const calculateTotalMarks = () => {
+    return mockTest.questions.reduce((acc, question) => acc + (parseInt(question.marks) || 0), 0);
+  };
+
+  // Check if total marks match the sum of each question's marks
+  useEffect(() => {
+    if (mockTest) {
+      const totalQuestionMarks = calculateTotalMarks();
+      if (totalQuestionMarks !== parseInt(mockTest.totalMarks)) {
+        setValidationError(`Total marks should be equal to the sum of each question's marks (currently ${totalQuestionMarks}).`);
+      } else {
+        setValidationError('');
+      }
+    }
+  }, [mockTest?.questions, mockTest?.totalMarks]);
+
   // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,23 +81,20 @@ const MockTestUpdate = () => {
   };
 
   // Add a new question
-  // Add a new question
-const addQuestion = () => {
-  // Check if the number of questions exceeds the limit
-  if (mockTest.questions.length >= mockTest.numberOfQuestions) {
-    alert(`Cannot add more than ${mockTest.numberOfQuestions} questions.`);
-    return;
-  }
+  const addQuestion = () => {
+    if (mockTest.questions.length >= mockTest.numberOfQuestions) {
+      alert(`Cannot add more than ${mockTest.numberOfQuestions} questions.`);
+      return;
+    }
 
-  const newQuestion = {
-    questionText: '',
-    options: [{ optionText: '', isCorrect: false }],
-    steps: [''],
-    marks: 1,
+    const newQuestion = {
+      questionText: '',
+      options: [{ optionText: '', isCorrect: false }],
+      steps: [''],
+      marks: 1,
+    };
+    setMockTest({ ...mockTest, questions: [...mockTest.questions, newQuestion] });
   };
-  setMockTest({ ...mockTest, questions: [...mockTest.questions, newQuestion] });
-};
-
 
   // Remove a question
   const removeQuestion = (index) => {
@@ -120,16 +134,16 @@ const addQuestion = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (validationError) {
+      alert(validationError); // Prevent submission if validation fails
+      return;
+    }
     try {
-      // Update the mock test
       const response = await axios.put(`http://localhost:5000/mocktest/upmockTest/${mockTestId}`, mockTest);
-
-      // Navigate to the viewmocktest page using the examId from the updated mockTest
-      const examId = response.data.examId; // Extract examId from the updated mock test response
-      navigate(`/manager/viewmocktest/${examId}`); // Redirect to the mock test list page after update
+      const examId = response.data.examId;
+      navigate(`/manager/viewmocktest/${examId}`);
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        // Show a popup alert when the title already exists
         alert('A mock test with the same title already exists');
       } else {
         setError('Error updating mock test');
@@ -139,13 +153,13 @@ const addQuestion = () => {
 
   if (loading) return <p>Loading mock test details...</p>;
 
-  if (error) return <p className="mocktestupdate-error-message">{error}</p>;
+  if (error) return <p className="mocktest-error-message">{error}</p>;
 
   return (
-    <div className="mocktestupdate">
+    <div className="mocktest">
       <h2>Update Mock Test</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mocktestupdate-form-group">
+        <div className="mocktest-form-group">
           <label>Title</label>
           <input
             type="text"
@@ -156,7 +170,7 @@ const addQuestion = () => {
           />
         </div>
 
-        <div className="mocktestupdate-form-group">
+        <div className="mocktest-form-group">
           <label>Description</label>
           <textarea
             name="description"
@@ -166,18 +180,20 @@ const addQuestion = () => {
           />
         </div>
 
-        <div className="mocktestupdate-form-group">
+        <div className="mocktest-form-group">
           <label>Duration (in minutes)</label>
           <input
+
             type="number"
             name="duration"
             value={mockTest.duration || ''}
             onChange={handleInputChange}
             required
+            min = "0"
           />
         </div>
 
-        <div className="mocktestupdate-form-group">
+        <div className="mocktest-form-group">
           <label>Total Marks</label>
           <input
             type="number"
@@ -185,10 +201,11 @@ const addQuestion = () => {
             value={mockTest.totalMarks || ''}
             onChange={handleInputChange}
             required
+            min="0"
           />
         </div>
 
-        <div className="mocktestupdate-form-group">
+        <div className="mocktest-form-group">
           <label>Number of Questions</label>
           <input
             type="number"
@@ -196,10 +213,11 @@ const addQuestion = () => {
             value={mockTest.numberOfQuestions || ''}
             onChange={handleInputChange}
             required
+            min="0"
           />
         </div>
 
-        <div className="mocktestupdate-form-group">
+        <div className="mocktest-form-group">
           <label>Passing Marks</label>
           <input
             type="number"
@@ -207,17 +225,18 @@ const addQuestion = () => {
             value={mockTest.passingMarks || ''}
             onChange={handleInputChange}
             required
+            min="0"
           />
         </div>
 
         {/* Display validation error message if any */}
-        {validationError && <p className="mocktestupdate-validation-error">{validationError}</p>}
+        {validationError && <p className="mocktest-validation-error">{validationError}</p>}
 
         {/* Questions Section */}
         <h3>Questions</h3>
         {mockTest.questions.map((question, questionIndex) => (
-          <div key={questionIndex} className="mocktestupdate-question">
-            <div className="mocktestupdate-form-group">
+          <div key={questionIndex} className="mocktest-question">
+            <div className="mocktest-form-group">
               <label>Question Text</label>
               <input
                 type="text"
@@ -228,7 +247,7 @@ const addQuestion = () => {
               />
             </div>
 
-            <div className="mocktestupdate-form-group">
+            <div className="mocktest-form-group">
               <label>Marks</label>
               <input
                 type="number"
@@ -236,65 +255,55 @@ const addQuestion = () => {
                 value={question.marks}
                 onChange={(e) => handleQuestionChange(questionIndex, e)}
                 required
+                min="0"
               />
             </div>
-
-            {/* Steps Section */}
-            <h4>Steps</h4>
-            {question.steps.map((step, stepIndex) => (
-              <div key={stepIndex} className="step">
-                <div className="mocktestupdate-form-group">
-                  <label>Step {stepIndex + 1}</label>
-                  <input
-                    type="text"
-                    name="stepText"
-                    value={step}
-                    onChange={(e) => handleStepChange(questionIndex, stepIndex, e)}
-                    required
-                  />
-                </div>
-                <button type="button" className="mocktestupdate-remove-step-button" onClick={() => removeStep(questionIndex, stepIndex)}>Remove Step</button>
-              </div>
-            ))}
-            <button type="button" className="mocktestupdate-add-step-button" onClick={() => addStep(questionIndex)}>Add Step</button>
 
             {/* Options Section */}
             <h4>Options</h4>
             {question.options.map((option, optionIndex) => (
-              <div key={optionIndex} className="mocktestupdate-option">
-                <div className="mocktestupdate-form-group">
-                  <label>Option Text</label>
+              <div key={optionIndex} className="mocktest-option">
+                <input
+                  type="text"
+                  name="optionText"
+                  value={option.optionText}
+                  onChange={(e) => handleOptionChange(questionIndex, optionIndex, e)}
+                  required
+                />
+                <label>
                   <input
-                    type="text"
-                    name="optionText"
-                    value={option.optionText}
+                    type="checkbox"
+                    name="isCorrect"
+                    checked={option.isCorrect}
                     onChange={(e) => handleOptionChange(questionIndex, optionIndex, e)}
-                    required
                   />
-                </div>
-                <div className="mocktestupdate-form-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="isCorrect"
-                      checked={option.isCorrect}
-                      onChange={(e) => handleOptionChange(questionIndex, optionIndex, e)}
-                    />
-                    Correct Answer
-                  </label>
-                </div>
-                <button type="button" className="mocktestupdate-remove-option-button" onClick={() => removeOption(questionIndex, optionIndex)}>Remove Option</button>
+                  Correct
+                </label>
+                <button type="button" className="mocktest-button mocktest-remove-option" onClick={() => removeOption(questionIndex, optionIndex)}>Remove Option</button>
               </div>
             ))}
-            <button type="button" className="mocktestupdate-add-option-button" onClick={() => addOption(questionIndex)}>Add Option</button>
-            <button type="button" className="mocktestupdate-remove-question-button" onClick={() => removeQuestion(questionIndex)}>Remove Question</button>
+            <button type="button" className="mocktest-button mocktest-add-option" onClick={() => addOption(questionIndex)}>Add Option</button>
+
+            {/* Steps Section */}
+            <h4>Steps (if applicable)</h4>
+            {question.steps.map((step, stepIndex) => (
+              <div key={stepIndex} className="mocktest-step">
+                <input
+                  type="text"
+                  value={step}
+                  onChange={(e) => handleStepChange(questionIndex, stepIndex, e)}
+                />
+                <button type="button" className="mocktest-button mocktest-remove-step" onClick={() => removeStep(questionIndex, stepIndex)}>Remove Step</button>
+              </div>
+            ))}
+            <button type="button" className="mocktest-button mocktest-add-step" onClick={() => addStep(questionIndex)}>Add Step</button>
+
+            <button type="button" className="mocktest-button mocktest-remove-question" onClick={() => removeQuestion(questionIndex)}>Remove Question</button>
           </div>
         ))}
+        <button type="button" className="mocktest-button mocktest-add-question" onClick={addQuestion}>Add Question</button>
 
-        <button type="button" className="mocktestupdate-add-question-button" onClick={addQuestion}>Add Question</button>
-
-        <button type="submit" className="mocktestupdate-update-button">Update Mock Test</button>
-        <button type="button" className="mocktestback" onClick={() => navigate(-1)}>Back</button>
+        <button type="submit" className="mocktest-button mocktest-submit">Update Mock Test</button>
       </form>
     </div>
   );
