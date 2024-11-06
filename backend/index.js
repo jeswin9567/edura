@@ -57,7 +57,11 @@ app.use(session({
   cookie: { secure: false }   // Set to true if using HTTPS
 }));
 
-app.use(cors());
+app.use(cors({
+  origin: '*', // Adjust to specific Netlify URL if preferred
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Connect to MongoDB
 const connectDB = async () => {
